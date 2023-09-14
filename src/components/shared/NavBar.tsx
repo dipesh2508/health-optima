@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import logo from '@/assets/images/logo.png'
+import {Button} from "@/components/ui/button";
 
 const NavBar = () => {
     return (
@@ -32,6 +33,9 @@ const NavBar = () => {
         </li>
         <li>
           <a href="#" className="block py-2 pl-3 pr-4 hover:bg-purple-300 hover:text-purple-900 hover:rounded">Contact</a>
+        </li>
+        <li>
+          <Button>Login/Register</Button>
         </li>
       </ul>
     </div>
