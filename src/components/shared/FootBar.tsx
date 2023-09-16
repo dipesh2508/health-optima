@@ -26,28 +26,28 @@ const Footbar = () => {
 
           <div className="mt-4 sm:mt-0">
           <ul className='text-xl sm:text-2xl font-medium flex flex-col space-y-4'>
-            <li className='hover:text-secondary'>
-              <Link href="#" className='text-right'>
+            <li className='hover:text-secondary flex'>
+              <Link href="#" className='md:text-right flex-1'>
                 Home
               </Link>
             </li>
-            <li className='hover:text-secondary'>
-              <Link href="/" className='text-right'>
+            <li className='hover:text-secondary flex'>
+              <Link href="/" className='md:text-right flex-1'>
                 Blogs
               </Link>
             </li>
-            <li className='hover:text-secondary'>
-              <Link href="/" className='text-right'>
+            <li className='hover:text-secondary flex'>
+              <Link href="/" className='md:text-right flex-1'>
                 Apps
               </Link>
             </li>
-            <li className='hover:text-secondary'>
-              <Link href="/" className='text-right'>
+            <li className='hover:text-secondary flex'>
+              <Link href="/" className='md:text-right flex-1'>
                 About
               </Link>
             </li>
-            <li className='hover:text-secondary'>
-              <Link href="/" className='text-right'>
+            <li className='hover:text-secondary flex'>
+              <Link href="/" className='md:text-right flex-1'>
                 Contact
               </Link>
             </li>
@@ -60,8 +60,8 @@ const Footbar = () => {
 
         <div className='flex flex-col sm:flex-row justify-between'>
           <span className='text-white'>&copy; 2023 Health Optima. All rights reserved</span>
-          <div className='flex mt-2'>
-            <h1 className='mt-1 text-xl sm:text-2xl font'>Follow us on:</h1>
+          <div className='flex align-middle'>
+            <h1 className='mt-1 text-md md:text-2xl font-semibold'>Follow us on:</h1>
             <ul className='flex saturate ml-4'>
               <li className='hover:text-secondary'>
                 <Link href="">

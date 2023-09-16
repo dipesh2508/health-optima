@@ -7,7 +7,7 @@ const NavBar = () => {
     return (
         
 <nav className="bg-purple-200 text-slate-800 border-gray-200 h-24">
-  <div className="max-w-screen-xl max-h-96 flex flex-wrap items-center justify-between mx-auto pt-2">
+  <div className="max-w-screen-xl max-h-96 flex flex-wrap items-center justify-between mx-auto pt-2 px-2 md:px-0">
     <a href="" className="flex items-center">
         <Image src={logo} height={75} className="m-0" alt="Health Optima" />
     </a>
