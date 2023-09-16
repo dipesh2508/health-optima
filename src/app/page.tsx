@@ -15,7 +15,7 @@ export default function Home() {
 
         <div className=" bg-black opacity-80 w-full min-h-[99vh] md:min-h-[140vh] absolute top-0 left-0 -z-40"></div>
         <div className=" w-full py-10 px-0 mt-16 flex flex-col items-center justify-center">
-          <div className="w-[90%] m-auto flex flex-col items-center gap-10">
+          <div className="w-[90%] m-auto flex flex-col items-center gap-10 -z-30">
             <h1 className="font-serif text-center text-2xl md:text-4xl lg:text-7xl leading-loose text-white">
             Empower Your Wellness  Journey <br /> with <span className="text-primary">Health Optima</span>
             </h1>
