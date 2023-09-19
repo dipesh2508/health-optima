@@ -39,6 +39,10 @@ module.exports = {
         sans: ['Montserrat', 'sans-serif'],
         serif: ['PT Serif', 'serif']
       },
+      boxShadow: {
+        "custom": '0px 25px 50px -12px rgba(0, 0, 0, 0.25) ',
+      },
+      
     },
   },
   plugins: [require("tailwindcss-animate")],

@@ -54,7 +54,7 @@ const blog = () => {
 
                         <div className='grid grid-cols-1 md:grid-cols-2 md:content-center align-middle gap-3' key={index}>
                             <div className='grid grid-1 content-center'>
-                                <Image height={34} width={473} src={item.image} alt="" className='rounded-md hover:drop-shadow-lg' />
+                                <Image height={34} width={473} src={item.image} alt="" className='rounded-md hover:shadow-custom' />
                             </div>
                             <div className='flex flex-col text-center md:text-left'>
                                 <h1 className='text-base font-sans font-thin '>
@@ -74,6 +74,7 @@ const blog = () => {
                     </div>
                 ))}
             </div>
+            <Button variant={'secondary'}>See More</Button>
         </section>
 
     )

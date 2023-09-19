@@ -5,3 +5,15 @@
 :root{
     background-color: #FFFBEB;
 }
+
+@layer base {
+    .font-outline-1 {
+      -webkit-text-stroke: 1px #3b0764;
+    }
+    .font-outline-2 {
+      -webkit-text-stroke: 2px #3b0764;
+    }
+    .font-outline-4 {
+      -webkit-text-stroke: 4px white;
+    }
+  }
