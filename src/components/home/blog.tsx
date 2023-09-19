@@ -49,25 +49,26 @@ const blog = () => {
                 Take a <span className='text-secondary'>Look</span>
             </h1>
 
-            <div className='grid grid-cols-2 gap-12 mx-24 mt-28 content center'>
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-12 mx-12 md:mx-24 my-14 md:mt-28 content center'>
                 {data.map((item, index) => (
 
-                        <div className='grid grid-cols-2 content-center align-middle gap-3' key={index}>
+                        <div className='grid grid-cols-1 md:grid-cols-2 md:content-center align-middle gap-3' key={index}>
                             <div className='grid grid-1 content-center'>
                                 <Image height={34} width={473} src={item.image} alt="" className='rounded-md hover:drop-shadow-lg' />
                             </div>
-                            <div className='flex flex-col justify content-center'>
-
+                            <div className='flex flex-col text-center md:text-left'>
                                 <h1 className='text-base font-sans font-thin '>
                                     {item.category}
                                 </h1>
+                                
+                                
                                 <h1 className='text-2xl font-serif leading-6 font-semibold'>
                                     {item.title}
                                 </h1>
                                 <h1 className='text-xs font-sans font-light mt-1'>
                                     {item.description}
                                 </h1>
-                                <div><Button variant={'secondary'} size={'sm'} className='mt-2'>Read</Button></div>
+                                <div className='flex justify-center md:justify-start'><Button variant={'secondary'} size={'sm'} className='mt-2'>Read</Button></div>
                                 
                             </div>
                     </div>
