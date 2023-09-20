@@ -62,7 +62,7 @@ const blog = () => {
                                 </h1>
                                 
                                 
-                                <h1 className='text-2xl font-serif leading-6 font-semibold'>
+                                <h1 className='text-2xl font-serif leading-6 font-semibold'> 
                                     {item.title}
                                 </h1>
                                 <h1 className='text-xs font-sans font-light mt-1'>
@@ -74,6 +74,7 @@ const blog = () => {
                     </div>
                 ))}
             </div>
+
             <Button variant={'secondary'}>See More</Button>
         </section>
 

@@ -3,7 +3,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { BsLinkedin } from 'react-icons/bs';
 import { ImFacebook2 } from 'react-icons/im';
-import { FaSquareTwitter } from 'react-icons/fa6';
+import { FaSquareXTwitter } from 'react-icons/fa6';
+import { FaInstagramSquare } from 'react-icons/fa';
 import logo from "@/assets/images/logo.png";
 
 const Footbar = () => {
@@ -65,7 +66,7 @@ const Footbar = () => {
             <ul className='flex saturate ml-4'>
               <li className='hover:text-secondary'>
                 <Link href="">
-                  <FaSquareTwitter className="ml-2 sm:ml-6 h-12 w-12" />
+                  <FaSquareXTwitter className="ml-2 sm:ml-6 h-12 w-12" />
                 </Link>
               </li>
               <li className='hover:text-secondary'>
@@ -78,6 +79,13 @@ const Footbar = () => {
                   <ImFacebook2 className="ml-2 sm:ml-6 mt-1 h-10 w-10" />
                 </Link>
               </li>
+              <li className='hover:text-secondary'>
+                <Link href="">
+                  <FaInstagramSquare className="ml-2 sm:ml-6 h-12 w-12" />
+                </Link>
+              </li>
+
+              
             </ul>
           </div>
         </div>

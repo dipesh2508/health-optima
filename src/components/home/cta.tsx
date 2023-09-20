@@ -25,7 +25,7 @@ const data = [
 ]
 const cta = () => {
     return (
-        <div className='bg-primary rounded-md shadow-custom px-3 mx-8 my-12 md:m-16 py-12 flex flex-col items-center'>
+        <div className='bg-primary rounded-lg shadow-custom px-3 mx-8 my-12 md:m-16 py-12 flex flex-col items-center'>
 
             <h3 className='text-md md:text-xl text-white font-regular'>Unlock your Potential</h3>
 
@@ -35,10 +35,10 @@ const cta = () => {
 
 
                 {data.map((item, index) => (
-                    <div className='relative group' key={index}>
-                        <Image src={item.image} height={400} width={400} className='rounded grayscale hover:grayscale-0 ease-in-out delay-100' alt={item.title} />
-                        <div className='group-hover:hidden absolute bottom-0 text-center left-0 right-0 m-auto px-4 py-12 md:py-4 text-lg'>
-                            <h1 className='font-sans text-black font-regular font-outline-2 text-2xl md:text-4xl'>{item.title}</h1>
+                    <div className='relative group scale-90 hover:scale-100  duration-300 ease-in-out' key={index}>
+                        <Image src={item.image} height={400} width={400} className='shadow-custom rounded-lg ease-in-out duration-100' alt={item.title} />
+                        <div className='ease-in-out duration-300 absolute bottom-0 bg-black bg-opacity-50 text-center left-0 right-0 m-auto mb-8 group-hover:mb-12 px-4 py-12 md:py-4 text-lg'>
+                            <h1 className='font-sans text-background font-regular font-outline-2 text-2xl md:text-4xl'>{item.title}</h1>
                         </div>
                     </div>
                 ))}
