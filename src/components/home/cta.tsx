@@ -2,9 +2,9 @@ import React from 'react'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 
-import bmi1 from '@/assets/images/bmi1.png'
+import bmi1 from '@/assets/images/bmi1.jpg'
 import sleep1 from '@/assets/images/sleep1.png'
-import water1 from '@/assets/images/water1.png'
+import water1 from '@/assets/images/water1.jpg'
 
 const data = [
     {
