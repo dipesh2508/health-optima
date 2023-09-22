@@ -58,6 +58,23 @@ const Contact = () => {
                         </FormControl>
                     </FormItem>)}
                 />
+
+                <FormField
+                    control={form.control}
+                    name="message"
+                    render={({ field }) => (
+                        <FormItem className='flex flex-col gap-3 w-full'>
+                            <FormLabel className='text-light-1'>
+                                Message
+                            </FormLabel>
+                            <FormControl className='flex-1 text-base-semibold text-gray-200'>
+                                <Textarea rows={10} className='account-form_input no focus' {...field} />
+                            </FormControl>
+                        </FormItem>
+                    )}
+                />
+
+                <Button type="submit" className='bg-primary'>Submit</Button>
             </form>
         </Form>
     )
