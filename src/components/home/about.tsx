@@ -12,7 +12,7 @@ const about = () => {
             <h3 className='text-white font-light text-sm md:text-2xl mb-4'>
                 Discover Our Story
             </h3>
-            <h1 className='text-white font-semibold font-serif text-lg md:text-6xl mb-4'> 
+            <h1 className='text-white font-semibold font-serif text-3xl md:text-6xl mb-4'> 
                 About Us
             </h1>
             <p className='text-white font-thin text-sm md:text-lg text-justify'>

@@ -43,7 +43,7 @@ const Contact = () => {
         <div className="my-20">
             <div className="my-12">
  
-            <h1 className="text-5xl text-center font-serif font-bold">
+            <h1 className="text-3xl md:text-5xl text-center font-serif font-bold">
                 Contact <span className="text-primary">Us</span>
             </h1>
 
@@ -53,10 +53,10 @@ const Contact = () => {
 
             </div>
         
-        <div className="grid grid-cols-2 mb-12">
+        <div className="md:grid md:grid-cols-2 mb-12">
 
 
-            <div className="ml-36">
+            <div className="m-12 md:m-0 md:ml-36 ">
 
 
 
@@ -106,7 +106,7 @@ const Contact = () => {
                 </Form>
             </div>
 
-            <div className="ml-28">
+            <div className="m-12 md:m-0 md:ml-28">
                 <Image src={contact} alt="contact" className="rounded-lg shadow-custom" height={470} width={470} />
             </div>
         </div>
