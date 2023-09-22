@@ -45,7 +45,7 @@ const data = [
 const blog = () => {
     return (
         <section className='min-h-screen mt-28 flex flex-col items-center'>
-            <h1 className='text-4xl font-serif font-bold'>
+            <h1 className='text-5xl font-serif font-bold'>
                 Take a <span className='text-secondary'>Look</span>
             </h1>
 

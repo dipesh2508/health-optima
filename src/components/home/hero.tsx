@@ -20,7 +20,7 @@ const hero = () => {
                     <h1 className="font-serif -z-20 text-center text-2xl md:text-4xl lg:text-7xl leading-loose text-white">
                         Empower Your Wellness  Journey <br /> with <span className="text-primary">Health Optima</span>
                     </h1>
-                    <h3 className="text-white text-lg text-center md:text-3xl font-thin">Your Ultimate Health and Wellness Companion</h3>
+                    <h3 className="text-white text-lg text-center md:text-3xl font-sans font-thin">Your Ultimate Health and Wellness Companion</h3>
                 </div>
             </div>
         </section>
