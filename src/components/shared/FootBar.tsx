@@ -21,12 +21,12 @@ const Footbar = () => {
               width={200}
               height={50}
             />
-            <h1 className='text-3xl sm:text-4xl font-bold mt-4 font-serif'>HEALTH OPTIMA INC.</h1>
-            <h2 className='text-xl sm:text-2xl mt-2 font-light'>CARE N&#39; CURE</h2>
+            <h1 className='text-xl sm:text-2xl font-bold mt-4 font-serif'>HEALTH OPTIMA INC.</h1>
+            <h2 className='text-md sm:text-lg font-light'>CARE N&#39; CURE</h2>
           </div>
 
           <div className="mt-4 sm:mt-0">
-          <ul className='text-xl sm:text-2xl font-medium flex flex-col space-y-4'>
+          <ul className='text-lg sm:text-xl font-medium flex flex-col gap-3'>
             <li className='hover:text-secondary flex'>
               <Link href="#" className='md:text-right flex-1'>
                 Home

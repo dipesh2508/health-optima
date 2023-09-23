@@ -15,7 +15,7 @@ const about = () => {
             <h1 className='text-white font-semibold font-serif text-3xl md:text-6xl mb-4'> 
                 About Us
             </h1>
-            <p className='text-white font-thin text-sm md:text-lg text-justify'>
+            <p className='text-white font-sans font-light text-sm md:text-lg text-justify'>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi viverra magna sed pretium sagittis. Nullam ultrices nec ipsum non vestibulum. Proin a tincidunt est. Donec vitae dui in velit ultricies fermentum. Ut euismod, massa vitae hendrerit tincidunt, lorem ipsum ultrices massa, auctor ultricies nisl est eget nunc. Donec vitae dui in velit ultricies fermentum. Ut euismod, massa vitae hendrerit tincidunt, lorem ipsum ultrices massa, auctor ultricies nisl est eget nunc.
             </p>
             <Button className='mt-4'>learn more</Button>

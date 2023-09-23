@@ -45,7 +45,7 @@ const data = [
 const blog = () => {
     return (
         <section className='min-h-screen mt-28 flex flex-col items-center'>
-            <h1 className='text-5xl font-serif font-bold'>
+            <h1 className='text-3xl md:text-5xl font-serif font-bold'>
                 Take a <span className='text-secondary'>Look</span>
             </h1>
 
@@ -57,7 +57,7 @@ const blog = () => {
                                 <Image height={34} width={473} src={item.image} alt="" className='rounded-md hover:shadow-custom' />
                             </div>
                             <div className='flex flex-col text-center md:text-left'>
-                                <h1 className='text-base font-sans font-thin '>
+                                <h1 className='text-base font-sans font-light '>
                                     {item.category}
                                 </h1>
                                 
