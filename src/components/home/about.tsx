@@ -4,7 +4,7 @@ import logo from '@/assets/images/logo.png'
 
 const about = () => {
   return (
-    <div className='bg-secondary grid grid-cols-1 md:grid-cols-3 py-24 gap-0 md:gap-8 my-4 items-center'>
+    <section className='bg-secondary grid grid-cols-1 md:grid-cols-3 py-24 gap-0 md:gap-8 my-4 items-center'>
         <div className='bg-white mx-20 md:mx-0 my-4 md:my-12 m-0 md:ml-40 px-4 py-8 md:px-16 md:py-32 rounded-lg shadow-custom'>
             <Image src={logo} height={480} width={800} alt='logo' />
         </div>
@@ -20,7 +20,7 @@ const about = () => {
             </p>
             <Button className='mt-4'>learn more</Button>
         </div>
-    </div>
+    </section>
   )
 }
 

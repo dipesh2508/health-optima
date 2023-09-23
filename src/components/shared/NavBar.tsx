@@ -24,26 +24,26 @@ const NavBar = () => {
         <div className="hidden w-full md:block md:w-auto" id="navbar-default">
           <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 md:flex-row md:space-x-8 md:mt-0 ">
             <li>
-              <Link href="/" className="block py-2 pl-3 pr-4 hover:bg-purple-300 hover:text-purple-900 hover:rounded" >
+              <Link href="/" className="block cursor-pointer py-2 pl-3 pr-4 hover:bg-purple-300 hover:text-purple-900 hover:rounded" >
                 Home</Link>
             </li>
             <li>
-              <Link href="/blogs" className="block py-2 pl-3 pr-4 hover:bg-purple-300 hover:text-purple-900 hover:rounded">
+              <Link href="/blogs" className="block cursor-pointer py-2 pl-3 pr-4 hover:bg-purple-300 hover:text-purple-900 hover:rounded">
                 Blogs
                 </Link>
             </li>
             <li>
-              <Link href="/apps" className="block py-2 pl-3 pr-4 hover:bg-purple-300 hover:text-purple-900 hover:rounded">
+              <Link href="/apps" className="block cursor-pointer py-2 pl-3 pr-4 hover:bg-purple-300 hover:text-purple-900 hover:rounded">
                 Apps
                 </Link>
             </li>
             <li>
-              <Link href="/about" className="block py-2 pl-3 pr-4 hover:bg-purple-300 hover:text-purple-900 hover:rounded">
+              <Link href="/about" className="block cursor-pointer py-2 pl-3 pr-4 hover:bg-purple-300 hover:text-purple-900 hover:rounded">
                 About
                 </Link>
             </li>
             <li>
-              <Link href="#contact" className="block py-2 pl-3 pr-4 hover:bg-purple-300 hover:text-purple-900 hover:rounded">
+              <Link href="#contact" className="block cursor-pointer py-2 pl-3 pr-4 hover:bg-purple-300 hover:text-purple-900 hover:rounded">
                 Contact
                 </Link>
             </li>

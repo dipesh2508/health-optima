@@ -25,7 +25,7 @@ const data = [
 ]
 const cta = () => {
     return (
-        <div className='bg-primary rounded-lg shadow-custom px-3 mx-8 my-12 md:m-16 py-12 flex flex-col items-center'>
+        <section className='bg-primary rounded-lg shadow-custom px-3 mx-8 my-12 md:m-16 py-12 flex flex-col items-center'>
 
             <h3 className='text-md md:text-xl text-white font-regular'>Unlock your Potential</h3>
 
@@ -46,7 +46,7 @@ const cta = () => {
             </div>
 
             <Button className='mt-8' variant={'cta'}>learn more</Button>
-        </div>
+        </section>
     )
 }
 

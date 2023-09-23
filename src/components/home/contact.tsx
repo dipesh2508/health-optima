@@ -56,7 +56,7 @@ const Contact = () => {
     return (
 
 
-        <div className="my-20">
+        <section className="my-20">
             <div className="my-12">
                 <h1 className="text-3xl md:text-5xl text-center font-serif font-bold">
                     Contact <span className="text-primary">Us</span>
@@ -119,7 +119,7 @@ const Contact = () => {
                     <Image src={contact} alt="contact" className="rounded-lg shadow-custom" height={470} width={470} />
                 </div>
             </div>
-        </div>
+        </section>
     )
 
 }

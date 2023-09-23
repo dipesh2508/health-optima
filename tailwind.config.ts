@@ -42,6 +42,9 @@ module.exports = {
       boxShadow: {
         "custom": '0px 25px 50px -12px rgba(0, 0, 0, 0.25) ',
       },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+      },
       
     },
   },
