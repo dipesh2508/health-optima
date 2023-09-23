@@ -54,12 +54,12 @@ const NavBar = () => {
         </div>
       </div>
       {isOpen &&
-        <div className="w-full flex flex-col z-50 mt-3 py-4 px-3 md:hidden bg-purple-200 text-base uppercase text-center font-semibold">
-          <a href="#" className="block py-2 pl-3 pr-4 hover:bg-purple-300 hover:text-purple-900 hover:rounded" >Home</a>
-          <a href="#" className="block py-2 pl-3 pr-4 hover:bg-purple-300 hover:text-purple-900 hover:rounded">Blogs</a>
-          <a href="#" className="block py-2 pl-3 pr-4 hover:bg-purple-300 hover:text-purple-900 hover:rounded">Apps</a>
-          <a href="#" className="block py-2 pl-3 pr-4 hover:bg-purple-300 hover:text-purple-900 hover:rounded">About</a>
-          <a href="#" className="block py-2 pl-3 pr-4 hover:bg-purple-300 hover:text-purple-900 hover:rounded">Contact</a>
+        <div className="w-full flex flex-col z-[100] mt-3 py-4 px-3 md:hidden bg-purple-200 text-base uppercase text-center font-semibold">
+          <Link href="/" className="block py-2 pl-3 pr-4 hover:bg-purple-300 hover:text-purple-900 hover:rounded" >Home</Link>
+          <Link href="/blogs" className="block py-2 pl-3 pr-4 hover:bg-purple-300 hover:text-purple-900 hover:rounded">Blogs</Link>
+          <Link href="/apps" className="block py-2 pl-3 pr-4 hover:bg-purple-300 hover:text-purple-900 hover:rounded">Apps</Link>
+          <Link href="/about" className="block py-2 pl-3 pr-4 hover:bg-purple-300 hover:text-purple-900 hover:rounded">About</Link>
+          <Link href="/app#contact" className="block py-2 pl-3 pr-4 hover:bg-purple-300 hover:text-purple-900 hover:rounded">Contact</Link>
           <Button>Login/Register</Button>
         </div>
       }

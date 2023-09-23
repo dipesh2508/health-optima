@@ -53,23 +53,23 @@ const about = () => {
   return (
     <section className="">
       <div className="flex flex-col items-center mt-8">
-        <h1 className="font-serif text-4xl font-semibold mb-12">Meet Our <span className="text-primary">Team</span></h1>
-        <div className="grid grid-cols-4 gap-4">
+        <h1 className="font-serif text-4xl font-semibold mb-12 -z-50">Meet Our <span className="text-primary">Team</span></h1>
+        <div className="flex flex-col md:grid md:grid-cols-4 gap-12 md:gap-0">
       {data.map((item, index) => (
-          <div className='flex flex-col gap-1 items-center ease-in-out duration-400 ' key={index}>
+          <div className='flex flex-col gap-1 items-center ease-in-out duration-400' key={index}>
 
-            <div className='w-72 h-80 left-0 top-0 ease-in-out duration-400 bg-gradient-radial hover:bg-gradient-to-b from-blue-500 to-purple-500 rounded-tl-3xl rounded-br-3xl'>
-            <Image src={item.image} alt={item.name} className='ease-in-out duration-400 w-72 h-80 p-4 hover:p-0 rounded-tl-3xl rounded-br-3xl' />
+            <div className='w-72 h-80 -z-40 left-0 top-0 ease-in-out duration-400 bg-gradient-radial hover:bg-gradient-to-b from-blue-500 to-purple-500 rounded-tl-3xl rounded-br-3xl'>
+            <Image src={item.image} alt={item.name} className='-z-30 transition ease-in-out duration-400 w-72 h-80 scale-90 hover:scale-100 rounded-tl-3xl rounded-br-3xl' />
             </div>
             
               
-              <h1 className=' font-sans mt-4 text-2xl font-semibold text-secondary'>
+              <h1 className=' font-serif mt-4 text-2xl font-medium md:font-semibold text-secondary'>
                   {item.name}
               </h1>
               <h1 className='text-sm font-sans font-light '>
                   {item.team}
               </h1>
-              <h1 className='text-sm font-sans font-normal text-center '>
+              <h1 className='text-md font-sans font-medium text-center '>
                   {item.role}
               </h1>
               <div className='flex justify-center md:justify-start'>

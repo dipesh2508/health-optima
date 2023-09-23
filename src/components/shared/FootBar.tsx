@@ -9,7 +9,7 @@ import logo from "@/assets/images/logo.png";
 
 const Footbar = () => {
   return (
-    <footer className='bg-primary text-white p-4 sm:p-6 md:p-8 lg:p-16'>
+    <footer className='bg-primary text-white p-4 md:p-8'>
 
       <div className='container mx-auto'>
         <div className='flex flex-col sm:flex-row justify-between'>
@@ -25,25 +25,25 @@ const Footbar = () => {
             <h2 className='text-md sm:text-lg font-light'>CARE N&#39; CURE</h2>
           </div>
 
-          <div className="mt-4 sm:mt-0">
-          <ul className='text-lg sm:text-xl font-medium flex flex-col gap-3'>
+          <div className="mt-8">
+          <ul className='text-lg sm:text-xl font-medium flex flex-col gap-3 pb-0'>
             <li className='hover:text-secondary flex'>
-              <Link href="#" className='md:text-right flex-1'>
+              <Link href="/" className='md:text-right flex-1'>
                 Home
               </Link>
             </li>
             <li className='hover:text-secondary flex'>
-              <Link href="/" className='md:text-right flex-1'>
+              <Link href="/blogs" className='md:text-right flex-1'>
                 Blogs
               </Link>
             </li>
             <li className='hover:text-secondary flex'>
-              <Link href="/" className='md:text-right flex-1'>
+              <Link href="/apps" className='md:text-right flex-1'>
                 Apps
               </Link>
             </li>
             <li className='hover:text-secondary flex'>
-              <Link href="/" className='md:text-right flex-1'>
+              <Link href="/about" className='md:text-right flex-1'>
                 About
               </Link>
             </li>
