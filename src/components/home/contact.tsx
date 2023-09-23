@@ -41,8 +41,11 @@ const Contact = () => {
     const onSubmit = async (formRef:any)  => {
 
         try {
-            await emailjs.send('service_kcd46m9', 'template_k3prvhn', formRef , 'OmcnBblli6XgtWXWU');
+            await emailjs.send( `${process.env.NEXT_PUBLIC_EMAILJS_USER_ID}` , `${process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID}`, formRef , `${process.env.NEXT_PUBLIC_EMAILJS_USER_ID}`);
             alert('Your form data has been sent successfully.');
+
+
+
         } catch (error) {
             alert('There was an error sending your form data. Please try again later.');
         }
