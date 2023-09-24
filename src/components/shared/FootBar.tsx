@@ -10,7 +10,7 @@ import logo from "@/assets/images/logo.png";
 const Footbar = () => {
   return (
     <footer className='bg-primary text-white p-4 md:p-8'>
-
+      
       <div className='container mx-auto'>
         <div className='flex flex-col sm:flex-row justify-between'>
           <div className='mb-4 sm:mb-0'>

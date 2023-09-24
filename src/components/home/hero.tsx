@@ -1,30 +1,31 @@
-import React from 'react'
-
 const hero = () => {
-    return (
-        <section className='min-h-screen'>
-            <video
-                muted
-                loop
-                autoPlay
-                className="absolute top-12 left-0 min-w-full min-h-full -z-50 object-cover"
-            >
-                <source src='/video/bgVideo.mp4' type="video/mp4" />
-                <source src='/video/bgVideo.mp4' type="video/ogg" />
-                Your browser does not support the video tag.
-            </video>
+  return (
+    <section className="min-h-screen">
+      <video
+        muted
+        loop
+        autoPlay
+        className="absolute left-0 top-12 -z-50 min-h-full min-w-full object-cover"
+      >
+        <source src="/video/bgVideo.mp4" type="video/mp4" />
+        <source src="/video/bgVideo.mp4" type="video/ogg" />
+        Your browser does not support the video tag.
+      </video>
 
-            <div className=" bg-black opacity-80 w-full min-h-[99vh] md:min-h-[122vh] absolute top-0 left-0 -z-40"></div>
-            <div className=" w-full top-0 px-0 flex min-h-[99vh] md:min-h-[120vh] -mt-24 -z-30 flex-col items-center justify-center">
-                <div className="w-[90%] m-auto flex flex-col items-center gap-10">
-                    <h1 className="font-serif -z-20 text-center text-2xl md:text-4xl lg:text-7xl leading-loose text-white">
-                        Empower Your Wellness  Journey <br /> with <span className="text-primary">Health Optima</span>
-                    </h1>
-                    <h3 className="text-white text-lg font-sans text-center md:text-3xl font-thin">Your Ultimate Health and Wellness Companion</h3>
-                </div>
-            </div>
-        </section>
-    )
-}
+      <div className=" absolute left-0 top-0 -z-40 min-h-[99vh] w-full bg-black opacity-80 md:min-h-[122vh]"></div>
+      <div className=" top-0 -z-30 -mt-24 flex min-h-[99vh] w-full flex-col items-center justify-center px-0 md:min-h-[120vh]">
+        <div className="m-auto flex w-[90%] flex-col items-center gap-10">
+          <h1 className="-z-20 text-center font-serif text-2xl leading-loose text-white md:text-4xl lg:text-7xl">
+            Empower Your Wellness Journey <br /> with{" "}
+            <span className="text-primary">Health Optima</span>
+          </h1>
+          <h3 className="text-center font-sans text-lg font-thin text-white md:text-3xl">
+            Your Ultimate Health and Wellness Companion
+          </h3>
+        </div>
+      </div>
+    </section>
+  );
+};
 
-export default hero
+export default hero;

@@ -1,53 +1,66 @@
-import React from 'react'
-import Image from 'next/image'
-import { Button } from '@/components/ui/button'
+import React from "react";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
 
-import bmi1 from '@/assets/images/bmi1.jpg'
-import sleep1 from '@/assets/images/sleep1.png'
-import water1 from '@/assets/images/water1.jpg'
+import bmi1 from "@/assets/images/bmi1.jpg";
+import sleep1 from "@/assets/images/sleep1.png";
+import water1 from "@/assets/images/water1.jpg";
 
 const data = [
-    {
-        no: '01',
-        image: sleep1,
-        title: 'Sleep Tracker'
-    },
-    {
-        no: '02',
-        image: bmi1,
-        title: 'BMI Calculator'
-    },
-    {
-        no: '03',
-        image: water1,
-        title: 'Water Tracker'
-    }
-]
+  {
+    no: "01",
+    image: sleep1,
+    title: "Sleep Tracker",
+  },
+  {
+    no: "02",
+    image: bmi1,
+    title: "BMI Calculator",
+  },
+  {
+    no: "03",
+    image: water1,
+    title: "Water Tracker",
+  },
+];
 const cta = () => {
-    return (
-        <section className='bg-primary rounded-lg shadow-custom px-3 mx-8 my-12 md:m-16 py-12 flex flex-col items-center'>
+  return (
+    <section className="mx-8 my-12 flex flex-col items-center rounded-lg bg-primary px-3 py-12 shadow-custom md:m-16">
+      <h3 className="text-md font-regular text-white md:text-xl">
+        Unlock your Potential
+      </h3>
 
-            <h3 className='text-md md:text-xl text-white font-regular'>Unlock your Potential</h3>
+      <h1 className="text-center font-serif text-xl font-semibold text-white md:text-4xl">
+        Harness the Power of our Applications
+      </h1>
 
-            <h1 className='text-xl md:text-4xl font-serif text-center text-white font-semibold'>Harness the Power of our Applications</h1>
-
-            <div className='flex flex-col md:flex-row gap-8 justify-center mt-8'>
-
-
-                {data.map((item, index) => (
-                    <div className='relative group scale-90 hover:scale-100  duration-300 ease-in-out' key={index}>
-                        <Image src={item.image} height={400} width={400} className='shadow-custom rounded-lg ease-in-out duration-100' alt={item.title} />
-                        <div className='ease-in-out duration-300 absolute bottom-0 bg-black bg-opacity-50 text-center left-0 right-0 m-auto mb-8 group-hover:mb-12 px-4 py-12 md:py-4 text-lg'>
-                            <h1 className='font-sans text-background font-regular text-2xl md:text-4xl'>{item.title}</h1>
-                        </div>
-                    </div>
-                ))}
-
+      <div className="mt-8 flex flex-col justify-center gap-8 md:flex-row">
+        {data.map((item, index) => (
+          <div
+            className="group relative scale-90 duration-300  ease-in-out hover:scale-100"
+            key={index}
+          >
+            <Image
+              src={item.image}
+              height={400}
+              width={400}
+              className="rounded-lg shadow-custom duration-100 ease-in-out"
+              alt={item.title}
+            />
+            <div className="absolute bottom-0 left-0 right-0 m-auto mb-8 bg-black bg-opacity-50 px-4 py-12 text-center text-lg duration-300 ease-in-out group-hover:mb-12 md:py-4">
+              <h1 className="font-regular font-sans text-2xl text-background md:text-4xl">
+                {item.title}
+              </h1>
             </div>
+          </div>
+        ))}
+      </div>
 
-            <Button className='mt-8' variant={'cta'}>learn more</Button>
-        </section>
-    )
-}
+      <Button className="mt-8" variant={"cta"}>
+        learn more
+      </Button>
+    </section>
+  );
+};
 
-export default cta
+export default cta;
