@@ -64,6 +64,7 @@ const blog = () => {
                 src={item.image}
                 alt=""
                 className="rounded-md hover:shadow-custom"
+                loading="lazy"
               />
             </div>
             <div className="flex flex-col text-center md:text-left">

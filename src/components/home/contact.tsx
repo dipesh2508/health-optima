@@ -136,6 +136,7 @@ const Contact = () => {
             className="rounded-lg shadow-custom"
             height={470}
             width={470}
+            loading="lazy"
           />
         </div>
       </div>

@@ -46,6 +46,7 @@ const cta = () => {
               width={400}
               className="rounded-lg shadow-custom duration-100 ease-in-out"
               alt={item.title}
+              loading="lazy"
             />
             <div className="absolute bottom-0 left-0 right-0 m-auto mb-8 bg-black bg-opacity-50 px-4 py-12 text-center text-lg duration-300 ease-in-out group-hover:mb-12 md:py-4">
               <h1 className="font-regular font-sans text-2xl text-background md:text-4xl">

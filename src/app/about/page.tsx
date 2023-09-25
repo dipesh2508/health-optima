@@ -67,6 +67,7 @@ const about = () => {
                   src={item.image}
                   alt={item.name}
                   className=" duration-400 h-80 w-72 scale-90 rounded-br-3xl rounded-tl-3xl transition ease-in-out hover:scale-100"
+                  loading="lazy"
                 />
               </div>
 
