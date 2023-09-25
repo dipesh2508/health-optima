@@ -6,11 +6,15 @@ import logo from "@/assets/images/logo.png";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
+
+
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
+
+
   return (
-    <nav className="h-24 border-gray-200 bg-purple-200 text-slate-800">
-      <div className="z-50 mx-auto flex max-h-96 max-w-screen-xl flex-wrap items-center justify-between px-2 pt-2 md:px-0">
+    <nav className="z-50 h-24 border-gray-200 bg-purple-200 text-slate-800">
+      <div className="mx-auto flex max-h-96 max-w-screen-xl flex-wrap items-center justify-between px-2 pt-2 md:px-0">
         <a href="" className="flex items-center">
           <Image src={logo} height={75} className="m-0" alt="Health Optima" />
         </a>
@@ -88,33 +92,38 @@ const NavBar = () => {
         </div>
       </div>
       {isOpen && (
-        <div className="z-[100] mt-3 flex w-full flex-col bg-purple-200 px-3 py-4 text-center text-base font-semibold uppercase md:hidden">
+        <div className="absolute z-50 mt-3 flex w-full flex-col bg-purple-200 px-3 py-4 text-center text-base font-semibold md:hidden">
           <Link
             href="/"
+            onClick={() => setIsOpen(false)}
             className="block py-2 pl-3 pr-4 hover:rounded hover:bg-purple-300 hover:text-purple-900"
           >
             Home
           </Link>
           <Link
             href="/blogs"
+            onClick={() => setIsOpen(false)}
             className="block py-2 pl-3 pr-4 hover:rounded hover:bg-purple-300 hover:text-purple-900"
           >
             Blogs
           </Link>
           <Link
             href="/apps"
+            onClick={() => setIsOpen(false)}
             className="block py-2 pl-3 pr-4 hover:rounded hover:bg-purple-300 hover:text-purple-900"
           >
             Apps
           </Link>
           <Link
             href="/about"
+            onClick={() => setIsOpen(false)}
             className="block py-2 pl-3 pr-4 hover:rounded hover:bg-purple-300 hover:text-purple-900"
           >
             About
           </Link>
           <Link
             href="/app#contact"
+            onClick={() => setIsOpen(false)}
             className="block py-2 pl-3 pr-4 hover:rounded hover:bg-purple-300 hover:text-purple-900"
           >
             Contact
