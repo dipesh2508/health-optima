@@ -1,34 +1,26 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Welcome to Health Optima
 
-## Getting Started
+It is a wellness web application, to track, understand and gain information regarding the best wellness and health practices.
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Authors
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- [Dipesh Ranjan](https://www.linkedin.com/in/dipesh-ranjan/)
+- [Isheta Aggarwal](https://www.linkedin.com/in/isheta-aggarwal/)
+- [Divyanshu Agarwal](https://www.linkedin.com/in/divyanshu-agarwal-15774b222/)
+- [Preyanshu Dapola](https://www.linkedin.com/in/preyanshu-d-852019231/)
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## Tech Stack
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+*Client:* Next, React, Tailwind, TailwindCSS, ShadCN, RadixUI
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+*Server:* Node, Express, MongoDB
+
+
+![Logo](https://healthoptima.in/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo.38b8d5ed.png&w=256&q=75)
