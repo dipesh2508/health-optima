@@ -8,8 +8,11 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Health Optima",
-  description: "Your Ultimate Health and Wellness Companion",
-  keywords: 'health optima, health, wellness, fitness, sleep, hydration, bmi, todo, tasks, productivity, health apps, wellness apps, fitness apps, sleep apps, hydration apps, bmi apps, todo apps, tasks apps, productivity apps'
+  description: "Empower Your Wellness Journey with Health Optima: Your Ultimate Health and Wellness Companion",
+  keywords:
+    "health optima, health, wellness, fitness, sleep, hydration, bmi, todo, tasks, productivity, health apps, wellness apps, fitness apps, sleep apps, hydration apps, bmi apps, todo apps, tasks apps, productivity apps",
+  robots: "index, follow",
+  authors: [{ name: "Health Optima" }, { name: "Dipesh Ranjan" }],
 };
 
 export default function RootLayout({
@@ -20,6 +23,24 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Open Graph Meta Tags (for social media sharing) */}
+        <meta
+          property="og:title"
+          content="Health Optima: Your Wellness Companion"
+        />
+        <meta
+          property="og:description"
+          content="Empower Your Wellness Journey with Health Optima: Your Ultimate Health and Wellness Companion"
+        />
+        <meta
+          property="og:image"
+          content="https://healthoptima.in/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo.38b8d5ed.png&w=256&q=75"
+        />{" "}
+        {/* Replace with your actual image URL */}
+        <meta property="og:url" content="https://www.healthoptima.in" />
+        <meta property="og:type" content="website" />
+
+
         {/* Google tag (gtag.js) */}
         <script
           async

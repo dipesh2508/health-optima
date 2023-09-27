@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.healthoptima.in
+
+# Sitemaps
+Sitemap: https://www.healthoptima.in/sitemap.xml
