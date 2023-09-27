@@ -50,7 +50,7 @@ const Contact = () => {
   };
 
   return (
-    <section className="my-20">
+    <section className="my-20" id="contact">
       <div className="my-12">
         <h1 className="text-center font-serif text-3xl font-bold md:text-5xl">
           Contact <span className="text-primary">Us</span>
