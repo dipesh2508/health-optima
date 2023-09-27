@@ -44,19 +44,19 @@ const data = [
 
 const apps = () => {
   return (
-    <section className="mx-64 my-8">
-      <h1 className="text-center font-serif text-6xl font-semibold text-primary">
+    <section className="m-12 md:mx-64 my-8">
+      <h1 className="text-center font-serif text-4xl md:text-6xl font-semibold text-primary">
         Our Applications
       </h1>
       {data.map((app, index) => (
-        <div key={index} className="my-8 flex flex-row gap-4">
-            <Image src={app.image} alt={app.name} height={250} width={250} className="rounded-lg shadow-lg"/>
-          <div className="flex flex-col gap-4">
-            <h2 className="mt-4 font-serif text-5xl font-semibold text-secondary">
+        <div key={index} className="my-8 flex flex-col items-center md:items-start md:flex-row gap-1 md:gap-4">
+            <Image src={app.image} alt={app.name} height={250} width={250} loading="lazy" className="rounded-lg shadow-lg"/>
+          <div className="flex flex-col gap-2 items-center md:items-start md:gap-4">
+            <h2 className="mt-4 font-serif text-3xl md:text-5xl font-semibold text-secondary">
               {app.name}
             </h2>
-            <h3 className="font-sans text-3xl font-light">{app.tagline}</h3>
-            <p className="font-sans text-xl font-normal">{app.description}</p>
+            <h3 className="font-sans text-xl md:text-3xl text-center md:text-start font-light">{app.tagline}</h3>
+            <p className="font-sans text-sm md:text-xl font-normal text-center md:text-start">{app.description}</p>
             <div><Button size='sm'>See</Button></div>
             
           </div>
