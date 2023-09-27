@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
 
-
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -79,7 +78,7 @@ const NavBar = () => {
             </li>
             <li>
               <Link
-                href="#contact"
+                href="/#contact"
                 className="block cursor-pointer py-2 pl-3 pr-4 hover:rounded hover:bg-purple-300 hover:text-purple-900"
               >
                 Contact
