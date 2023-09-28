@@ -1,7 +1,7 @@
 import popular1 from "@/assets/images/popular1.jpg";
 import popular2 from "@/assets/images/popular2.jpg";
 import popular3 from "@/assets/images/popular3.jpg";
-
+import run from "@/assets/images/run.jpg";
 import blog1 from "@/assets/images/blog 1.png";
 import blog2 from "@/assets/images/blog 2.png";
 import blog3 from "@/assets/images/blog 3.png";
@@ -104,7 +104,7 @@ const blogs = () => {
                   width={121}
                   src={app.image}
                   alt={app.name}
-                  className="rounded-full"
+                  className="rounded-full shadow-custom"
                 />
               </div>
               <div className="flex flex-col">
@@ -113,7 +113,9 @@ const blogs = () => {
                   {app.description}
                 </p>
                 <div>
-                  <Button className="mt-1" size={"sm"}>see</Button>
+                  <Button className="mt-1" size={"sm"}>
+                    see
+                  </Button>
                 </div>
               </div>
             </div>
@@ -121,12 +123,24 @@ const blogs = () => {
         </div>
       </section>
       <section className="mx-28 px-2">
-        <h1 className="font-serif text-4xl font-semibold text-secondary">Featured</h1>
-        {featured.map((item, index) => (
-          <div key={index}>
-
+        <h1 className="font-serif text-4xl font-semibold text-secondary">
+          Featured
+        </h1>
+        <div>
+          <div className="relative">
+            <Image src={run} alt="featured image" height={384} width={384} className="rounded-3xl" />
+            <div className="absolute top-0 left-0 bg-black hover:bg-transparent ease-in-out duration-200 opacity-40 h-96 w-96 rounded-3xl">
+            </div>
+            <h4 className="absolute bg-black top-4 left-4 p-1 text-white">Featured</h4>
           </div>
-        ))}
+          <div className="mt-64">
+            {featured.map((item, index) => (
+              <div key={index}>
+                <Image src={item.image} alt={item.name} />
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
     </main>
   );
