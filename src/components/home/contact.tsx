@@ -39,13 +39,15 @@ const Contact = () => {
         `${process.env.NEXT_PUBLIC_EMAILJS_USER_ID}`,
         `${process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID}`,
         formRef,
-        `${process.env.NEXT_PUBLIC_EMAILJS_USER_ID}`,
+        `${process.env.NEXT_PUBLIC_EMAILJS_PUBIC_KEY}`,
       );
       alert("Your form data has been sent successfully.");
     } catch (error) {
       alert(
         "There was an error sending your form data. Please try again later.",
+        
       );
+      console.log(error);
     }
   };
 
