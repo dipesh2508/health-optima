@@ -7,6 +7,8 @@ import blog2 from "@/assets/images/blog 2.png";
 import blog3 from "@/assets/images/blog 3.png";
 import blog4 from "@/assets/images/blog 4.png";
 
+import { FaTag } from "react-icons/fa";
+
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
@@ -91,13 +93,13 @@ const blog = [
 const blogs = () => {
   return (
     <main>
-      <section className="mx-28 my-12 px-2">
-        <h1 className="font-serif text-4xl font-semibold text-purple-950">
+      <section className="mx-8 md:mx-28 my-12 px-2">
+        <h1 className="font-serif text-4xl font-semibold text-center md:text-left text-purple-950">
           Popular works
         </h1>
-        <div className="my-12 flex flex-row gap-4">
+        <div className="my-12 flex flex-col md:flex-row gap-4">
           {popular.map((app, index) => (
-            <div key={index} className="flex flex-row gap-2">
+            <div key={index} className="flex flex-row md:w-auto gap-2">
               <div className="grid content-center">
                 <Image
                   height={121}
@@ -123,15 +125,30 @@ const blogs = () => {
         </div>
       </section>
       <section className="mx-28 px-2">
-        <h1 className="font-serif text-4xl font-semibold text-secondary">
+        <h1 className="font-serif text-4xl font-semibold text-secondary text-center md:text-left">
           Featured
         </h1>
         <div>
-          <div className="relative">
-            <Image src={run} alt="featured image" height={384} width={384} className="rounded-3xl" />
-            <div className="absolute top-0 left-0 bg-black hover:bg-transparent ease-in-out duration-200 opacity-40 h-96 w-96 rounded-3xl">
+          <div className="relative -ml-16 md:ml-0 w-96 mt-8">
+            <Image
+              src={run}
+              alt="featured image"
+              height={384}
+              width={384}
+              className="rounded-3xl"
+            />
+            <div className="absolute left-0 top-0 h-96 w-96 rounded-3xl bg-black opacity-40 duration-200 ease-in-out hover:bg-transparent"></div>
+            <h4 className="absolute left-4 top-4 bg-black p-1 text-white">
+              Featured
+            </h4>
+            <div className="absolute left-72 top-4 flex items-center gap-1 p-1 ">
+              <FaTag />
+              <h2 className="font-sans">Health</h2>
             </div>
-            <h4 className="absolute bg-black top-4 left-4 p-1 text-white">Featured</h4>
+            <div className="absolute left-8 bottom-8">
+              <h1 className="text-3xl font-serif text-white">Blog Title Goes here</h1>
+              <p className="text-xs font-sans mr-8 text-white">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.</p>
+            </div>
           </div>
           <div className="mt-64">
             {featured.map((item, index) => (
