@@ -6,10 +6,8 @@ import logo from "@/assets/images/logo.png";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
-
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
-
 
   return (
     <nav className="z-50 h-24 border-gray-200 bg-purple-200 text-slate-800">
@@ -121,7 +119,7 @@ const NavBar = () => {
             About
           </Link>
           <Link
-            href="/app#contact"
+            href="/#contact"
             onClick={() => setIsOpen(false)}
             className="block py-2 pl-3 pr-4 hover:rounded hover:bg-purple-300 hover:text-purple-900"
           >

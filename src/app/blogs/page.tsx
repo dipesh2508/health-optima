@@ -94,10 +94,10 @@ const blogs = () => {
   return (
     <main>
       <section className="mx-8 my-12 px-2 md:mx-28">
-        <h1 className="text-center font-serif text-4xl font-semibold text-purple-950 md:text-left">
+        <h1 className="text-center font-serif text-2xl md:text-4xl font-semibold text-purple-950 md:text-left">
           Popular works
         </h1>
-        <div className="my-12 flex flex-col gap-4 md:flex-row">
+        <div className="my-8 md:my-12 flex flex-col gap-4 md:flex-row">
           {popular.map((app, index) => (
             <div key={index} className="flex flex-row gap-2 md:w-auto">
               <div className="grid content-center">
@@ -110,12 +110,12 @@ const blogs = () => {
                 />
               </div>
               <div className="flex flex-col">
-                <h2 className="font-serif text-2xl font-medium">{app.name}</h2>
-                <p className="font-sans text-sm font-light">
+                <h2 className="font-serif text-lg md:text-2xl font-medium">{app.name}</h2>
+                <p className="font-sans text-xs md:text-sm font-light">
                   {app.description}
                 </p>
                 <div>
-                  <Button className="mt-1" size={"sm"}>
+                  <Button className="mt-1 py-1" size={"sm"}>
                     see
                   </Button>
                 </div>
@@ -124,8 +124,8 @@ const blogs = () => {
           ))}
         </div>
       </section>
-      <section className="mx-8 md:mx-28 px-2">
-        <h1 className="text-center font-serif text-4xl font-semibold text-secondary md:text-left">
+      <section className="mx-8 px-2 md:mx-28">
+        <h1 className="text-center font-serif text-2xl md:text-4xl font-semibold text-secondary md:text-left">
           Featured
         </h1>
         <div>
@@ -138,11 +138,11 @@ const blogs = () => {
                 width={384}
                 className="rounded-3xl"
               />
-              <div className="absolute left-0 top-0 h-72 w-72  md:h-96 md:w-96 rounded-3xl bg-black opacity-40 duration-200 ease-in-out hover:bg-transparent"></div>
+              <div className="absolute left-0 top-0 h-72 w-72  rounded-3xl bg-black opacity-40 duration-200 ease-in-out hover:bg-transparent md:h-96 md:w-96"></div>
               <h4 className="absolute left-4 top-4 bg-black p-1 text-white">
                 Featured
               </h4>
-              <div className="absolute left-48 md:left-72 top-4 flex items-center gap-1 p-1 ">
+              <div className="absolute left-48 top-4 flex items-center gap-1 p-1 md:left-72 ">
                 <FaTag />
                 <h2 className="font-sans">Health</h2>
               </div>
@@ -156,40 +156,86 @@ const blogs = () => {
                 </p>
               </div>
             </div>
-            <div className="mt-4 col-span-2 flex flex-col items-center gap-8">
+            <div className="col-span-2 mt-4 flex flex-col items-center gap-8">
               {featured.map((item, index) => (
-                <div key={index} className="grid grid-cols-1 md:gap-3 align-middle md:grid-cols-3 md:content-center">
-                <div className="grid-1 grid content-center">
+                <div
+                  key={index}
+                  className="grid grid-cols-1 align-middle md:grid-cols-3 md:content-center md:gap-3"
+                >
+                  <div className="flex flex-col items-center">
+                    <Image
+                      height={34}
+                      width={300}
+                      src={item.image}
+                      alt=""
+                      className="rounded-md hover:shadow-custom"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="col-span-2 mt-4 flex flex-col items-center text-center md:mt-0 md:items-start md:text-left">
+                    <h1 className="font-sans text-base font-light ">
+                      {item.category}
+                    </h1>
+
+                    <h1 className="font-serif text-2xl font-semibold leading-6">
+                      {item.name}
+                    </h1>
+                    <h1 className="mt-1 font-sans text-xs font-light">
+                      {item.description}
+                    </h1>
+                    <div className="flex justify-center md:justify-start">
+                      <Button
+                        variant={"secondary"}
+                        size={"sm"}
+                        className="mt-2"
+                      >
+                        Read
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className="mx-8 my-16 px-2 md:mx-28">
+        <h1 className=" text-center font-serif text-2xl font-semibold text-black md:text-left md:text-5xl">
+          ALL <span className="text-purple-950">BLOGS</span>
+        </h1>
+        <div className="col-span-2 mt-8 md:mt-16 flex flex-col items-center gap-12">
+          {blog.map((item, index) => (
+            <div
+              key={index}
+              className="grid grid-cols-1 align-middle md:grid-cols-3 md:content-center md:gap-3"
+            >
+              <div className="grid-1 grid content-center">
                 <Image
                   height={34}
-                  width={300}
+                  width={500}
                   src={item.image}
                   alt=""
                   className="rounded-md hover:shadow-custom"
                   loading="lazy"
                 />
               </div>
-              <div className="flex col-span-2 flex-col text-center mt-4 md:mt-0 md:text-left">
-                <h1 className="font-sans text-base font-light ">
+              <div className="col-span-2 mt-4 flex flex-col gap-1 text-center md:mt-0 md:gap-2 md:text-left">
+                <h1 className="font-sans text-base font-light md:text-2xl ">
                   {item.category}
                 </h1>
-  
-                <h1 className="font-serif text-2xl font-semibold leading-6">
+
+                <h1 className="font-serif text-lg font-semibold leading-6 md:text-4xl">
                   {item.name}
                 </h1>
-                <h1 className="mt-1 font-sans text-xs font-light">
+                <h1 className="mt-1 font-sans text-base font-light md:text-lg">
                   {item.description}
                 </h1>
                 <div className="flex justify-center md:justify-start">
-                  <Button variant={"secondary"} size={"sm"} className="mt-2">
-                    Read
-                  </Button>
+                  <Button className="mt-2">Read</Button>
                 </div>
               </div>
-              </div>
-              ))}
             </div>
-          </div>
+          ))}
         </div>
       </section>
     </main>
