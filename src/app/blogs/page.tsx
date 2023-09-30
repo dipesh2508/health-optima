@@ -130,7 +130,7 @@ const blogs = () => {
         </h1>
         <div>
           <div className="mt-8 grid grid-cols-1 md:grid-cols-3">
-            <div className="relative ml-8 w-96 md:ml-0">
+            <div className="relative ml-0 w-72 md:w-96">
               <Image
                 src={run}
                 alt="featured image"
@@ -138,15 +138,15 @@ const blogs = () => {
                 width={384}
                 className="rounded-3xl"
               />
-              <div className="absolute left-0 top-0 h-96 w-96 rounded-3xl bg-black opacity-40 duration-200 ease-in-out hover:bg-transparent"></div>
+              <div className="absolute left-0 top-0 h-72 w-72  md:h-96 md:w-96 rounded-3xl bg-black opacity-40 duration-200 ease-in-out hover:bg-transparent"></div>
               <h4 className="absolute left-4 top-4 bg-black p-1 text-white">
                 Featured
               </h4>
-              <div className="absolute left-72 top-4 flex items-center gap-1 p-1 ">
+              <div className="absolute left-48 md:left-72 top-4 flex items-center gap-1 p-1 ">
                 <FaTag />
                 <h2 className="font-sans">Health</h2>
               </div>
-              <div className="absolute bottom-96 md:bottom-8 left-8">
+              <div className="absolute bottom-8 left-8">
                 <h1 className="font-serif text-3xl text-white">
                   Blog Title Goes here
                 </h1>
@@ -156,9 +156,9 @@ const blogs = () => {
                 </p>
               </div>
             </div>
-            <div className="md:mt-4 col-span-2 flex flex-col gap-8 mt-[400px]">
+            <div className="mt-4 col-span-2 flex flex-col items-center gap-8">
               {featured.map((item, index) => (
-                <div key={index} className="grid grid-cols-1 gap-3 align-middle md:grid-cols-3 md:content-center">
+                <div key={index} className="grid grid-cols-1 md:gap-3 align-middle md:grid-cols-3 md:content-center">
                 <div className="grid-1 grid content-center">
                 <Image
                   height={34}
@@ -169,7 +169,7 @@ const blogs = () => {
                   loading="lazy"
                 />
               </div>
-              <div className="flex col-span-2 flex-col text-center md:text-left">
+              <div className="flex col-span-2 flex-col text-center mt-4 md:mt-0 md:text-left">
                 <h1 className="font-sans text-base font-light ">
                   {item.category}
                 </h1>
