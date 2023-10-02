@@ -26,19 +26,25 @@ const UserValidation = z.object({
   message: z.string().min(10).max(500),
 });
 
+interface FormData {
+  name: string;
+  email: string;
+  message: string;
+}
+
 const Contact = () => {
-  const formRef = useRef(null);
+  const formRef = useRef<HTMLFormElement | null>(null);
 
   const form = useForm({
     resolver: zodResolver(UserValidation),
   });
 
-  const onSubmit = async (formRef: any) => {
+  const onSubmit = async (data: FormData) => {
     try {
       await emailjs.send(
         `${process.env.NEXT_PUBLIC_EMAILJS_USER_ID}`,
         `${process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID}`,
-        formRef,
+        data,
         `${process.env.NEXT_PUBLIC_EMAILJS_PUBIC_KEY}`,
       );
       alert("Your form data has been sent successfully.");
