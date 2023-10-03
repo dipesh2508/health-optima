@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/images/logo.png";
 
@@ -24,7 +25,9 @@ const about = () => {
           ultricies fermentum. Ut euismod, massa vitae hendrerit tincidunt,
           lorem ipsum ultrices massa, auctor ultricies nisl est eget nunc.
         </p>
+        <Link href="/about">
         <Button className="mt-4">learn more</Button>
+        </Link>
       </div>
     </section>
   );

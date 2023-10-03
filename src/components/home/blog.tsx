@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Button } from "../ui/button";
 
 import blog1 from "@/assets/images/blog 1.png";
@@ -88,7 +89,9 @@ const blog = () => {
         ))}
       </div>
 
-      <Button variant={"secondary"}>See More</Button>
+      <Link href="/blogs">
+        <Button variant={"secondary"}>See More</Button>
+      </Link>
     </section>
   );
 };
