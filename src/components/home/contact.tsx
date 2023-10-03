@@ -10,7 +10,6 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -26,11 +25,6 @@ const UserValidation = z.object({
   message: z.string().min(10).max(500),
 });
 
-interface FormData {
-  name: string;
-  email: string;
-  message: string;
-}
 
 const Contact = () => {
   const formRef = useRef<HTMLFormElement | null>(null);
@@ -39,12 +33,12 @@ const Contact = () => {
     resolver: zodResolver(UserValidation),
   });
 
-  const onSubmit = async (data: FormData) => {
+  const onSubmit = async (formRef: Record<string, unknown>) => {
     try {
       await emailjs.send(
         `${process.env.NEXT_PUBLIC_EMAILJS_USER_ID}`,
         `${process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID}`,
-        data,
+        formRef,
         `${process.env.NEXT_PUBLIC_EMAILJS_PUBIC_KEY}`,
       );
       alert("Your form data has been sent successfully.");
