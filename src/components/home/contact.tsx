@@ -26,13 +26,28 @@ const UserValidation = z.object({
 });
 
 
+/**
+ * Functional component for the contact section.
+ * @returns The JSX code for the contact section.
+ */
 const Contact = () => {
   const formRef = useRef<HTMLFormElement | null>(null);
 
+  /**
+   * Creates a form using the useForm hook from the react-hook-form library.
+   * @param {object} options - The options object for configuring the form.
+   * @param {object} options.resolver - The resolver object for validating form inputs.
+   * @returns The form object with methods and state for managing form inputs and validation.
+   */
   const form = useForm({
     resolver: zodResolver(UserValidation),
   });
 
+  /**
+   * Handles the form submission by sending the form data via email using the EmailJS service.
+   * @param {Record<string, unknown>} formRef - The reference to the form object containing the form data.
+   * @returns None
+   */
   const onSubmit = async (formRef: Record<string, unknown>) => {
     try {
       await emailjs.send(

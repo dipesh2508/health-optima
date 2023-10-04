@@ -1,7 +1,9 @@
 import popular1 from "@/assets/images/popular1.jpg";
 import popular2 from "@/assets/images/popular2.jpg";
 import popular3 from "@/assets/images/popular3.jpg";
+
 import run from "@/assets/images/run.jpg";
+
 import blog1 from "@/assets/images/blog 1.png";
 import blog2 from "@/assets/images/blog 2.png";
 import blog3 from "@/assets/images/blog 3.png";
@@ -159,6 +161,11 @@ const blogs = () => {
                 </p>
               </div>
             </div>
+
+            {/* * Renders a list of featured items in a grid layout.
+             * @param {Array} featured - An array of featured items to display.
+             * @returns The JSX code for rendering the list of featured items. */}
+
             <div className="col-span-2 mt-4 flex flex-col items-center gap-8">
               {featured.map((item, index) => (
                 <div
@@ -183,18 +190,20 @@ const blogs = () => {
                     <h1 className="font-serif text-2xl font-semibold leading-6">
                       {item.name}
                     </h1>
+
                     <h1 className="mt-1 font-sans text-xs font-light">
                       {item.description}
                     </h1>
+
                     <div className="flex justify-center md:justify-start">
                       <Link href={item.link}>
-                      <Button
-                        variant={"secondary"}
-                        size={"sm"}
-                        className="mt-2"
-                      >
-                        Read
-                      </Button>
+                        <Button
+                          variant={"secondary"}
+                          size={"sm"}
+                          className="mt-2"
+                        >
+                          Read
+                        </Button>
                       </Link>
                     </div>
                   </div>
@@ -224,6 +233,7 @@ const blogs = () => {
                   loading="lazy"
                 />
               </div>
+
               <div className="col-span-2 mt-4 flex flex-col gap-1 text-center md:mt-0 md:gap-2 md:text-left">
                 <h1 className="font-sans text-base font-light md:text-2xl ">
                   {item.category}
@@ -232,11 +242,15 @@ const blogs = () => {
                 <h1 className="font-serif text-lg font-semibold leading-6 md:text-4xl">
                   {item.name}
                 </h1>
+
                 <h1 className="mt-1 font-sans text-base font-light md:text-base">
                   {item.description}
                 </h1>
+
                 <div className="flex justify-center md:justify-start">
-                  <Link href={item.link}><Button className="mt-2">Read</Button></Link>
+                  <Link href={item.link}>
+                    <Button className="mt-2">Read</Button>
+                  </Link>
                 </div>
               </div>
             </div>

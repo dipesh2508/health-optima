@@ -6,6 +6,10 @@ import logo from "@/assets/images/logo.png";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
+/**
+ * A functional component representing a navigation bar.
+ * @returns {JSX.Element} - The JSX element representing the navigation bar.
+ */
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -13,12 +17,18 @@ const NavBar = () => {
     <nav className="z-50 h-24 border-gray-200 bg-purple-200 text-slate-800">
       <div className="mx-auto flex max-h-96 max-w-screen-xl flex-wrap items-center justify-between px-2 pt-2 md:px-0">
         <a href="" className="flex items-center">
-          <Image src={logo} height={75} className="m-0" alt="Health Optima" />
+          <Image
+            src={logo}
+            height={75}
+            className="m-0"
+            alt="Health Optima"
+            loading="lazy"
+          />
         </a>
         <button
           data-collapse-toggle="navbar-default"
           type="button"
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={() => setIsOpen(!isOpen)} //  Event handler for a click event that toggles the value of isOpen.
           className="inline-flex h-10 w-10 items-center justify-center rounded-lg p-2 text-sm text-primary hover:bg-purple-200 focus:outline-none focus:ring-2 focus:ring-primary dark:text-purple-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 md:hidden"
           aria-controls="navbar-default"
           aria-expanded="false"

@@ -7,7 +7,7 @@ const about = () => {
   return (
     <section className="my-4 grid grid-cols-1 items-center gap-0 bg-secondary py-24 md:grid-cols-3 md:gap-8">
       <div className="m-0 mx-20 my-4 rounded-lg bg-white px-4 py-8 shadow-custom md:mx-0 md:my-12 md:ml-40 md:px-16 md:py-32">
-        <Image src={logo} height={480} width={800} alt="logo" />
+        <Image src={logo} height={480} width={800} alt="logo" loading="lazy" />
       </div>
       <div className="col-span-2 mx-16 flex flex-col items-center md:mx-0 md:mr-64 md:items-start">
         <h3 className="mb-4 text-sm font-light text-white md:text-2xl">
