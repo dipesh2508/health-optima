@@ -38,11 +38,12 @@ const data = [
   {
     no: "04",
     image: blog4,
-    category: "category",
-    title: "Lorem ipsum dolor sit amet, consectetur adipiscing.",
+    category: "Wellness",
+    title: "The Silent Struggle: Insomnia and How to Overcome It",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi viverra magna sed pretium sagittis. Nullam ultrices nec ipsum non vestibulum. Proin a tincidunt est.",
-    link: "#",
+      "A pervasive sleep disorder that can have a devastating impact on your health, work, and relationships. Learn about the causes, effects, and practical solutions in this comprehensive blog.",
+    link: "/blogs/The-Silent-Struggle",
+    
   },
 ];
 const blog = () => {
@@ -80,9 +81,11 @@ const blog = () => {
                 {item.description}
               </h1>
               <div className="flex justify-center md:justify-start">
+                <Link href={item.link}>
                 <Button variant={"secondary"} size={"sm"} className="mt-2">
                   Read
                 </Button>
+                </Link>
               </div>
             </div>
           </div>

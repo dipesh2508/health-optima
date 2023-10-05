@@ -9,14 +9,12 @@ import Link from "next/link";
 const page = () => {
   return (
     <main>
-
       {/* title section */}
       <section
         id="headline"
         className="grid grid-cols-12 gap-8 bg-primary py-12"
       >
         <div className="col-span-7 ml-28 grid content-end gap-4">
-
           {/* headline section  */}
           <h1 className="font-serif text-4xl font-semibold text-white">
             The Silent Struggle: Insomnia and How to Overcome It
@@ -91,6 +89,72 @@ const page = () => {
                 for three months or longer, ruining at least three nights each
                 week.
               </p>
+            </div>
+            <div>
+              <h3 className=" mt-4 font-serif text-2xl font-medium text-purple-800">
+                Common Causes of Insomnia
+              </h3>
+              <div className="mt-8 flex flex-col gap-4 text-justify font-sans text-base text-slate-800">
+                <p>
+                  There are numerous factors that can lead to insomnia,
+                  including:
+                </p>
+                <p>
+                  <span className="font-semibold">Stress:</span> An unwelcomed
+                  guest that can be very hard to avoid at some point in life and
+                  is one of the primary reasons for insomnia since it can result
+                  in anxious thoughts and an overactive mind, affecting the
+                  ability to sleep.
+                </p>
+                <p>
+                  <span className="font-semibold">Anxiety and Gloom:</span>{" "}
+                  Emotional conditions like anxiety and despair, can interfere
+                  with sleep cycles.
+                </p>
+                <p>
+                  <span className="font-semibold">Unhealthy Sleep Habits:</span>{" "}
+                  Your sleep habits can also lead to insomnia. There are many
+                  reasons that could lead to a bad sleeping routine: traveling,
+                  working from home, heavy use of electronics before bed, or
+                  enjoying or boosting yourself with coffee or alcohol close to
+                  bedtime.
+                </p>
+                <p>
+                  <span className="font-semibold">Medical Conditions</span> If
+                  you are suffering from some form of illness then it can also
+                  affect your sleep. Medical conditions could include chronic
+                  pain, asthma, or Parkinson&#39;s disease which can even lead
+                  to chronic insomnia.
+                </p>
+                <p>
+                  <span className="font-semibold">Medications</span> Sometimes
+                  the drugs that you consume to get better, particularly those
+                  with stimulant effects, can interfere with sleep.
+                </p>
+              </div>
+            </div>
+            <div>
+              <h3 className=" mt-4 font-serif text-2xl font-medium text-purple-800">
+                The Effects of Insomnia
+              </h3>
+              <div className="mt-8 flex flex-col items-center">
+                <Image
+                  src={insomnia3}
+                  className="h-72 w-auto rounded-lg drop-shadow-2xl"
+                  alt="types of insomnia"
+                />
+              </div>
+              <div className="mt-8 flex flex-col gap-4 text-justify font-sans text-base text-slate-800">
+                <p>The effects of insomnia are followed up throughout the day affecting your daily activities and making it harder for you to keep up with life. These effects include: </p>
+                
+                
+                <ul className="list-disc flex flex-col gap-2 ml-4">
+                <li>Feeling like your body has been run over by a truck(tired and unwell). </li>
+                <li>Mood disorders, anxiety, irritability, and depression.</li>
+                <li>The attention span of a goldfish as well as delayed responses</li>
+                <li>Reduced productivity, and finding it difficult to remember things.</li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
