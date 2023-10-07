@@ -1,28 +1,9 @@
 import React from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { ctaData } from "../constants";
 
-import bmi1 from "@/assets/images/bmi1.jpg";
-import sleep1 from "@/assets/images/sleep1.png";
-import water1 from "@/assets/images/water1.jpg";
 
-const data = [
-  {
-    no: "01",
-    image: sleep1,
-    title: "Sleep Tracker",
-  },
-  {
-    no: "02",
-    image: bmi1,
-    title: "BMI Calculator",
-  },
-  {
-    no: "03",
-    image: water1,
-    title: "Water Tracker",
-  },
-];
 const cta = () => {
   return (
     <section className="mx-8 my-12 flex flex-col items-center rounded-lg bg-primary px-3 py-12 shadow-custom md:m-16">
@@ -35,7 +16,7 @@ const cta = () => {
       </h1>
 
       <div className="mt-8 flex flex-col justify-center gap-8 md:flex-row">
-        {data.map((item, index) => (
+        {ctaData.map((item, index) => (
           <div
             className="group relative scale-90 duration-300  ease-in-out hover:scale-100"
             key={index}

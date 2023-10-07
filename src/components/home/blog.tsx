@@ -1,51 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../ui/button";
+import { blogData } from "../constants";
 
-import blog1 from "@/assets/images/blog 1.png";
-import blog2 from "@/assets/images/blog 2.png";
-import blog3 from "@/assets/images/blog 3.png";
-import blog4 from "@/assets/images/blog 4.png";
 
-const data = [
-  {
-    no: "01",
-    image: blog1,
-    category: "category",
-    title: "Lorem ipsum dolor sit amet, consectetur adipiscing.",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi viverra magna sed pretium sagittis. Nullam ultrices nec ipsum non vestibulum. Proin a tincidunt est.",
-    link: "#",
-  },
-  {
-    no: "02",
-    image: blog2,
-    category: "category",
-    title: "Lorem ipsum dolor sit amet, consectetur adipiscing.",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi viverra magna sed pretium sagittis. Nullam ultrices nec ipsum non vestibulum. Proin a tincidunt est.",
-    link: "#",
-  },
-  {
-    no: "03",
-    image: blog3,
-    category: "category",
-    title: "Lorem ipsum dolor sit amet, consectetur adipiscing.",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi viverra magna sed pretium sagittis. Nullam ultrices nec ipsum non vestibulum. Proin a tincidunt est.",
-    link: "#",
-  },
-  {
-    no: "04",
-    image: blog4,
-    category: "Wellness",
-    title: "The Silent Struggle: Insomnia and How to Overcome It",
-    description:
-      "A pervasive sleep disorder that can have a devastating impact on your health, work, and relationships. Learn about the causes, effects, and practical solutions in this comprehensive blog.",
-    link: "/blogs/The-Silent-Struggle",
-    
-  },
-];
 const blog = () => {
   return (
     <section className="mt-28 flex min-h-screen flex-col items-center">
@@ -54,7 +12,7 @@ const blog = () => {
       </h1>
 
       <div className="content center mx-12 my-14 grid grid-cols-1 gap-12 md:mx-24 md:mt-28 md:grid-cols-2">
-        {data.map((item, index) => (
+        {blogData.map((item, index) => (
           <div
             className="grid grid-cols-1 gap-3 align-middle md:grid-cols-2 md:content-center"
             key={index}
