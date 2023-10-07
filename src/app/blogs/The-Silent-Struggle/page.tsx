@@ -12,14 +12,14 @@ const page = () => {
       {/* title section */}
       <section
         id="headline"
-        className="grid grid-cols-12 gap-8 bg-primary py-12"
+        className="grid gap-8 bg-primary py-12 md:grid-cols-12"
       >
-        <div className="col-span-7 ml-28 grid content-end gap-4">
+        <div className="mx-8 grid content-end gap-4 md:col-span-7 md:mx-0 md:ml-28">
           {/* headline section  */}
-          <h1 className="font-serif text-4xl font-semibold text-white">
+          <h1 className="text-center font-serif text-2xl font-semibold text-white md:text-left md:text-4xl">
             The Silent Struggle: Insomnia and How to Overcome It
           </h1>
-          <p className="text-justify font-sans text-base font-medium text-black">
+          <p className="text-justify font-sans text-sm font-medium text-black md:text-base">
             With everyone stuck in the rat race, a good night&#39;s sleep is
             often hard to find. For some watching the sunrise after not sleeping
             for hours has become much more of a common occurrence than viewing
@@ -31,28 +31,26 @@ const page = () => {
         </div>
 
         {/* title image */}
-        <div className="col-span-5 mr-28">
+        <div className="mx-8 md:col-span-5 md:mx-0 md:mr-28">
           <Image src={insomnia1} alt="title image" className="rounded-lg" />
         </div>
       </section>
 
-      <section className="grid grid-cols-3 gap-4 px-28 py-12">
+      <section className="grid gap-4 px-4 py-12 md:grid-cols-3 md:px-28">
         {/* blog content */}
-        <div className="col-span-2 flex flex-col gap-8">
+        <div className="order-last flex flex-col gap-8 md:order-first md:col-span-2">
           {/* youtube video embedding */}
           <iframe
             src={
               "https://www.youtube.com/embed/cHKs2aVxOmQ?si=hs0Db9KbK9mbUQAl"
             }
             title={"YouTube video player"}
-            width="560"
-            height="315"
-            className="ml-20 rounded-2xl drop-shadow-2xl"
+            className="h-48 w-80 rounded-2xl drop-shadow-2xl md:ml-20 md:h-[315px] md:w-[560px]"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
           ></iframe>
           <div className="mt-8 flex flex-col gap-4" id="UI">
-            <h2 className="font-serif text-3xl font-medium text-purple-900">
+            <h2 className="font-serif text-2xl font-medium text-purple-900 md:text-3xl">
               Understanding Insomnia
             </h2>
             <p className="text-justify font-sans text-base text-slate-800">
@@ -63,18 +61,18 @@ const page = () => {
               big impact on your physical and mental well-being.
             </p>
 
-            <h3 className=" mt-4 font-serif text-2xl font-medium text-purple-800">
+            <h3 className=" mt-4 font-serif text-xl font-medium text-purple-800 md:text-2xl">
               Types of Insomania
             </h3>
-            <div className="mt-8 flex flex-col items-center">
+            <div className="mt-4 flex flex-col items-center md:mt-8">
               <Image
                 src={insomnia2}
-                className="h-72 w-auto rounded-lg drop-shadow-2xl"
+                className="mt:h-72 h-56 w-auto rounded-lg drop-shadow-2xl"
                 alt="types of insomnia"
               />
             </div>
 
-            <div className="mt-8 flex flex-col gap-4 text-justify font-sans text-base text-slate-800">
+            <div className="mt-4 flex flex-col gap-4 text-justify font-sans text-base text-slate-800 md:mt-8">
               <p>There are two main categories of insomnia:</p>
               <p>
                 <span className="font-semibold">Acute Insomnia:</span> This is
@@ -91,10 +89,10 @@ const page = () => {
               </p>
             </div>
             <div>
-              <h2 className=" mt-4 font-serif text-3xl font-medium text-purple-800">
+              <h2 className="mt-4 font-serif text-2xl font-medium text-purple-800 md:mt-8 md:text-3xl">
                 Common Causes of Insomnia
               </h2>
-              <div className="mt-8 flex flex-col gap-4 text-justify font-sans text-base text-slate-800">
+              <div className="mt-4 flex flex-col gap-4 text-justify font-sans text-base text-slate-800 md:mt-8">
                 <p>
                   There are numerous factors that can lead to insomnia,
                   including:
@@ -134,59 +132,107 @@ const page = () => {
               </div>
             </div>
             <div>
-              <h2 className=" mt-4 font-serif text-3xl font-medium text-purple-800">
+              <h2 className=" mt-4 font-serif text-2xl font-medium text-purple-800 md:mt-8 md:text-3xl">
                 The Effects of Insomnia
               </h2>
-              <div className="mt-8 flex flex-col items-center">
+              <div className="mt-4 flex flex-col items-center md:mt-8">
                 <Image
                   src={insomnia3}
-                  className="h-72 w-auto rounded-lg drop-shadow-2xl"
+                  className="mt:h-72 h-56 w-auto rounded-lg drop-shadow-2xl"
                   alt="types of insomnia"
                 />
               </div>
               <div className="mt-8 flex flex-col gap-4 text-justify font-sans text-base text-slate-800">
-                <p>The effects of insomnia are followed up throughout the day affecting your daily activities and making it harder for you to keep up with life. These effects include: </p>
-                
-                
-                <ul className="list-disc flex flex-col gap-2 ml-4">
-                <li>Feeling like your body has been run over by a truck(tired and unwell). </li>
-                <li>Mood disorders, anxiety, irritability, and depression.</li>
-                <li>The attention span of a goldfish as well as delayed responses</li>
-                <li>Reduced productivity, and finding it difficult to remember things.</li>
+                <p>
+                  The effects of insomnia are followed up throughout the day
+                  affecting your daily activities and making it harder for you
+                  to keep up with life. These effects include:{" "}
+                </p>
+
+                <ul className="ml-4 flex list-disc flex-col gap-2">
+                  <li>
+                    Feeling like your body has been run over by a truck(tired
+                    and unwell).{" "}
+                  </li>
+                  <li>
+                    Mood disorders, anxiety, irritability, and depression.
+                  </li>
+                  <li>
+                    The attention span of a goldfish as well as delayed
+                    responses
+                  </li>
+                  <li>
+                    Reduced productivity, and finding it difficult to remember
+                    things.
+                  </li>
                 </ul>
               </div>
             </div>
             <div>
-              <h2 className=" mt-4 font-serif text-3xl font-medium text-purple-800">
+              <h2 className=" mt-4 font-serif text-2xl font-medium text-purple-800 md:mt-8 md:text-3xl">
                 How to Overcome Insomnia
               </h2>
-              <div className="mt-8 flex flex-col gap-4 text-justify font-sans text-base text-slate-800">
-              <p>You can defeat insomnia by following a number of ways and bringing certain changes to your lifestyle and health. You can follow the tips below to get rid of this menace:</p>
-              <ul className="list-disc flex flex-col gap-2 ml-4">
-                <li>Maintaining a consistent sleeping schedule. You can consider writing in a journal regarding when you sleep, and for how many hours you sleep to keep track of yourself.</li>
-                <li>Avoiding certain foods like coffee before sleep.</li>
-                <li>Supplements and medications that help to fall asleep.</li>
-                <li>Using essential oils before bedtime can also work wonders in calming your mind.</li>
-                <li>Exercising regularly is a must to ensure good stress-free sleep. This could include yoga, meditation, or practicing a sport that you prefer. </li>
-                <li>Take fewer naps. From none to at max a 20-30 minutes nap, if necessary. </li>
-                <li>Leave your phone alone! The light of electronic devices can make your brain think that it is not nighttime and hence disrupt your sleep.</li>
+              <div className="mt-4 flex flex-col gap-4 text-justify font-sans text-base text-slate-800 md:mt-8">
+                <p>
+                  You can defeat insomnia by following a number of ways and
+                  bringing certain changes to your lifestyle and health. You can
+                  follow the tips below to get rid of this menace:
+                </p>
+                <ul className="ml-4 flex list-disc flex-col gap-2">
+                  <li>
+                    Maintaining a consistent sleeping schedule. You can consider
+                    writing in a journal regarding when you sleep, and for how
+                    many hours you sleep to keep track of yourself.
+                  </li>
+                  <li>Avoiding certain foods like coffee before sleep.</li>
+                  <li>Supplements and medications that help to fall asleep.</li>
+                  <li>
+                    Using essential oils before bedtime can also work wonders in
+                    calming your mind.
+                  </li>
+                  <li>
+                    Exercising regularly is a must to ensure good stress-free
+                    sleep. This could include yoga, meditation, or practicing a
+                    sport that you prefer.{" "}
+                  </li>
+                  <li>
+                    Take fewer naps. From none to at max a 20-30 minutes nap, if
+                    necessary.{" "}
+                  </li>
+                  <li>
+                    Leave your phone alone! The light of electronic devices can
+                    make your brain think that it is not nighttime and hence
+                    disrupt your sleep.
+                  </li>
                 </ul>
-                <p>If the insomnia persists or the struggle has turned into a full-blown war, consult a medical professional as they are the best person to guide you through the possible treatments.</p>
-                <div className="mt-4 flex flex-col items-center">
-                <Image
-                  src={insomnia4}
-                  className="h-72 w-auto rounded-lg drop-shadow-2xl"
-                  alt="types of insomnia"
-                />
-              </div>
-              <p>As the song &#39;Let Her Go&#39; implies you only realize the importance of something when it is missing or gone. Similarly, many people fail to understand the worth of sleep and take it for granted. Lack of sleep can have a huge effect on your overall health. So, if you have trouble sleeping, don’t take it lightly and work on the issue as soon as possible. After all, sleeping is the best medicine next to laughter.</p>
+                <p>
+                  If the insomnia persists or the struggle has turned into a
+                  full-blown war, consult a medical professional as they are the
+                  best person to guide you through the possible treatments.
+                </p>
+                <div className="mt:mt-8 mt-4 flex flex-col items-center">
+                  <Image
+                    src={insomnia4}
+                    className="mt:h-72 h-56 w-auto rounded-lg drop-shadow-2xl"
+                    alt="types of insomnia"
+                  />
+                </div>
+                <p>
+                  As the song &#39;Let Her Go&#39; implies you only realize the
+                  importance of something when it is missing or gone. Similarly,
+                  many people fail to understand the worth of sleep and take it
+                  for granted. Lack of sleep can have a huge effect on your
+                  overall health. So, if you have trouble sleeping, don’t take
+                  it lightly and work on the issue as soon as possible. After
+                  all, sleeping is the best medicine next to laughter.
+                </p>
               </div>
             </div>
           </div>
         </div>
 
         {/* right side bar */}
-        <div className="flex flex-col">
+        <div className="order-first flex flex-col md:order-last">
           {/* author card */}
           <div className="flex flex-row items-center gap-3">
             <Image src={author} alt="isheta" />
