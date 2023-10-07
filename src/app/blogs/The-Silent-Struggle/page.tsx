@@ -91,9 +91,9 @@ const page = () => {
               </p>
             </div>
             <div>
-              <h3 className=" mt-4 font-serif text-2xl font-medium text-purple-800">
+              <h2 className=" mt-4 font-serif text-3xl font-medium text-purple-800">
                 Common Causes of Insomnia
-              </h3>
+              </h2>
               <div className="mt-8 flex flex-col gap-4 text-justify font-sans text-base text-slate-800">
                 <p>
                   There are numerous factors that can lead to insomnia,
@@ -134,9 +134,9 @@ const page = () => {
               </div>
             </div>
             <div>
-              <h3 className=" mt-4 font-serif text-2xl font-medium text-purple-800">
+              <h2 className=" mt-4 font-serif text-3xl font-medium text-purple-800">
                 The Effects of Insomnia
-              </h3>
+              </h2>
               <div className="mt-8 flex flex-col items-center">
                 <Image
                   src={insomnia3}
@@ -154,6 +154,32 @@ const page = () => {
                 <li>The attention span of a goldfish as well as delayed responses</li>
                 <li>Reduced productivity, and finding it difficult to remember things.</li>
                 </ul>
+              </div>
+            </div>
+            <div>
+              <h2 className=" mt-4 font-serif text-3xl font-medium text-purple-800">
+                How to Overcome Insomnia
+              </h2>
+              <div className="mt-8 flex flex-col gap-4 text-justify font-sans text-base text-slate-800">
+              <p>You can defeat insomnia by following a number of ways and bringing certain changes to your lifestyle and health. You can follow the tips below to get rid of this menace:</p>
+              <ul className="list-disc flex flex-col gap-2 ml-4">
+                <li>Maintaining a consistent sleeping schedule. You can consider writing in a journal regarding when you sleep, and for how many hours you sleep to keep track of yourself.</li>
+                <li>Avoiding certain foods like coffee before sleep.</li>
+                <li>Supplements and medications that help to fall asleep.</li>
+                <li>Using essential oils before bedtime can also work wonders in calming your mind.</li>
+                <li>Exercising regularly is a must to ensure good stress-free sleep. This could include yoga, meditation, or practicing a sport that you prefer. </li>
+                <li>Take fewer naps. From none to at max a 20-30 minutes nap, if necessary. </li>
+                <li>Leave your phone alone! The light of electronic devices can make your brain think that it is not nighttime and hence disrupt your sleep.</li>
+                </ul>
+                <p>If the insomnia persists or the struggle has turned into a full-blown war, consult a medical professional as they are the best person to guide you through the possible treatments.</p>
+                <div className="mt-4 flex flex-col items-center">
+                <Image
+                  src={insomnia4}
+                  className="h-72 w-auto rounded-lg drop-shadow-2xl"
+                  alt="types of insomnia"
+                />
+              </div>
+              <p>As the song &#39;Let Her Go&#39; implies you only realize the importance of something when it is missing or gone. Similarly, many people fail to understand the worth of sleep and take it for granted. Lack of sleep can have a huge effect on your overall health. So, if you have trouble sleeping, don’t take it lightly and work on the issue as soon as possible. After all, sleeping is the best medicine next to laughter.</p>
               </div>
             </div>
           </div>
