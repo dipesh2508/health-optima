@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { ctaData } from "../constants";
+import { ctaData } from "@/constants";
 
 
 const cta = () => {

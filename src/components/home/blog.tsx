@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../ui/button";
-import { blogData } from "../constants";
+import { blogData } from "@/constants";
 
 
 const blog = () => {
