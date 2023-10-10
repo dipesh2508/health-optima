@@ -55,7 +55,28 @@ const NavBar = () => {
             <li>
               <Link
                 href="/"
-                className="block cursor-pointer py-2 pl-3 pr-4 hover:rounded hover:bg-purple-300 hover:text-purple-900"
+                className="duration-250 relative block cursor-pointer
+                px-4
+                py-2
+                transition-all
+                before:absolute
+                before:-bottom-0.5
+                before:left-1/2
+                before:h-1
+                before:w-0
+                before:-translate-x-1/2
+                before:rounded-full
+                before:bg-gradient-to-r
+                before:from-purple-600
+                before:via-purple-400
+                before:to-purple-500
+                before:opacity-0
+                before:transition-all
+                before:duration-500
+                before:content-['']
+                hover:text-purple-900
+                hover:before:w-3/4
+                hover:before:opacity-100"
               >
                 Home
               </Link>
@@ -63,7 +84,28 @@ const NavBar = () => {
             <li>
               <Link
                 href="/blogs"
-                className="block cursor-pointer py-2 pl-3 pr-4 hover:rounded hover:bg-purple-300 hover:text-purple-900"
+                className="duration-250 relative block cursor-pointer
+                px-4
+                py-2
+                transition-all
+                before:absolute
+                before:-bottom-0.5
+                before:left-1/2
+                before:h-1
+                before:w-0
+                before:-translate-x-1/2
+                before:rounded-full
+                before:bg-gradient-to-r
+                before:from-purple-600
+                before:via-purple-400
+                before:to-purple-500
+                before:opacity-0
+                before:transition-all
+                before:duration-500
+                before:content-['']
+                hover:text-purple-900
+                hover:before:w-3/4
+                hover:before:opacity-100"
               >
                 Blogs
               </Link>
@@ -71,7 +113,28 @@ const NavBar = () => {
             <li>
               <Link
                 href="/apps"
-                className="block cursor-pointer py-2 pl-3 pr-4 hover:rounded hover:bg-purple-300 hover:text-purple-900"
+                className="duration-250 relative block cursor-pointer
+                px-4
+                py-2
+                transition-all
+                before:absolute
+                before:-bottom-0.5
+                before:left-1/2
+                before:h-1
+                before:w-0
+                before:-translate-x-1/2
+                before:rounded-full
+                before:bg-gradient-to-r
+                before:from-purple-600
+                before:via-purple-400
+                before:to-purple-500
+                before:opacity-0
+                before:transition-all
+                before:duration-500
+                before:content-['']
+                hover:text-purple-900
+                hover:before:w-3/4
+                hover:before:opacity-100"
               >
                 Apps
               </Link>
@@ -79,7 +142,28 @@ const NavBar = () => {
             <li>
               <Link
                 href="/about"
-                className="block cursor-pointer py-2 pl-3 pr-4 hover:rounded hover:bg-purple-300 hover:text-purple-900"
+                className="duration-250 relative block cursor-pointer
+                px-4
+                py-2
+                transition-all
+                before:absolute
+                before:-bottom-0.5
+                before:left-1/2
+                before:h-1
+                before:w-0
+                before:-translate-x-1/2
+                before:rounded-full
+                before:bg-gradient-to-r
+                before:from-purple-600
+                before:via-purple-400
+                before:to-purple-500
+                before:opacity-0
+                before:transition-all
+                before:duration-500
+                before:content-['']
+                hover:text-purple-900
+                hover:before:w-3/4
+                hover:before:opacity-100"
               >
                 About
               </Link>
@@ -87,7 +171,28 @@ const NavBar = () => {
             <li>
               <Link
                 href="/#contact"
-                className="block cursor-pointer py-2 pl-3 pr-4 hover:rounded hover:bg-purple-300 hover:text-purple-900"
+                className="duration-250 relative block cursor-pointer
+                px-4
+                py-2
+                transition-all
+                before:absolute
+                before:-bottom-0.5
+                before:left-1/2
+                before:h-1
+                before:w-0
+                before:-translate-x-1/2
+                before:rounded-full
+                before:bg-gradient-to-r
+                before:from-purple-600
+                before:via-purple-400
+                before:to-purple-500
+                before:opacity-0
+                before:transition-all
+                before:duration-500
+                before:content-['']
+                hover:text-purple-900
+                hover:before:w-3/4
+                hover:before:opacity-100 "
               >
                 Contact
               </Link>

@@ -64,7 +64,7 @@ const blog = () => {
                 height={34}
                 width={473}
                 src={item.image}
-                alt=""
+                alt={item.title}
                 className="rounded-md hover:shadow-custom"
                 loading="lazy"
               />
