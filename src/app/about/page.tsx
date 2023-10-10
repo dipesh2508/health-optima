@@ -111,38 +111,41 @@ const about = () => {
         </div>
       </div>
 
-      <div className="m-4 rounded-lg bg-secondary p-4 md:m-16 shadow-2xl">
+      <div className="m-4 rounded-lg bg-secondary p-4 shadow-2xl md:m-16">
         <div className="rounded-lg bg-white p-1">
           <div className="flex flex-col items-center rounded-lg bg-secondary p-2 md:p-4">
             <h1 className="font-serif text-4xl text-white">About Us</h1>
-            <p className="m-4 text-justify font-sans text-sm text-white">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi
-              tempor justo lacinia, bibendum tellus a, ultricies magna. Etiam ex
-              massa, ornare commodo lobortis sed, rutrum at elit. Aliquam
-              malesuada ac neque id dignissim. Nullam id finibus velit, sed
-              vulputate nisl. Integer et lorem elit. Etiam at mi augue.
-              Curabitur porttitor sed urna ut elementum.<br></br>
-              <br></br>
-              Nullam accumsan neque efficitur enim condimentum euismod. Mauris
-              accumsan tortor ut massa facilisis volutpat. Nullam auctor urna
-              eget ligula pellentesque dictum. Aenean sit amet efficitur mauris,
-              et pretium nisl. Donec nec facilisis leo. Integer consequat
-              dapibus sem, id porttitor lacus eleifend at. Mauris mauris tortor,
-              faucibus eget diam sit amet, pharetra rhoncus nulla. Pellentesque
-              feugiat dolor odio, vitae facilisis nulla hendrerit ac. Maecenas
-              mattis nulla metus, a vulputate lacus rhoncus at. Cras neque nibh,
-              commodo nec sem vitae, imperdiet ultrices arcu. Aenean efficitur
-              hendrerit quam sit amet convallis. Pellentesque tempor ante non
-              sollicitudin egestas. Sed ut eleifend augue, id posuere dui.
-              Vestibulum nibh velit, tincidunt in lacus at, ullamcorper mollis
-              orci.
+            <p className="m-4 text-justify font-sans text-md font-light text-white">
+              At HealthOptima, we&#39;re dedicated to promoting comprehensive
+              well-being through a diverse range of health-centric resources and
+              tools. Our platform is your trusted companion on the journey to a
+              healthier and more balanced life. <br />
+              <br />
+              Explore our extensive collection of health-related blog posts,
+              carefully curated to inform, inspire, and empower you. Dive into
+              topics spanning fitness, nutrition, mental health, and more.
+              Whether you&#39;re seeking insights on the latest wellness trends
+              or practical advice for daily living, our expertly crafted content
+              is designed to enrich your understanding of holistic health.
+              <br />
+              <br />
+              But HealthOptima goes beyond knowledge. Our suite of applications,
+              including a task manager, sleep tracker, BMI calculator, and water
+              consumption monitor, empowers you to take tangible steps toward
+              well-being. We believe in the power of small, consistent actions
+              to create lasting change. <br />
+              <br />
+              Join us in embracing the philosophy of &#39;Harmonious
+              Well-Being.&#39; HealthOptima is your partner, supporting you as
+              you pursue a healthier, more vibrant life. <br />
+              <br />
             </p>
           </div>
         </div>
       </div>
 
       <div className="mx-4 my-12 flex flex-col items-center gap-8 md:m-16 md:flex-row md:gap-4">
-        <div className="flex flex-col items-center shadow-custom gap-4 rounded-lg bg-primary p-4 text-white">
+        <div className="flex flex-col items-center gap-4 rounded-lg bg-primary p-4 text-white shadow-custom">
           <h3 className="mt-2 bg-secondary p-1 font-sans text-white">
             WHO WE ARE, WHAT WE DO
           </h3>
@@ -156,7 +159,7 @@ const about = () => {
             porttitor sed urna ut elementum.
           </p>
         </div>
-        <div className="flex flex-col items-center shadow-custom gap-4 rounded-lg bg-primary p-4 text-white">
+        <div className="flex flex-col items-center gap-4 rounded-lg bg-primary p-4 text-white shadow-custom">
           <h3 className="mt-2 bg-secondary p-1 font-sans text-white">
             WHAT WE ASPIRE TO BE
           </h3>

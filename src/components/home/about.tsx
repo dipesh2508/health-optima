@@ -16,14 +16,18 @@ const about = () => {
         <h1 className="mb-4 font-serif text-3xl font-semibold text-white md:text-4xl">
           About Us
         </h1>
-        <p className="text-justify font-sans text-sm font-light text-white md:text-lg">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi viverra
-          magna sed pretium sagittis. Nullam ultrices nec ipsum non vestibulum.
-          Proin a tincidunt est. Donec vitae dui in velit ultricies fermentum.
-          Ut euismod, massa vitae hendrerit tincidunt, lorem ipsum ultrices
-          massa, auctor ultricies nisl est eget nunc. Donec vitae dui in velit
-          ultricies fermentum. Ut euismod, massa vitae hendrerit tincidunt,
-          lorem ipsum ultrices massa, auctor ultricies nisl est eget nunc.
+        <p className="text-justify font-sans text-sm font-light text-white md:text-base">
+        At HealthOptima, we&#39;re dedicated to promoting comprehensive
+              well-being through a diverse range of health-centric resources and
+              tools. Our platform is your trusted companion on the journey to a
+              healthier and more balanced life. <br />
+              <br />
+              Explore our extensive collection of health-related blog posts,
+              carefully curated to inform, inspire, and empower you. Dive into
+              topics spanning fitness, nutrition, mental health, and more.
+              Whether you&#39;re seeking insights on the latest wellness trends
+              or practical advice for daily living, our expertly crafted content
+              is designed to enrich your understanding of holistic health.
         </p>
         <Link href="/about">
         <Button className="mt-4">learn more</Button>

@@ -32,7 +32,7 @@ const page = () => {
 
         {/* title image */}
         <div className="mx-8 md:col-span-5 md:mx-0 md:mr-28">
-          <Image src={insomnia1} alt="title image" className="rounded-lg" />
+          <Image src={insomnia1} alt="title image" className="rounded-lg" loading="lazy" />
         </div>
       </section>
 
@@ -69,6 +69,7 @@ const page = () => {
                 src={insomnia2}
                 className="mt:h-72 h-56 w-auto rounded-lg drop-shadow-2xl"
                 alt="types of insomnia"
+                loading="lazy"
               />
             </div>
 
@@ -139,7 +140,8 @@ const page = () => {
                 <Image
                   src={insomnia3}
                   className="mt:h-72 h-56 w-auto rounded-lg drop-shadow-2xl"
-                  alt="types of insomnia"
+                  alt="types of insomnia" 
+                  loading="lazy"
                 />
               </div>
               <div className="mt-8 flex flex-col gap-4 text-justify font-sans text-base text-slate-800">
@@ -214,7 +216,8 @@ const page = () => {
                   <Image
                     src={insomnia4}
                     className="mt:h-72 h-56 w-auto rounded-lg drop-shadow-2xl"
-                    alt="types of insomnia"
+                    alt="types of insomnia" 
+                    loading="lazy"
                   />
                 </div>
                 <p>
@@ -222,7 +225,7 @@ const page = () => {
                   importance of something when it is missing or gone. Similarly,
                   many people fail to understand the worth of sleep and take it
                   for granted. Lack of sleep can have a huge effect on your
-                  overall health. So, if you have trouble sleeping, don’t take
+                  overall health. So, if you have trouble sleeping, don&#39;t take
                   it lightly and work on the issue as soon as possible. After
                   all, sleeping is the best medicine next to laughter.
                 </p>
@@ -235,7 +238,7 @@ const page = () => {
         <div className="order-first flex flex-col md:order-last">
           {/* author card */}
           <div className="flex flex-row items-center gap-3">
-            <Image src={author} alt="isheta" />
+            <Image src={author} alt="isheta" loading="lazy" />
             <div className="flex flex-col gap-1">
               <h3 className="font-serif text-2xl font-semibold text-purple-900">
                 Isheta Aggarwal
