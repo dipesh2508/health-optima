@@ -10,8 +10,8 @@ import water1 from "@/assets/images/water1.jpg";
 
 export const navLinks = [
 	{
-			id: "home",
-			title: "Home"
+		id: "home",
+		title: "Home"
 	},
 	{
 			id: "blogs",
