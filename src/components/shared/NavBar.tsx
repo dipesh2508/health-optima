@@ -1,10 +1,12 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
 import logo from "@/assets/images/logo.png";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
+
+import { navLinks } from "@/constants";
 
 /**
  * A functional component representing a navigation bar.
@@ -52,151 +54,39 @@ const NavBar = () => {
         </button>
         <div className="hidden w-full md:block md:w-auto" id="navbar-default">
           <ul className="mt-4 flex flex-col p-4 font-medium md:mt-0 md:flex-row md:space-x-8 md:p-0 ">
-            <li>
-              <Link
-                href="/"
-                className="duration-250 relative block cursor-pointer
-                px-4
-                py-2
-                transition-all
-                before:absolute
-                before:-bottom-0.5
-                before:left-1/2
-                before:h-1
-                before:w-0
-                before:-translate-x-1/2
-                before:rounded-full
-                before:bg-gradient-to-r
-                before:from-purple-600
-                before:via-purple-400
-                before:to-purple-500
-                before:opacity-0
-                before:transition-all
-                before:duration-500
-                before:content-['']
-                hover:text-purple-900
-                hover:before:w-3/4
-                hover:before:opacity-100"
-              >
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/blogs"
-                className="duration-250 relative block cursor-pointer
-                px-4
-                py-2
-                transition-all
-                before:absolute
-                before:-bottom-0.5
-                before:left-1/2
-                before:h-1
-                before:w-0
-                before:-translate-x-1/2
-                before:rounded-full
-                before:bg-gradient-to-r
-                before:from-purple-600
-                before:via-purple-400
-                before:to-purple-500
-                before:opacity-0
-                before:transition-all
-                before:duration-500
-                before:content-['']
-                hover:text-purple-900
-                hover:before:w-3/4
-                hover:before:opacity-100"
-              >
-                Blogs
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/apps"
-                className="duration-250 relative block cursor-pointer
-                px-4
-                py-2
-                transition-all
-                before:absolute
-                before:-bottom-0.5
-                before:left-1/2
-                before:h-1
-                before:w-0
-                before:-translate-x-1/2
-                before:rounded-full
-                before:bg-gradient-to-r
-                before:from-purple-600
-                before:via-purple-400
-                before:to-purple-500
-                before:opacity-0
-                before:transition-all
-                before:duration-500
-                before:content-['']
-                hover:text-purple-900
-                hover:before:w-3/4
-                hover:before:opacity-100"
-              >
-                Apps
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/about"
-                className="duration-250 relative block cursor-pointer
-                px-4
-                py-2
-                transition-all
-                before:absolute
-                before:-bottom-0.5
-                before:left-1/2
-                before:h-1
-                before:w-0
-                before:-translate-x-1/2
-                before:rounded-full
-                before:bg-gradient-to-r
-                before:from-purple-600
-                before:via-purple-400
-                before:to-purple-500
-                before:opacity-0
-                before:transition-all
-                before:duration-500
-                before:content-['']
-                hover:text-purple-900
-                hover:before:w-3/4
-                hover:before:opacity-100"
-              >
-                About
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/#contact"
-                className="duration-250 relative block cursor-pointer
-                px-4
-                py-2
-                transition-all
-                before:absolute
-                before:-bottom-0.5
-                before:left-1/2
-                before:h-1
-                before:w-0
-                before:-translate-x-1/2
-                before:rounded-full
-                before:bg-gradient-to-r
-                before:from-purple-600
-                before:via-purple-400
-                before:to-purple-500
-                before:opacity-0
-                before:transition-all
-                before:duration-500
-                before:content-['']
-                hover:text-purple-900
-                hover:before:w-3/4
-                hover:before:opacity-100 "
-              >
-                Contact
-              </Link>
-            </li>
+            {
+              navLinks.map((nav) => (
+                <li key={nav.id}>
+                  <Link
+                    href={`/${nav.id === 'contact' ? "#contact" : `${nav.id}`}`}
+                    className="duration-250 relative block cursor-pointer
+                    px-4
+                    py-2
+                    transition-all
+                    before:absolute
+                    before:-bottom-0.5
+                    before:left-1/2
+                    before:h-1
+                    before:w-0
+                    before:-translate-x-1/2
+                    before:rounded-full
+                    before:bg-gradient-to-r
+                    before:from-purple-600
+                    before:via-purple-400
+                    before:to-purple-500
+                    before:opacity-0
+                    before:transition-all
+                    before:duration-500
+                    before:content-['']
+                    hover:text-purple-900
+                    hover:before:w-3/4
+                    hover:before:opacity-100"
+                  >
+                    {nav.title}
+                  </Link>
+                </li>
+              ))
+            }
             <li>
               <Button>Login/Register</Button>
             </li>
@@ -205,41 +95,18 @@ const NavBar = () => {
       </div>
       {isOpen && (
         <div className="absolute z-50 mt-3 flex w-full flex-col bg-purple-200 px-3 py-4 text-center text-base font-semibold md:hidden">
-          <Link
-            href="/"
-            onClick={() => setIsOpen(false)}
-            className="block py-2 pl-3 pr-4 hover:rounded hover:bg-purple-300 hover:text-purple-900"
-          >
-            Home
-          </Link>
-          <Link
-            href="/blogs"
-            onClick={() => setIsOpen(false)}
-            className="block py-2 pl-3 pr-4 hover:rounded hover:bg-purple-300 hover:text-purple-900"
-          >
-            Blogs
-          </Link>
-          <Link
-            href="/apps"
-            onClick={() => setIsOpen(false)}
-            className="block py-2 pl-3 pr-4 hover:rounded hover:bg-purple-300 hover:text-purple-900"
-          >
-            Apps
-          </Link>
-          <Link
-            href="/about"
-            onClick={() => setIsOpen(false)}
-            className="block py-2 pl-3 pr-4 hover:rounded hover:bg-purple-300 hover:text-purple-900"
-          >
-            About
-          </Link>
-          <Link
-            href="/#contact"
-            onClick={() => setIsOpen(false)}
-            className="block py-2 pl-3 pr-4 hover:rounded hover:bg-purple-300 hover:text-purple-900"
-          >
-            Contact
-          </Link>
+          {
+            navLinks.map((nav) => (
+              <Link
+                href={`/${nav.id === 'contact' ? "#contact" : `${nav.id}`}`}
+                onClick={() => setIsOpen(false)}
+                key={nav.id}
+                className="block py-2 pl-3 pr-4 hover:rounded hover:bg-purple-300 hover:text-purple-900"
+              >
+                {nav.title}
+              </Link>
+            ))
+          }
           <Button>Login/Register</Button>
         </div>
       )}
