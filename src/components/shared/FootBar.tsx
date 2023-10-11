@@ -7,6 +7,8 @@ import { FaSquareXTwitter } from "react-icons/fa6";
 import { FaInstagramSquare } from "react-icons/fa";
 import logo from "@/assets/images/logo.png";
 
+import { navLinks } from "@/constants";
+
 const Footbar = () => {
   return (
     <footer className="bg-primary p-4 text-white md:p-8">
@@ -28,31 +30,18 @@ const Footbar = () => {
 
           <div className="mt-8">
             <ul className="flex flex-col gap-3 pb-0 text-lg font-medium sm:text-xl">
-              <li className="flex hover:text-secondary">
-                <Link href="/" className="flex-1 md:text-right">
-                  Home
-                </Link>
-              </li>
-              <li className="flex hover:text-secondary">
-                <Link href="/blogs" className="flex-1 md:text-right">
-                  Blogs
-                </Link>
-              </li>
-              <li className="flex hover:text-secondary">
-                <Link href="/apps" className="flex-1 md:text-right">
-                  Apps
-                </Link>
-              </li>
-              <li className="flex hover:text-secondary">
-                <Link href="/about" className="flex-1 md:text-right">
-                  About
-                </Link>
-              </li>
-              <li className="flex hover:text-secondary">
-                <Link href="/#contact" className="flex-1 md:text-right">
-                  Contact
-                </Link>
-              </li>
+              {
+                navLinks.map((nav) => (
+                  <li className="flex hover:text-secondary" key={nav.id}>
+                    <Link 
+                      href={`/${nav.id === 'contact' ? "#contact" : `${nav.id}`}`} 
+                      className="flex-1 md:text-right"
+                    >
+                      {nav.title}
+                    </Link>
+                  </li>
+                ))
+              }
             </ul>
           </div>
         </div>
