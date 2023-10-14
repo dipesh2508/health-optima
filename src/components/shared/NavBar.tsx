@@ -88,7 +88,9 @@ const NavBar = () => {
               ))
             }
             <li>
+              <Link href='/register'>
               <Button>Login/Register</Button>
+              </Link>
             </li>
           </ul>
         </div>
