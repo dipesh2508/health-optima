@@ -56,7 +56,7 @@ const Register = () => {
             </button>
 
             <div className='flex justify-center items-center mt-7'>
-              <h1 className='text-sm md:text-base mr-2 md:mr-3'>Don't have an account</h1>
+              <h1 className='text-sm md:text-base mr-2 md:mr-3'>Don&#39;t have an account</h1>
               <Link href="/login"><button className='text-xs md:text-sm text-white p-1 md:p-2 rounded-md bg-green-900' >click here
                 </button></Link>
               
