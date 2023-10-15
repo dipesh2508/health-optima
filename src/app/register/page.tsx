@@ -1,7 +1,13 @@
 import Image from 'next/image';
+
+
 import registerIm from "@/assets/images/registerIm.png"
+import Link from 'next/link';
 
 const Register = () => {
+
+ 
+
   return (
     <>
       <div className='flex flex-col md:flex-row justify-between p-5 md:p-10'>
@@ -51,7 +57,10 @@ const Register = () => {
 
             <div className='flex justify-center items-center mt-7'>
               <h1 className='text-sm md:text-base mr-2 md:mr-3'>Don't have an account</h1>
-              <button className='text-xs md:text-sm text-white p-1 md:p-2 rounded-md bg-green-900' >click here</button>
+              <Link href="/login"><button className='text-xs md:text-sm text-white p-1 md:p-2 rounded-md bg-green-900' >click here
+                </button></Link>
+              
+              
             </div>
           </form>
         </div>
@@ -61,3 +70,5 @@ const Register = () => {
 };
 
 export default Register;
+
+

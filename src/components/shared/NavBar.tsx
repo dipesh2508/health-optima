@@ -87,9 +87,9 @@ const NavBar = () => {
                 </li>
               ))
             }
-            <li>
+            <Link href='/register'>
               <Button>Login/Register</Button>
-            </li>
+            </Link>
           </ul>
         </div>
       </div>
