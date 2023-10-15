@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import registerIm from "@/assets/images/registerIm.png"
 
-const login = () => {
+const Register = () => {
   return (
     <>
       <div className='flex flex-col md:flex-row justify-between p-5 md:p-10'>
@@ -18,18 +18,22 @@ const login = () => {
 
             <div className='mb-3'>
               <h1 className='text-xl font-semibold mt-3 mb-1'>Email</h1>
-              <input className="rounded-md w-full" type="email" name="Email" />
-              <p className='text-xs'>Enter your email address</p>
+              <input className="rounded-md w-full" type="email" name="Email" placeholder='Email' />
+              <p className='text-xs' >Enter your email address</p>
             </div>
 
+            <div className='mb-3'>
+              <h1 className='text-xl font-semibold mt-3 mb-1'>Name</h1>
+              <input className='w-full rounded-md' placeholder='Name' type="input" name="name" />
+            </div>
 
             <div className='mb-3'>
               <h1 className='text-xl font-semibold mt-3 mb-1'>Password</h1>
-              <input className='rounded-md w-full' type="password" name="Password" />
+              <input className='rounded-md w-full' type="password" placeholder="Password" />
             </div>
 
             <button type="button" className="w-full mt-4 p-2 bg-purple-500 hover:bg-white hover:text-purple-700 border border-purple-700 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-xs md:text-sm">
-              Log in
+              register
             </button>
 
             <div className="mt-5 flex items-center">
@@ -47,7 +51,7 @@ const login = () => {
 
             <div className='flex justify-center items-center mt-7'>
               <h1 className='text-sm md:text-base mr-2 md:mr-3'>Don't have an account</h1>
-              <button className='text-xs md:text-sm text-white p-1 md:p-2 rounded-md bg-green-900' onClick={()=>{"/src/app/register/"}}>click here</button>
+              <button className='text-xs md:text-sm text-white p-1 md:p-2 rounded-md bg-green-900' >click here</button>
             </div>
           </form>
         </div>
@@ -56,4 +60,4 @@ const login = () => {
   );
 };
 
-export default login;
+export default Register;
