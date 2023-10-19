@@ -1,11 +1,32 @@
+"use client"
+
 import Image from 'next/image';
-
-
 import registerIm from "@/assets/images/registerIm.png"
 import Link from 'next/link';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+
+
+const UserValidation = z.object({
+  name: z.string().min(3).max(50),
+  email: z.string().email(),
+  password: z.string().min(10).max(500),
+});
 
 const Register = () => {
 
+  const form = useForm({
+    resolver: zodResolver(UserValidation),
+  });
  
 
   return (
@@ -22,25 +43,66 @@ const Register = () => {
           <h2 className='text-xl md:text-2xl text-center font-light mt-3'>Glad to See You!</h2>
           <form className='flex flex-col mt-5 md:mt-10 text-xl md:text-2xl'>
 
-            <div className='mb-3'>
-              <h1 className='text-xl font-semibold mt-3 mb-1'>Email</h1>
-              <input className="rounded-md w-full" type="email" name="Email" placeholder='Email' />
-              <p className='text-xs' >Enter your email address</p>
-            </div>
+            <Form {...form}>
+            <form>
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem className="mt-4 flex w-full flex-col gap-1">
+                    <FormLabel className="text-light-1 font-sm font-sans">
+                      Name
+                    </FormLabel>
+                    <FormControl className="text-base-semibold flex-1 text-secondary">
+                      <Input
+                        type="text"
+                        className="account-form_input no focus border-primary"
+                        {...field}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
 
-            <div className='mb-3'>
-              <h1 className='text-xl font-semibold mt-3 mb-1'>Name</h1>
-              <input className='w-full rounded-md' placeholder='Name' type="input" name="name" />
-            </div>
+<FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem className="mt-4 flex w-full flex-col gap-1">
+                    <FormLabel className="text-light-1 font-sm font-sans">
+                      Email
+                    </FormLabel>
+                    <FormControl className="text-base-semibold flex-1 text-secondary">
+                      <Input
+                        type="email"
+                        className="account-form_input no focus border-primary"
+                        {...field}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
 
-            <div className='mb-3'>
-              <h1 className='text-xl font-semibold mt-3 mb-1'>Password</h1>
-              <input className='rounded-md w-full' type="password" placeholder="Password" />
-            </div>
-
-            <button type="button" className="w-full mt-4 p-2 bg-purple-500 hover:bg-white hover:text-purple-700 border border-purple-700 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-xs md:text-sm">
-              register
-            </button>
+<FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem className="mt-4 flex w-full flex-col gap-1">
+                    <FormLabel className="text-light-1 font-sm font-sans">
+                      Email
+                    </FormLabel>
+                    <FormControl className="text-base-semibold flex-1 text-secondary">
+                      <Input
+                        type="password"
+                        className="account-form_input no focus border-primary"
+                        {...field}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              </form>
+            </Form>
 
             <div className="mt-5 flex items-center">
               <hr className="border-t border-black flex-grow" />
