@@ -98,6 +98,7 @@ const Register = () => {
                       <Input
                         type="password"
                         className="account-form_input no focus border-primary"
+                        
                         {...field}
                       />
                     </FormControl>
