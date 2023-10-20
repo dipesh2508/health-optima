@@ -87,7 +87,7 @@ const NavBar = () => {
                 </li>
               ))
             }
-            <Link href='/register'>
+            <Link href='/login'>
               <Button>Login/Register</Button>
             </Link>
           </ul>

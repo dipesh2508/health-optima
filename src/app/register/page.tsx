@@ -38,14 +38,14 @@ const Register = () => {
         />
       </div>
 
-      <div className="flex w-full flex-col rounded-lg bg-pink-100 p-5 md:w-1/2 md:p-10">
-        <h1 className="mt-5 text-center text-3xl font-bold text-purple-900 md:mt-8 md:text-5xl">
-          Hello Again
+      <div className="flex w-full flex-col rounded-lg bg-pink-100 p-4 md:w-1/2 md:py-6 md:px-12 md:mx-4">
+        <h1 className="mt-4 text-center font-serif text-2xl font-bold text-purple-900 md:mt-6 md:text-5xl">
+          New Here?
         </h1>
-        <h2 className="mt-3 text-center text-xl font-light md:text-2xl">
-          Glad to See You!
+        <h2 className="mt-2 text-center font-sans text-lg font-light md:text-xl">
+          Join Us!
         </h2>
-        <div className="mt-5 flex flex-col text-xl md:mt-10 md:text-2xl">
+        <div className="mt-4 flex flex-col text-md md:mt-8 md:text-lg">
           <Form {...form}>
             <form>
               <FormField
@@ -141,9 +141,9 @@ const Register = () => {
               Don&#39;t have an account
             </h1>
             <Link href="/login">
-              <button className="rounded-md bg-green-900 p-1 text-xs text-white md:p-2 md:text-sm">
+              <Button className="" size="sm" variant="secondary" >
                 click here
-              </button>
+              </Button>
             </Link>
           </div>
         </div>
