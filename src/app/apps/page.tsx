@@ -2,6 +2,7 @@ import Sleep from "@/assets/images/sleep tracker.png";
 import BMI from "@/assets/images/bmi.png";
 import Water from "@/assets/images/water drinking.png";
 import Task from "@/assets/images/to do list.png";
+import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 
@@ -37,7 +38,7 @@ const data = [
     tagline: "Where Tasks find their place",
     description:
       "Organize, prioritize, and conquer your day with our intuitive to-do list app. Your ultimate productivity partner is here.",
-    link: "",
+    link: "/apps/todo-list",
     image: Task,
   },
 ];
@@ -72,7 +73,9 @@ const apps = () => {
               {app.description}
             </p>
             <div>
+              <Link href={app.link}>
               <Button size="sm">See</Button>
+              </Link>
             </div>
           </div>
         </div>
