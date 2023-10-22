@@ -14,7 +14,7 @@ const data = [
     tagline: "Your Trusted Partner for Optimal Sleep Health",
     description:
       "Experience the science of sound sleep with our intuitive Sleep Tracker, providing personalized insights for a rejuvenated you.",
-    link: "",
+    link: "../apps/sleepTracker",
     image: Sleep,
   },
   {
