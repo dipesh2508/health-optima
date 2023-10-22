@@ -1,4 +1,5 @@
-"use client"
+
+
 import React from "react";
 import { Button } from "@/components/ui/button";
 const page = () => {
@@ -15,27 +16,21 @@ const page = () => {
               </p>
               <div className=" flex  justify-around text-xl font-semibold">
               <Button
-              onClick={() => {
-                deleteHandeler(i);
-              }}
+              
               className="m-4" size="sm" variant="secondary"
             >
               Start
             </Button>
 
             <Button
-              onClick={() => {
-                deleteHandeler(i);
-              }}
+              
               className="m-4" size="sm" variant="destructive"
             >
               Stop
             </Button>
 
             <Button
-              onClick={() => {
-                deleteHandeler(i);
-              }}
+              
               className="m-4" size="sm" variant="ghost"
             >
               Reset
@@ -44,14 +39,12 @@ const page = () => {
               </div>
 
               <Button 
-              onClick={() => {
-                deleteHandeler(i);
-              }}
-              className="m-4" size="sm" variant=""
+              
+              className="m-4" size="sm" 
             >
               Submit
             </Button>
-            
+
             </form>
           </div>
 
