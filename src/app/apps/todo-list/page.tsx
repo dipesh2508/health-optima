@@ -35,13 +35,12 @@ const Page: React.FC = (): ReactElement => {
     renTask = (
       <ul className="list-decimal">
         {maintask.map((task, i) => (
-          <li key={i} className="flex items-center justify-between ">
-            <div className="flex w-full items-center justify-start gap-20 font-base md:text-3xl">
+          <li key={i} className="grid grid-cols-3 items-center justify-between ">
               <h5 className="text-lg font-base md:text-xl ">{task.Title}</h5>
               <h6 className="text-xl font-base ">
                 {task.Desc}
               </h6>
-            </div>
+            <div className="grid justify-end">
             <Button
               onClick={() => {
                 deleteHandeler(i);
@@ -50,6 +49,7 @@ const Page: React.FC = (): ReactElement => {
             >
               Delete
             </Button>
+            </div>
           </li>
         ))}
       </ul>
@@ -88,7 +88,21 @@ const Page: React.FC = (): ReactElement => {
           </Button>
         </div>
       </form>
-      <div className="p-4 md:p-8 ">{renTask}</div>
+      <div className="">
+      <ul className="list-decimal pt-8">
+
+          <li className="grid grid-cols-3 items-center justify-between font-serif font-semibold text-purple-950">
+
+              <h5 className="text-lg font-base md:text-xl ">Title</h5>
+              <h6 className="text-xl font-base ">
+            Description
+              </h6>
+            
+
+          </li>
+      </ul>
+      </div>
+      <div className="py-4 md:py-8 font-sans">{renTask}</div>
     </main>
   );
 };
