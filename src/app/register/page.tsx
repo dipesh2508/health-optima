@@ -139,7 +139,7 @@ const Register = () => {
 
           <div className="mt-7 flex items-center justify-center">
             <h1 className="mr-2 text-sm md:mr-3 md:text-base">
-              Don&#39;t have an account
+            Already have an account
             </h1>
             <Link href="/login">
               <Button className="" size="sm" variant="secondary" >

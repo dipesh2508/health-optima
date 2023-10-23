@@ -119,7 +119,7 @@ const Login = () => {
 
             <div className="mt-7 flex items-center justify-center">
               <h1 className="mr-2 text-sm md:mr-3 md:text-base">
-                Already have an account
+              Don&#39;t have an account
               </h1>
               <Link href="/register">
                 <Button className="" size="sm" variant="secondary">
