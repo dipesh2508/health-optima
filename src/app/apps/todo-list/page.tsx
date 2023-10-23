@@ -64,7 +64,7 @@ const Page: React.FC = (): ReactElement => {
       <form className="mt-16 w-full" onSubmit={submitHandler}>
         <div className="flex flex-col justify-between md:flex-row content-center">
           <input
-            className=" text-normal w-2/5 font-base rounded-xl border-2 p-2 font-sans md:text-xl"
+            className=" text-normal w-2/5 font-base rounded-xl focus:border-purple-950 border-2 p-2 font-sans md:text-xl"
             type="text"
             placeholder="Enter your title"
             value={Title}
@@ -74,7 +74,7 @@ const Page: React.FC = (): ReactElement => {
             }}
           />
           <input
-            className="text-normal w-2/5 font-base rounded-xl border-2 p-2 font-sans md:text-xl"
+            className="text-normal w-2/5 font-base rounded-xl focus:border-purple-950 border-2 p-2 font-sans md:text-xl"
             type="text"
             placeholder="Enter your Task"
             value={Desc}
