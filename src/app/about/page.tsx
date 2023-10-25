@@ -115,7 +115,7 @@ const about = () => {
         <div className="rounded-lg bg-white p-1">
           <div className="flex flex-col items-center rounded-lg bg-secondary p-2 md:p-4">
             <h1 className="font-serif text-4xl text-white">About Us</h1>
-            <p className="m-4 text-justify font-sans text-md font-light text-white">
+            <p className="text-md m-4 text-justify font-sans font-light text-white">
               At HealthOptima, we&#39;re dedicated to promoting comprehensive
               well-being through a diverse range of health-centric resources and
               tools. Our platform is your trusted companion on the journey to a
@@ -151,12 +151,18 @@ const about = () => {
           </h3>
           <h1 className="font-serif text-3xl font-semibold">OUR VISION</h1>
           <p className="m-4 mt-0 text-justify font-sans font-medium text-black md:m-8">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi
-            tempor justo lacinia, bibendum tellus a, ultricies magna. Etiam ex
-            massa, ornare commodo lobortis sed, rutrum at elit. Aliquam
-            malesuada ac neque id dignissim. Nullam id finibus velit, sed
-            vulputate nisl. Integer et lorem elit. Etiam at mi augue. Curabitur
-            porttitor sed urna ut elementum.
+            Our vision is to pioneer a profound transformation in the way
+            individuals approach their health and wellness. We envision a world
+            where people are not only well-informed but also genuinely empowered
+            to make positive choices for their physical, mental, and emotional
+            well-being. Health Optima aspires to be the catalyst for this
+            change. We&#39;re committed to redefining the pursuit of well-being,
+            making it an accessible, engaging, and highly personalized journey.
+            We see a future where individuals are not just passive recipients of
+            health information, but active participants in their wellness. Our
+            vision is to be the ultimate companion on this transformative
+            journey, offering innovative and user-centric solutions that foster
+            healthier, happier lives for all.
           </p>
         </div>
         <div className="flex flex-col items-center gap-4 rounded-lg bg-primary p-4 text-white shadow-custom">
@@ -165,12 +171,17 @@ const about = () => {
           </h3>
           <h1 className="font-serif text-3xl font-semibold">OUR MISSION</h1>
           <p className="m-4 mt-0 text-justify font-sans font-medium text-black md:m-8">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi
-            tempor justo lacinia, bibendum tellus a, ultricies magna. Etiam ex
-            massa, ornare commodo lobortis sed, rutrum at elit. Aliquam
-            malesuada ac neque id dignissim. Nullam id finibus velit, sed
-            vulputate nisl. Integer et lorem elit. Etiam at mi augue. Curabitur
-            porttitor sed urna ut elementum.
+            At Health Optima, our unwavering mission is to empower individuals
+            on their journey to holistic health and wellness. We believe that
+            everyone deserves access to the tools and knowledge necessary to
+            achieve and maintain optimal well-being. Through the fusion of
+            advanced technology and personalized experiences, we&#39;re
+            committed to simplifying health management, inspiring positive
+            lifestyle changes, and enhancing overall quality of life. Our
+            mission is not just about providing information; it&#39;s about
+            instilling the confidence and motivation to take charge of one&#39;s
+            health journey. We strive to be the trusted companion that guides
+            users toward healthier, happier lives, one step at a time.
           </p>
         </div>
       </div>
