@@ -34,6 +34,7 @@ module.exports = {
         'primary': '#A855F7',
         'secondary': '#115E59',
         'background': '#FFFBEB',
+        'dark-primary': '#3b0764'
       },
       fontFamily: {
         sans: ['Montserrat', 'sans-serif'],

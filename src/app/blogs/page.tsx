@@ -14,7 +14,7 @@ const blogs = () => {
   return (
     <main>
       <section className="mx-8 my-12 px-2 md:mx-28">
-        <h1 className="text-center font-serif text-2xl font-semibold text-purple-950 md:text-left md:text-4xl">
+        <h1 className="text-center font-serif text-2xl font-semibold text-dark-primary md:text-left md:text-4xl">
           Popular works
         </h1>
         <div className="my-8 flex flex-col gap-4 md:my-12 md:flex-row">
@@ -132,7 +132,7 @@ const blogs = () => {
       </section>
       <section className="mx-8 my-16 px-2 md:mx-28">
         <h1 className=" text-center font-serif text-2xl font-semibold text-black md:text-left md:text-5xl">
-          ALL <span className="text-purple-950">BLOGS</span>
+          ALL <span className="text-dark-primary">BLOGS</span>
         </h1>
         <div className="col-span-2 mt-8 flex flex-col items-center gap-12 md:mt-16">
           {blog.map((item, index) => (

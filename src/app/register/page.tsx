@@ -39,7 +39,7 @@ const Register = () => {
       </div>
 
       <div className="flex w-full flex-col rounded-lg bg-pink-100 p-4 md:w-1/2 md:py-6 md:px-12 md:mx-4">
-        <h1 className="mt-4 text-center font-serif text-2xl font-bold text-purple-900 md:mt-6 md:text-5xl">
+        <h1 className="mt-4 text-center font-serif text-2xl font-bold text-dark-primary md:mt-6 md:text-5xl">
           New Here?
         </h1>
         <h2 className="mt-2 text-center font-sans text-lg font-light md:text-xl">

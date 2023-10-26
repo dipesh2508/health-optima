@@ -50,7 +50,7 @@ const page = () => {
             allowFullScreen
           ></iframe>
           <div className="mt-8 flex flex-col gap-4" id="UI">
-            <h2 className="font-serif text-2xl font-medium text-purple-900 md:text-3xl">
+            <h2 className="font-serif text-2xl font-medium text-dark-primary md:text-3xl">
               Understanding Insomnia
             </h2>
             <p className="text-justify font-sans text-base text-slate-800">
@@ -240,7 +240,7 @@ const page = () => {
           <div className="flex flex-row items-center gap-3">
             <Image src={author} alt="isheta" loading="lazy" />
             <div className="flex flex-col gap-1">
-              <h3 className="font-serif text-2xl font-semibold text-purple-900">
+              <h3 className="font-serif text-2xl font-semibold text-dark-primary">
                 Isheta Aggarwal
               </h3>
               <h5 className="font-sans text-lg font-medium text-slate-500">
@@ -251,17 +251,17 @@ const page = () => {
 
           {/* sideway navigation menu */}
           <div className="mt-3 flex flex-col gap-3 pt-4 font-sans text-base font-medium text-slate-800">
-            <hr className="border-purple-900" />
+            <hr className="border-dark-primary" />
             <Link href="#UI">
               <h5>Understanding Insomnia</h5>
             </Link>
-            <hr className="border-purple-900" />
+            <hr className="border-dark-primary" />
             <h5>Common Causes of Insomnia</h5>
-            <hr className="border-purple-900" />
+            <hr className="border-dark-primary" />
             <h5>The Effects of Insomnia</h5>
-            <hr className="border-purple-900" />
+            <hr className="border-dark-primary" />
             <h5>How to Overcome Insomnia </h5>
-            <hr className="border-purple-900" />
+            <hr className="border-dark-primary" />
           </div>
         </div>
       </section>
