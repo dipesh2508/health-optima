@@ -50,7 +50,7 @@ const Footbar = () => {
 
         <div className="flex flex-col justify-between sm:flex-row">
           <span className="text-white">
-            &copy; 2023 Health Optima. All rights reserved
+            &copy; 2023 Health Optima Inc. All rights reserved
           </span>
           <div className="flex align-middle">
             <h1 className="text-md mt-1 font-semibold md:text-2xl">
