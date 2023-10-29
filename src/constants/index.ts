@@ -52,12 +52,12 @@ export const blogData = [
   },
   {
     no: "03",
-    image: blog3,
-    category: "category",
-    title: "Lorem ipsum dolor sit amet, consectetur adipiscing.",
+    category: "Category",
+    title: "The Lifesaving Elixir: Why Staying Hydrated is Vital for Your Health",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi viverra magna sed pretium sagittis. Nullam ultrices nec ipsum non vestibulum. Proin a tincidunt est.",
-    link: "#",
+      "Water is essential for life with many health benefits. Stay hydrated by drinking enough water, eating fruits and vegetables, avoiding sugary drinks, and paying attention to your thirst cues.",
+    link: "/blogs/The-Lifesaving-Elixir",
+    image: blog3,
   },
   {
     no: "04",
