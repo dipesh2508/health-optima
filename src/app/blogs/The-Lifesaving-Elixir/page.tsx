@@ -267,14 +267,14 @@ const page = () => {
           <div className="mt-3 flex flex-col gap-3 pt-4 font-sans text-base font-medium text-slate-800">
             <hr className="border-dark-primary" />
             <Link href="#UI">
-              <h5>Understanding Insomnia</h5>
+              <h5>Hydration and Physical Wellness</h5>
             </Link>
             <hr className="border-dark-primary" />
-            <h5>Common Causes of Insomnia</h5>
+            <h5>Cognitive Clarity and Mental Health</h5>
             <hr className="border-dark-primary" />
-            <h5>The Effects of Insomnia</h5>
+            <h5>Weight Management and Nutrition</h5>
             <hr className="border-dark-primary" />
-            <h5>How to Overcome Insomnia </h5>
+            <h5>The Importance of Regular Hydration</h5>
             <hr className="border-dark-primary" />
           </div>
         </div>
