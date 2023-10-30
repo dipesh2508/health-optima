@@ -21,7 +21,7 @@ const data = [
     tagline: "BMI Calculator for Wellness",
     description:
       "Calculate BMI, get insights, and set goals with our user-friendly BMI Calculator. Your path to wellness begins here.",
-    link: "",
+    link: "../apps/BMI",
     image: BMI,
   },
   {
