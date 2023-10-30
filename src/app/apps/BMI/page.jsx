@@ -16,7 +16,7 @@ const Page = () => {
     if (weight === 0 || height === 0) {
       alert('Please enter a valid height and weight');
     } else {
-      const bmiValue = ((weight / height) * 703).toFixed(1);
+      const bmiValue = (weight / (height * height)).toFixed(1);
       setBMI(bmiValue);
 
       if (parseFloat(bmiValue) < 25) {
@@ -49,7 +49,7 @@ const Page = () => {
         <div className='w-full sm:w-1/3'>
           <form onSubmit={calcBmi}>
             <div className='bg-red-400 p-5 m-4 rounded-2xl'>
-              <label className='mt-3 font-extralight text-3xl'>Your Height: </label>
+              <label className='mt-3 font-extralight text-3xl'>Your Height(m): </label>
               <input
                 type='number'
                 placeholder='Enter Your Height'
@@ -58,7 +58,7 @@ const Page = () => {
                 onChange={(e) => setHeight(parseFloat(e.target.value))}
               />
               <br />
-              <label className='mt-4 font-extralight text-3xl'>Your Weight: </label>
+              <label className='mt-4 font-extralight text-3xl'>Your Weight(kg): </label>
               <input
                 type='number'
                 placeholder='Enter your weight'
