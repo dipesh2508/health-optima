@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import NavBar from "@/components/shared/NavBar";
 import FootBar from "@/components/shared/FootBar";
+import AuthProvider  from "@/components/AuthProvider/authprovider";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -57,9 +58,13 @@ export default function RootLayout({
         />
       </head>
       <body className={montserrat.className}>
+      
         <NavBar />
-        {children}
+        <AuthProvider>
+          {children}
+        </AuthProvider>
         <FootBar />
+        
       </body>
     </html>
   );

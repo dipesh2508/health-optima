@@ -17,6 +17,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useState } from "react";
 import { useRef } from "react";
+import { json } from "stream/consumers";
+import { signIn, useSession } from "next-auth/react";
 
 const UserValidation = z.object({
   name: z.string().min(3).max(50),
@@ -31,7 +33,30 @@ const Register = () => {
     resolver: zodResolver(UserValidation),
   });
 
+  const session=useSession();
+  console.log(session);
+  
   const onSubmit = async (formRef: Record<string, unknown>) => {
+    
+    
+
+    // try {
+    //   const res: Response = await fetch("../api/register", {
+    //     method: "POST",
+    //     body:
+    //   });
+    
+    //   if (res.ok) {
+    //     alert("registration successfull");
+        
+    //   }
+    // } catch (error) {
+    //   // handle error
+    //   console.log(error);
+      
+    // }
+
+    // form.reset();
   }
  
   
@@ -56,6 +81,7 @@ const Register = () => {
         </h2>
         <div className="mt-4 flex flex-col text-md md:mt-8 md:text-lg">
           <Form {...form}>
+            
             <form ref={formRef} onSubmit={form.handleSubmit(onSubmit)}>
               <FormField
                 control={form.control}
@@ -116,9 +142,10 @@ const Register = () => {
               />
 
               <div className="flex">
-                <Button type="submit" className="mt-4 flex-1 bg-primary">
-                  Register
-                </Button>
+              <Button  type="submit" className="mt-4 flex-1 bg-primary">
+                Register
+              </Button>
+
               </div>
             </form>
           </Form>
@@ -131,6 +158,7 @@ const Register = () => {
 
           <button
             type="button"
+            onClick={()=>signIn("google")}
             className="mt-4 flex w-full items-center justify-center rounded-lg bg-white p-3 text-xs font-semibold shadow-md md:text-sm"
           >
             <svg
