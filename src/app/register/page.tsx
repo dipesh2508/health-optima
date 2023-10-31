@@ -36,12 +36,16 @@ const Register = () => {
   const session=useSession();
   console.log(session);
   
+  if (session.status==="authenticated") {
+    window.location.href="../apps"
+  }
+
   const onSubmit = async (formRef: Record<string, unknown>) => {
     
     
 
     // try {
-    //   const res: Response = await fetch("../api/register", {
+    //   const I: Response = await fetch("../api/register", {
     //     method: "POST",
     //     body:
     //   });
