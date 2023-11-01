@@ -58,12 +58,13 @@ export default function RootLayout({
         />
       </head>
       <body className={montserrat.className}>
-      
+      <AuthProvider>
         <NavBar />
-        <AuthProvider>
+        
           {children}
-        </AuthProvider>
+      
         <FootBar />
+      </AuthProvider>
         
       </body>
     </html>

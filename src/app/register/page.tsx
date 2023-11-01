@@ -18,7 +18,7 @@ import * as z from "zod";
 import { useState } from "react";
 import { useRef } from "react";
 import { json } from "stream/consumers";
-import { signIn, useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 const UserValidation = z.object({
   name: z.string().min(3).max(50),
@@ -37,7 +37,7 @@ const Register = () => {
   console.log(session);
   
   if (session.status==="authenticated") {
-    window.location.href="../apps"
+    // window.location.href="../apps"
   }
 
   const onSubmit = async (formRef: Record<string, unknown>) => {
