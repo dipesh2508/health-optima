@@ -37,7 +37,7 @@ const Register = () => {
   console.log(session);
   
   if (session.status==="authenticated") {
-    // window.location.href="../apps"
+    window.location.href="../apps"
   }
 
   const onSubmit = async (formRef: Record<string, unknown>) => {
