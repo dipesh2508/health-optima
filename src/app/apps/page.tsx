@@ -8,8 +8,13 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
+<<<<<<< HEAD
 import { getSession,signIn } from "next-auth/react";
 import { useState,useEffect } from "react";
+=======
+import { getSession, signIn } from "next-auth/react";
+import { useState,useEffect} from "react";
+>>>>>>> d4624f39580a7097aa1b55be525bd7923be3ec2c
 
 const data = [
   {
