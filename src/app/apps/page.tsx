@@ -8,8 +8,8 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
-import { getSession, signIn } from "next-auth/react";
-import { useState,useEffect, use } from "react";
+import { getSession,signIn } from "next-auth/react";
+import { useState,useEffect } from "react";
 
 const data = [
   {
@@ -48,23 +48,22 @@ const data = [
 
 const apps = () => {
   
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
 
-  useEffect(()=>{
-    const securePage=async () => {
-      const session=await getSession()
+  useEffect(() => {
+    const securePage = async () => {
+      const session = await getSession();
       if (!session) {
-        signIn("google")
+        signIn('google');
+      } else {
+        setLoading(false);
       }
-      else{
-        setLoading(false)
-      }
-    }
-    securePage()
-  },[])
+    };
+    securePage();
+  }, []);
 
-  if(loading){
-    return<h2> Loading.. </h2>
+  if (loading) {
+    return <h2>Loading</h2>;
   }
 
   return (
