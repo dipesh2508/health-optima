@@ -3,13 +3,14 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import NavBar from "@/components/shared/NavBar";
 import FootBar from "@/components/shared/FootBar";
-import AuthProvider  from "@/components/AuthProvider/authprovider";
+import AuthProvider from "@/components/AuthProvider/AuthProvider";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Health Optima",
-  description: "Empower Your Wellness Journey with Health Optima: Your Ultimate Health and Wellness Companion",
+  description:
+    "Empower Your Wellness Journey with Health Optima: Your Ultimate Health and Wellness Companion",
   keywords:
     "health optima, health, wellness, fitness, sleep, hydration, bmi, todo, tasks, productivity, health apps, wellness apps, fitness apps, sleep apps, hydration apps, bmi apps, todo apps, tasks apps, productivity apps",
   robots: "index, follow",
@@ -40,8 +41,6 @@ export default function RootLayout({
         {/* Replace with your actual image URL */}
         <meta property="og:url" content="https://www.healthoptima.in" />
         <meta property="og:type" content="website" />
-
-
         {/* Google tag (gtag.js) */}
         <script
           async
@@ -57,15 +56,13 @@ export default function RootLayout({
           }}
         />
       </head>
+
       <body className={montserrat.className}>
-      <AuthProvider>
-        <NavBar />
-        
+        <AuthProvider>
+          <NavBar />
           {children}
-      
-        <FootBar />
-      </AuthProvider>
-        
+          <FootBar />
+        </AuthProvider>
       </body>
     </html>
   );

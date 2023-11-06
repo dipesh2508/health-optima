@@ -1,16 +1,17 @@
 "use client"
+
 import { Button } from '@/components/ui/button';
 import React, { useState } from 'react';
 import Image from 'next/image';
 import bmiCalcImg from "@/assets/images/bmiCalcImg.png";
 
-const Page = () => {
-  const [height, setHeight] = useState(0);
-  const [weight, setWeight] = useState(0);
-  const [bmi, setBMI] = useState("");
-  const [message, setMessage] = useState("");
+const Page: React.FC = () => {
+  const [height, setHeight] = useState<number>(0);
+  const [weight, setWeight] = useState<number>(0);
+  const [bmi, setBMI] = useState<string>("");
+  const [message, setMessage] = useState<string>("");
 
-  const calcBmi = (e) => {
+  const calcBmi = (e: React.FormEvent) => {
     e.preventDefault();
 
     if (weight === 0 || height === 0) {
@@ -22,7 +23,7 @@ const Page = () => {
       if (parseFloat(bmiValue) < 25) {
         setMessage('You are underweight');
       } else if (parseFloat(bmiValue) >= 25 && parseFloat(bmiValue) < 30) {
-        setMessage('You are healthy weight');
+        setMessage('You are a healthy weight');
       } else {
         setMessage('You are overweight');
       }
@@ -83,3 +84,4 @@ const Page = () => {
 }
 
 export default Page;
+

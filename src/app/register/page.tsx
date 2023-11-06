@@ -34,34 +34,11 @@ const Register = () => {
   });
 
   const session=useSession();
-  console.log(session);
   
   if (session.status==="authenticated") {
-    window.location.href="../apps"
+    window.location.href="/apps"
   }
-
-  const onSubmit = async (formRef: Record<string, unknown>) => {
-    
-    
-
-    // try {
-    //   const I: Response = await fetch("../api/register", {
-    //     method: "POST",
-    //     body:
-    //   });
-    
-    //   if (res.ok) {
-    //     alert("registration successfull");
-        
-    //   }
-    // } catch (error) {
-    //   // handle error
-    //   console.log(error);
-      
-    // }
-
-    // form.reset();
-  }
+  
  
   
 
@@ -86,7 +63,7 @@ const Register = () => {
         <div className="mt-4 flex flex-col text-md md:mt-8 md:text-lg">
           <Form {...form}>
             
-            <form ref={formRef} onSubmit={form.handleSubmit(onSubmit)}>
+            <form ref={formRef}>
               <FormField
                 control={form.control}
                 name="name"
@@ -162,7 +139,10 @@ const Register = () => {
 
           <button
             type="button"
-            onClick={()=>signIn("google")}
+            onClick={e=>{
+              e.preventDefault()
+              signIn("google")
+            }}
             className="mt-4 flex w-full items-center justify-center rounded-lg bg-white p-3 text-xs font-semibold shadow-md md:text-sm"
           >
             <svg
