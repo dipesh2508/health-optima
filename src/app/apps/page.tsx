@@ -47,6 +47,7 @@ const data = [
 ];
 
 const apps = () => {
+  
   const [loading, setLoading] = useState(true)
 
   useEffect(()=>{
@@ -61,6 +62,10 @@ const apps = () => {
     }
     securePage()
   },[])
+
+  if(loading){
+    return<h2> Loading.. </h2>
+  }
 
   return (
     <section className="m-12 my-8 md:mx-64">
