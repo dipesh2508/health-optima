@@ -7,10 +7,8 @@ import Link from "next/link";
 import { useState } from "react";
 
 import { signIn, signOut, useSession } from "next-auth/react";
-
 import { navLinks } from "@/constants";
-import { data } from "@/constants/profile";
-import { useRouter } from "next/router";
+
 
 /**
  * A functional component representing a navigation bar.
