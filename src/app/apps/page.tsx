@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
 import { getSession, signIn } from "next-auth/react";
-import { useState,useEffect, use } from "react";
+import { useState,useEffect} from "react";
 
 const data = [
   {
