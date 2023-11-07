@@ -6,7 +6,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
+import { signIn, signOut, useSession } from "next-auth/react";
 import { navLinks } from "@/constants";
+
 
 /**
  * A functional component representing a navigation bar.
@@ -14,6 +16,11 @@ import { navLinks } from "@/constants";
  */
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { data: session, status } = useSession();
+
+  console.log(status);
+
+  const isLoggedIn = session?.user;
 
   return (
     <nav className="z-50 h-24 border-gray-200 bg-purple-200 text-slate-800">
@@ -54,12 +61,11 @@ const NavBar = () => {
         </button>
         <div className="hidden w-full md:block md:w-auto" id="navbar-default">
           <ul className="mt-4 flex flex-col p-4 font-medium md:mt-0 md:flex-row md:space-x-8 md:p-0 ">
-            {
-              navLinks.map((nav) => (
-                <li key={nav.id}>
-                  <Link
-                    href={`/${nav.id === 'contact' ? "#contact" : `${nav.id}`}`}
-                    className="duration-250 relative block cursor-pointer
+            {navLinks.map((nav) => (
+              <li key={nav.id}>
+                <Link
+                  href={`/${nav.id === "contact" ? "#contact" : `${nav.id}`}`}
+                  className="duration-250 relative block cursor-pointer
                     px-4
                     py-2
                     transition-all
@@ -81,32 +87,42 @@ const NavBar = () => {
                     hover:text-purple-900
                     hover:before:w-3/4
                     hover:before:opacity-100"
-                  >
-                    {nav.title}
-                  </Link>
-                </li>
-              ))
-            }
-            <Link href='/login'>
-              <Button>Login/Register</Button>
-            </Link>
+                >
+                  {nav.title}
+                </Link>
+              </li>
+            ))}
+            {isLoggedIn ?(
+              <Link href="/api/auth/signout">
+                <Button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    signOut();
+                  }}
+                >
+                  Logout
+                </Button>
+              </Link>
+            ) : (
+              <Link href="/register">
+                <Button>Login/Register </Button>
+              </Link>
+            )}
           </ul>
         </div>
       </div>
       {isOpen && (
         <div className="absolute z-50 mt-3 flex w-full flex-col bg-purple-200 px-3 py-4 text-center text-base font-semibold md:hidden">
-          {
-            navLinks.map((nav) => (
-              <Link
-                href={`/${nav.id === 'contact' ? "#contact" : `${nav.id}`}`}
-                onClick={() => setIsOpen(false)}
-                key={nav.id}
-                className="block py-2 pl-3 pr-4 hover:rounded hover:bg-purple-300 hover:text-purple-900"
-              >
-                {nav.title}
-              </Link>
-            ))
-          }
+          {navLinks.map((data) => (
+            <Link
+              href={`/${data.id === "contact" ? "#contact" : `${data.id}`}`}
+              onClick={() => setIsOpen(false)}
+              key={data.id}
+              className="block py-2 pl-3 pr-4 hover:rounded hover:bg-purple-300 hover:text-purple-900"
+            >
+              {data.title}
+            </Link>
+          ))}
           <Button>Login/Register</Button>
         </div>
       )}

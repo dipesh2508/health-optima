@@ -1,3 +1,4 @@
+"use client"
 import Sleep from "@/assets/images/sleep tracker.png";
 import BMI from "@/assets/images/bmi.png";
 import Water from "@/assets/images/water drinking.png";
@@ -6,6 +7,9 @@ import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+
+import { getSession,signIn } from "next-auth/react";
+import { useState,useEffect } from "react";
 
 const data = [
   {
@@ -21,7 +25,7 @@ const data = [
     tagline: "BMI Calculator for Wellness",
     description:
       "Calculate BMI, get insights, and set goals with our user-friendly BMI Calculator. Your path to wellness begins here.",
-    link: "",
+    link: "../apps/BMI",
     image: BMI,
   },
   {
@@ -43,6 +47,25 @@ const data = [
 ];
 
 const apps = () => {
+  
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const securePage = async () => {
+      const session = await getSession();
+      if (!session) {
+        signIn('google');
+      } else {
+        setLoading(false);
+      }
+    };
+    securePage();
+  }, []);
+
+  if (loading) {
+    return <h2>Loading</h2>;
+  }
+
   return (
     <section className="m-12 my-8 md:mx-64">
       <h1 className="text-center font-serif text-4xl font-semibold text-primary md:text-6xl">

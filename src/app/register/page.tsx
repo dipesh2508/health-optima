@@ -15,6 +15,10 @@ import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import { useState } from "react";
+import { useRef } from "react";
+import { json } from "stream/consumers";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 const UserValidation = z.object({
   name: z.string().min(3).max(50),
@@ -23,9 +27,20 @@ const UserValidation = z.object({
 });
 
 const Register = () => {
+  const formRef = useRef<HTMLFormElement | null>(null);
+
   const form = useForm({
     resolver: zodResolver(UserValidation),
   });
+
+  const session=useSession();
+  
+  if (session.status==="authenticated") {
+    window.location.href="/apps"
+  }
+  
+ 
+  
 
   return (
     <main className="flex flex-col justify-between p-5 md:flex-row md:p-10">
@@ -47,7 +62,8 @@ const Register = () => {
         </h2>
         <div className="mt-4 flex flex-col text-md md:mt-8 md:text-lg">
           <Form {...form}>
-            <form>
+            
+            <form ref={formRef}>
               <FormField
                 control={form.control}
                 name="name"
@@ -107,9 +123,10 @@ const Register = () => {
               />
 
               <div className="flex">
-                <Button type="submit" className="mt-4 flex-1 bg-primary">
-                  Register
-                </Button>
+              <Button  type="submit" className="mt-4 flex-1 bg-primary">
+                Register
+              </Button>
+
               </div>
             </form>
           </Form>
@@ -122,6 +139,10 @@ const Register = () => {
 
           <button
             type="button"
+            onClick={e=>{
+              e.preventDefault()
+              signIn("google")
+            }}
             className="mt-4 flex w-full items-center justify-center rounded-lg bg-white p-3 text-xs font-semibold shadow-md md:text-sm"
           >
             <svg
