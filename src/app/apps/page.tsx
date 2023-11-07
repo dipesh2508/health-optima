@@ -11,6 +11,8 @@ import Image from "next/image";
 import { getSession,signIn } from "next-auth/react";
 import { useState, useEffect } from "react";
 
+import Loading from "../loading";
+
 const data = [
   {
     name: "Rest Assured",
@@ -63,7 +65,7 @@ const Apps = () => {
   }, []);
 
   if (loading) {
-    return <h2>Loading</h2>;
+    return <Loading/>
   }
 
   return (
