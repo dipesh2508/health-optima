@@ -10,6 +10,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+
 const blogs = () => {
   return (
     <main>
@@ -21,25 +24,31 @@ const blogs = () => {
           {popular.map((app, index) => (
             <div key={index} className="flex flex-row gap-2 md:w-auto">
               <div className="grid content-center">
-                <Image
-                  height={121}
-                  width={121}
-                  src={app.image}
-                  alt={app.name}
-                  className="rounded-full shadow-custom"
-                />
+                {(
+                  <Image
+                    height={121}
+                    width={121}
+                    src={app.image}
+                    alt={app.name}
+                    className="rounded-full shadow-custom"
+                  />
+                ) || <Skeleton height={121} width={121} circle={true} />}
               </div>
               <div className="flex flex-col">
-                <h2 className="font-serif text-lg font-medium md:text-2xl">
-                  {app.name}
-                </h2>
+                {(
+                  <h2 className="font-serif text-lg font-medium md:text-2xl">
+                    {app.name}
+                  </h2>
+                ) || <Skeleton />}
                 <p className="font-sans text-xs font-light md:text-sm">
-                  {app.description}
+                  {app.description || <Skeleton count={3} />}
                 </p>
                 <div>
-                  <Button className="mt-1 py-1" size={"sm"}>
-                    see
-                  </Button>
+                  {(
+                    <Button className="mt-1 py-1" size={"sm"}>
+                      see
+                    </Button>
+                  ) || <Skeleton count={0.5} />}
                 </div>
               </div>
             </div>
@@ -53,13 +62,15 @@ const blogs = () => {
         <div>
           <div className="mt-8 grid grid-cols-1 md:grid-cols-3">
             <div className="relative ml-0 w-72 md:w-96">
-              <Image
-                src={run}
-                alt="featured image"
-                height={384}
-                width={384}
-                className="rounded-3xl"
-              />
+              {(
+                <Image
+                  src={run}
+                  alt="featured image"
+                  height={384}
+                  width={384}
+                  className="rounded-3xl"
+                />
+              ) || <Skeleton height={384} width={384} />}
               <div className="absolute left-0 top-0 h-72 w-72  rounded-3xl bg-black opacity-40 duration-200 ease-in-out hover:bg-transparent md:h-96 md:w-96"></div>
               <h4 className="absolute left-4 top-4 bg-black p-1 text-white">
                 Featured
@@ -90,37 +101,41 @@ const blogs = () => {
                   className="grid grid-cols-1 align-middle md:grid-cols-3 md:content-center md:gap-3"
                 >
                   <div className="grid items-center">
-                    <Image
-                      height={34}
-                      width={300}
-                      src={item.image}
-                      alt=""
-                      className="rounded-md hover:shadow-custom"
-                      loading="lazy"
-                    />
+                    {(
+                      <Image
+                        height={34}
+                        width={300}
+                        src={item.image}
+                        alt=""
+                        className="rounded-md hover:shadow-custom"
+                        loading="lazy"
+                      />
+                    ) || <Skeleton height={34} width={300} />}
                   </div>
                   <div className="col-span-2 mt-4 flex flex-col items-center text-center md:mt-0 md:items-start md:text-left">
                     <h1 className="font-sans text-base font-light ">
-                      {item.category}
+                      {item.category || <Skeleton />}
                     </h1>
 
                     <h1 className="font-serif text-2xl font-semibold leading-6">
-                      {item.name}
+                      {item.name || <Skeleton />}
                     </h1>
 
                     <h1 className="mt-1 font-sans text-xs font-light">
-                      {item.description}
+                      {item.description || <Skeleton count={3} />}
                     </h1>
 
                     <div className="flex justify-center md:justify-start">
                       <Link href={item.link}>
-                        <Button
-                          variant={"secondary"}
-                          size={"sm"}
-                          className="mt-2"
-                        >
-                          Read
-                        </Button>
+                        {(
+                          <Button
+                            variant={"secondary"}
+                            size={"sm"}
+                            className="mt-2"
+                          >
+                            Read
+                          </Button>
+                        ) || <Skeleton count={0.5} />}
                       </Link>
                     </div>
                   </div>
@@ -141,32 +156,34 @@ const blogs = () => {
               className="grid grid-cols-1 align-middle md:grid-cols-3 md:content-center md:gap-3"
             >
               <div className="grid-1 grid content-center">
-                <Image
-                  height={34}
-                  width={500}
-                  src={item.image}
-                  alt=""
-                  className="rounded-md hover:shadow-custom"
-                  loading="lazy"
-                />
+                {(
+                  <Image
+                    height={34}
+                    width={500}
+                    src={item.image}
+                    alt=""
+                    className="rounded-md hover:shadow-custom"
+                    loading="lazy"
+                  />
+                ) || <Skeleton height={34} width={500} />}
               </div>
 
               <div className="col-span-2 mt-4 flex flex-col gap-1 text-center md:mt-0 md:gap-2 md:text-left">
                 <h1 className="font-sans text-base font-light md:text-2xl ">
-                  {item.category}
+                  {item.category || <Skeleton/>}
                 </h1>
 
                 <h1 className="font-serif text-lg font-semibold leading-6 md:text-4xl">
-                  {item.name}
+                  {item.name || <Skeleton/>}
                 </h1>
 
                 <h1 className="mt-1 font-sans text-base font-light md:text-base">
-                  {item.description}
+                  {item.description || <Skeleton count={3} />}
                 </h1>
 
                 <div className="flex justify-center md:justify-start">
                   <Link href={item.link}>
-                    <Button className="mt-2">Read</Button>
+                    {<Button className="mt-2">Read</Button> || <Skeleton count={0.5} />}
                   </Link>
                 </div>
               </div>
