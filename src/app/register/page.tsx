@@ -36,7 +36,7 @@ const Register = () => {
   const session=useSession();
   
   if (session.status==="authenticated") {
-    window.location.href="/apps"
+    window.location.href="/"
   }
   
  
