@@ -6,21 +6,21 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
-import { signIn, signOut, useSession } from "next-auth/react";
+// import { signIn, signOut, useSession } from "next-auth/react";
 import { navLinks } from "@/constants";
-
-
+import { auth } from "@clerk/nextjs/server";
+import { SignOutButton } from "@clerk/nextjs";
 /**
  * A functional component representing a navigation bar.
  * @returns {JSX.Element} - The JSX element representing the navigation bar.
  */
-const NavBar = () => {
+const NavBar = ({
+  signedIn
+}:{
+  signedIn:boolean;
+}) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { data: session, status } = useSession();
-
-  console.log(status);
-
-  const isLoggedIn = session?.user;
+  // const { data: session, status } = useSession();
 
   return (
     <nav className="z-50 h-24 border-gray-200 bg-purple-200 text-slate-800">
@@ -92,20 +92,15 @@ const NavBar = () => {
                 </Link>
               </li>
             ))}
-            {isLoggedIn ?(
-              <Link href="/api/auth/signout">
-                <Button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    signOut();
-                  }}
-                >
+            {signedIn ?(
+              <SignOutButton>
+                <Button>
                   Logout
                 </Button>
-              </Link>
+              </SignOutButton>
             ) : (
-              <Link href="/register">
-                <Button>Login/Register </Button>
+              <Link href="/sign-in">
+                <Button>Login/Register</Button>
               </Link>
             )}
           </ul>
