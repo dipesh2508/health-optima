@@ -1,17 +1,12 @@
-"use client"
 import Sleep from "@/assets/images/sleep tracker.png";
 import BMI from "@/assets/images/bmi.png";
 import Water from "@/assets/images/water drinking.png";
 import Task from "@/assets/images/to do list.png";
 import Link from "next/link";
-
+import { auth } from '@clerk/nextjs/server';
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-
-import { getSession,signIn } from "next-auth/react";
-import { useState, useEffect } from "react";
-
-import Loading from "../loading";
+import { redirect } from "next/navigation";
 
 const data = [
   {
@@ -49,23 +44,11 @@ const data = [
 ];
 
 const Apps = () => {
-  
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const securePage = async () => {
-      const session = await getSession();
-      if (!session) {
-        signIn('google');
-      } else {
-        setLoading(false);
-      }
-    };
-    securePage();
-  }, []);
+  const { userId } : { userId: string | null } = auth();
 
-  if (loading) {
-    return <Loading/>
+  if (!userId){
+    redirect("/sign-in")
   }
 
   return (
