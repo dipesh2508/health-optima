@@ -21,6 +21,7 @@
     "emailjs-com": "^3.2.0",
     "eslint": "8.56.0",
     "eslint-config-next": "14.2.4",
+    "framer-motion": "^11.3.24",
     "mongoose": "^8.4.4",
     "next": "^14.2.4",
     "next-auth": "^4.24.7",
