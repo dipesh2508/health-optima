@@ -38,7 +38,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ['Montserrat', 'sans-serif'],
-        serif: ['PT Serif', 'serif']
+        serif: ['Mona-Sans', 'sans-serif']
       },
       boxShadow: {
         "custom": '0px 25px 50px -12px rgba(0, 0, 0, 0.25) ',

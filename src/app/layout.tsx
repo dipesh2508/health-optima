@@ -6,8 +6,10 @@ import FootBar from "@/components/shared/FootBar";
 // import AuthProvider from "@/components/AuthProvider/AuthProvider";
 import { ClerkProvider } from "@clerk/nextjs";
 import { auth } from "@clerk/nextjs/server";
+import localFont from 'next/font/local'
 
 const montserrat = Montserrat({ subsets: ["latin"] });
+const mona = localFont({src: '../assets/font/Mona-Sans.ttf'})
 
 export const metadata: Metadata = {
   title: "Health Optima",
@@ -70,7 +72,7 @@ export default async function RootLayout({
           />
         </head>
 
-        <body className={montserrat.className}>
+        <body className={`${montserrat.className} ${mona.className}`}>
           <NavBar signedIn={isSignedIn} />
           {children}
           <FootBar />
