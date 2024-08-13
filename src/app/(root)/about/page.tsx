@@ -140,8 +140,8 @@ const about = () => {
           className="col-span-1 md:col-span-2 flex flex-col items-center"
         >
           <div className="my-auto flex flex-col gap-4">
-            <h2 className="text-2xl md:text-5xl text-center">Our Mission</h2>
-            <p className="text-sm md:text-base text-center">
+            <h2 className="text-2xl md:text-5xl text-center md:text-left">Our Mission</h2>
+            <p className="text-sm md:text-base text-center md:text-left">
               Our mission is to empower individuals on their path to holistic
               wellness. We combine advanced technology with personalized
               experiences to simplify health management, inspire positive
@@ -198,8 +198,8 @@ const about = () => {
           className="col-span-1 md:col-span-2 flex flex-col items-center"
         >
           <div className="my-auto flex flex-col gap-4">
-            <h2 className="text-2xl md:text-5xl text-center">Our Vision</h2>
-            <p className="text-sm md:text-base  text-center">
+            <h2 className="text-2xl md:text-5xl text-center md:text-left">Our Vision</h2>
+            <p className="text-sm md:text-base  text-center md:text-left">
               Our vision is to pioneer a profound transformation in the way
               individuals approach their health and wellness. We envision a
               world where people are not only well-informed but also genuinely
@@ -233,7 +233,7 @@ const about = () => {
       >
         <div className="flex items-end gap-2">
           <h2 className="text-lg md:text-4xl font-semibold md:font-medium">
-            <span className="text-3xl md:text-xl">Meet Our Team</span> of Very Capable<br />
+            <span className="text-3xl md:text-4xl">Meet Our Team</span> of Very Capable<br />
             Individuals in the field of Technology
           </h2>
           <div className="mb-2 h-1 w-64 bg-black" />
