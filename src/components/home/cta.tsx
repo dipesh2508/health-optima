@@ -6,7 +6,7 @@ import { ctaData } from "@/constants";
 
 const cta = () => {
   return (
-    <section className="mx-8 my-12 flex flex-col items-center rounded-lg bg-primary px-3 py-12 shadow-custom md:m-16">
+    <section className="mx-8 my-12 flex flex-col items-center rounded-lg bg-primary-5 px-3 py-12 shadow-custom md:m-16">
       <h3 className="text-md font-regular text-white md:text-xl">
         Unlock your Potential
       </h3>

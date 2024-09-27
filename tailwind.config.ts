@@ -31,10 +31,21 @@ module.exports = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
       colors: {
-        'primary': '#A855F7',
+        'primary': {
+          0: '#FAF5FF',
+          1: '#F3E8FF',
+  				2: '#E9D5FF',
+  				3: '#D8B4FE',
+  				4: '#C084FC',
+  				5: '#A855F7',
+  				6: '#9333EA',
+  				7: '#7E22CE',
+  				8: '#6B21A8',
+  				9: '#581C87',
+				  10: '#3B0764',
+        },
         'secondary': '#115E59',
-        'background': '#FFFBEB',
-        'dark-primary': '#3b0764'
+        'background': '#FFFFFF',
       },
       fontFamily: {
         sans: ['Montserrat', 'sans-serif'],

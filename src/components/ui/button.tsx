@@ -10,7 +10,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-primary text-white p-2 border-2 border-primary ease-in-out duration-250 hover:border-primary hover:text-primary hover:bg-transparent",
+          "bg-primary-5 text-white p-2 border-2 border-primary-5 ease-in-out duration-250 hover:border-primary-5 hover:text-primary-5 hover:bg-transparent",
         destructive:
           "bg-red-500 text-slate-50 border-2 border-red-500 hover:text-red-500 hover:bg-transparent",
         outline:
@@ -21,7 +21,7 @@ const buttonVariants = cva(
           "hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-slate-50",
         link: "text-slate-900 underline-offset-4 hover:underline dark:text-slate-50",
         warning: "bg-yellow-500 text-slate-50 border-2 border-yellow-500 hover:text-yellow-500 hover:bg-transparent",
-        cta: "bg-dark-primary text-white p-2 border-2 border-dark-primary ease-in-out duration-250 hover:border-dark-primary hover:text-dark-primary hover:bg-transparent",
+        cta: "bg-primary-10 text-white p-2 border-2 border-primary-10 ease-in-out duration-250 hover:border-primary-10 hover:text-primary-10 hover:bg-transparent",
       },
       size: {
         default: "h-10 px-4 py-2",
