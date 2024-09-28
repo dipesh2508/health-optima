@@ -12,6 +12,7 @@
     "@clerk/nextjs": "^5.1.6",
     "@hookform/resolvers": "^3.6.0",
     "@radix-ui/react-collapsible": "^1.1.0",
+    "@radix-ui/react-dialog": "^1.1.1",
     "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-slot": "^1.0.2",
     "@types/node": "20.14.5",

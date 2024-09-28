@@ -4,6 +4,7 @@ export interface IUser extends Document {
   clerkId: string;
   name: string;
   email: string;
+  // lists: Object[];
 }
 
 const userSchema = new Schema<IUser>(

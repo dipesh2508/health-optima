@@ -2,6 +2,7 @@ import mongoose, { Document, Schema, ObjectId } from "mongoose";
 
 export interface ITodo extends Document {
   userId: ObjectId;
+  listName: string;
   taskIds: ObjectId[];
 }
 
