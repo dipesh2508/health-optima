@@ -1,16 +1,20 @@
 import mongoose, { Document, Schema, ObjectId } from "mongoose";
 
-export interface ITodo extends Document {
+export interface ILists extends Document {
   userId: ObjectId;
   listName: string;
   taskIds: ObjectId[];
 }
 
-const todoSchema = new Schema<ITodo>(
+const listSchema = new Schema<ILists>(
   {
     userId: {
       type: Schema.Types.ObjectId,
       ref: "User",
+      required: true,
+    },
+    listName: {
+      type: String,
       required: true,
     },
     taskIds: [
@@ -25,5 +29,5 @@ const todoSchema = new Schema<ITodo>(
   },
 );
 
-export const Todo =
-  mongoose.models.Todo || mongoose.model<ITodo>("Todo", todoSchema);
+export const List =
+  mongoose.models.Todo || mongoose.model<ILists>("List", listSchema);

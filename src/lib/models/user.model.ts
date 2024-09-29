@@ -4,7 +4,8 @@ export interface IUser extends Document {
   clerkId: string;
   name: string;
   email: string;
-  // lists: Object[];
+  lists: Object[];
+  waterRecords: Object[];
 }
 
 const userSchema = new Schema<IUser>(
@@ -23,6 +24,18 @@ const userSchema = new Schema<IUser>(
       unique: true,
       lowercase: true,
     },
+    lists: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: "List",
+      },
+    ],
+    waterRecords: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: "WaterRecord",
+      },
+    ],
   },
   {
     timestamps: true, 
