@@ -11,7 +11,7 @@ import { navLinks } from "@/constants";
 
 const Footbar = () => {
   return (
-    <footer className="bg-primary p-4 text-white md:p-8">
+    <footer className="bg-primary-5 p-4 text-white md:p-8">
       <div className="container mx-auto">
         <div className="flex flex-col justify-between sm:flex-row">
           <div className="mb-4 sm:mb-0">

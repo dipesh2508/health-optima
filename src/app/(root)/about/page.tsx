@@ -35,7 +35,7 @@ const about = () => {
           >
             We are
             <br />
-            <h1 className="font-bold text-dark-primary md:font-semibold">
+            <h1 className="font-bold text-primary-10 md:font-semibold">
               HEALTH OPTIMA
             </h1>
           </MotionDiv>
@@ -54,7 +54,7 @@ const about = () => {
         >
           <div className="flex items-end gap-2">
             <h2 className="text-2xl font-bold md:text-5xl md:font-medium">
-              About <span className="text-dark-primary">U</span>s
+              About <span className="text-primary-10">U</span>s
             </h2>
             <div className="mb-2 h-0.5 w-64 bg-teal-950 md:h-1"></div>
           </div>
@@ -151,7 +151,7 @@ const about = () => {
             </p>
             <div className="flex flex-row gap-1 md:gap-3 text-base md:text-xl text-center">
               <h3 className="text-secondary">Join us, in our Mission.</h3>
-              <Link href="/sign-up" className="text-dark-primary underline">
+              <Link href="/sign-up" className="text-primary-10 underline">
                 Register Here
               </Link>
             </div>

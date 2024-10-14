@@ -53,7 +53,7 @@ const Apps = () => {
 
   return (
     <section className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 m-12 my-16 md:px-20">
-      <h1 className="sm:col-span-2 text-center font-serif text-4xl font-semibold text-primary md:text-5xl">
+      <h1 className="sm:col-span-2 text-center font-serif text-4xl font-semibold text-primary-10 md:text-5xl">
         Our Applications
       </h1>
       <h2 className="text-black font-medium text-center text-lg sm:col-span-2 mt-4 mb-2">Choose an App to Enhance Your Day-to-Day Life</h2>
