@@ -9,7 +9,7 @@ const page = () => {
       {/* title section */}
       <section
         id="headline"
-        className="grid gap-8 bg-primary py-12 md:grid-cols-12"
+        className="grid gap-8 bg-primary-5 py-12 md:grid-cols-12"
       >
         <div className="mx-8 grid content-end gap-4 md:col-span-7 md:mx-0 md:ml-28">
           {/* headline section  */}
@@ -53,7 +53,7 @@ const page = () => {
             allowFullScreen
           ></iframe>
           <div className="mt-8 flex flex-col gap-4" id="UI">
-            <h2 className="font-serif text-2xl font-medium text-dark-primary md:text-3xl">
+            <h2 className="font-serif text-2xl font-medium text-primary-9 md:text-3xl">
               Hydration and Physical Wellness
             </h2>
             <p className="text-justify font-sans text-base text-slate-800">
@@ -254,7 +254,7 @@ const page = () => {
           <div className="flex flex-row items-center gap-3">
             <Image src={author} alt="isheta" loading="lazy" />
             <div className="flex flex-col gap-1">
-              <h3 className="font-serif text-2xl font-semibold text-dark-primary">
+              <h3 className="font-serif text-2xl font-semibold text-primary-9">
                 Isheta Aggarwal
               </h3>
               <h5 className="font-sans text-lg font-medium text-slate-500">
@@ -265,17 +265,17 @@ const page = () => {
 
           {/* sideway navigation menu */}
           <div className="mt-3 flex flex-col gap-3 pt-4 font-sans text-base font-medium text-slate-800">
-            <hr className="border-dark-primary" />
+            <hr className="border-primary-9" />
             <Link href="#UI">
               <h5>Hydration and Physical Wellness</h5>
             </Link>
-            <hr className="border-dark-primary" />
+            <hr className="border-primary-9" />
             <h5>Cognitive Clarity and Mental Health</h5>
-            <hr className="border-dark-primary" />
+            <hr className="border-primary-9" />
             <h5>Weight Management and Nutrition</h5>
-            <hr className="border-dark-primary" />
+            <hr className="border-primary-9" />
             <h5>The Importance of Regular Hydration</h5>
-            <hr className="border-dark-primary" />
+            <hr className="border-primary-9" />
           </div>
         </div>
       </section>
