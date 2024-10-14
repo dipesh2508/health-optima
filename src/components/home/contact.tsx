@@ -70,7 +70,7 @@ const Contact = () => {
     <section className="my-20" id="contact">
       <div className="my-12">
         <h1 className="text-center font-serif text-3xl font-bold md:text-5xl">
-          Contact <span className="text-primary">Us</span>
+          Contact <span className="text-primary-5">Us</span>
         </h1>
         <h1 className="mt-4 text-center font-sans text-base font-light">
           We would love to hear from you
@@ -92,7 +92,7 @@ const Contact = () => {
                     <FormControl className="text-base-semibold flex-1 text-secondary">
                       <Input
                         type="text"
-                        className="account-form_input no focus border-primary"
+                        className="account-form_input no focus border-primary-5"
                         {...field}
                       />
                     </FormControl>
@@ -110,7 +110,7 @@ const Contact = () => {
                     <FormControl className="text-base-semibold flex-1 text-secondary">
                       <Input
                         type="email"
-                        className="account-form_input no focus border-primary"
+                        className="account-form_input no focus border-primary-5"
                         {...field}
                       />
                     </FormControl>
@@ -129,7 +129,7 @@ const Contact = () => {
                     <FormControl className="text-base-semibold flex-1 text-secondary">
                       <Textarea
                         rows={10}
-                        className="account-form_input no focus border-primary"
+                        className="account-form_input no focus border-primary-5"
                         {...field}
                       />
                     </FormControl>
@@ -138,7 +138,7 @@ const Contact = () => {
               />
 
               <div className="flex">
-                <Button type="submit" className="mt-4 flex-1 bg-primary">
+                <Button type="submit" className="mt-4 flex-1 bg-primary-5">
                   Submit
                 </Button>
               </div>
