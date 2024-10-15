@@ -1,9 +1,10 @@
-import mongoose, { Document, Schema } from "mongoose";
+import mongoose, { Document, Schema, ObjectId } from "mongoose";
 
 export interface ITask extends Document {
   complete: boolean;
   taskName: string;
   dueTime: string;
+  listId: ObjectId;
 }
 
 const taskSchema = new Schema<ITask>(
@@ -18,6 +19,11 @@ const taskSchema = new Schema<ITask>(
     },
     dueTime: {
       type: String,
+      required: true,
+    },
+    listId: {
+      type: Schema.Types.ObjectId,
+      ref: "List",
       required: true,
     },
   },

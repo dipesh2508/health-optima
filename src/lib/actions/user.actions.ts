@@ -6,6 +6,7 @@ import { connectToDB } from "../mongoose";
 import path from "path";
 import { List } from "../models/todo.model";
 
+// Creates a new user in the database
 export const createUser = async (
   clerkId: string,
   name: string,
@@ -30,6 +31,7 @@ export const createUser = async (
   }
 };
 
+// Retrieves a user by their MongoDB ID
 export const getUserById = async (id: string) => {
   try {
     await connectToDB();
@@ -41,6 +43,7 @@ export const getUserById = async (id: string) => {
   }
 };
 
+// Retrieves a user by their Clerk ID
 export const getUserByClerkId = async (clerkId: string) => {
   try {
     await connectToDB();
@@ -58,6 +61,7 @@ interface IParams {
   path: string;
 }
 
+// Updates a user's information in the database
 export const updateUser = async (params: IParams) => {
   try {
     await connectToDB();
@@ -78,6 +82,7 @@ interface DeleteUserParams {
   clerkId: string;
 }
 
+// Deletes a user and their associated lists from the database
 export const deleteUser = async (params: DeleteUserParams) => {
   try {
     await connectToDB();
