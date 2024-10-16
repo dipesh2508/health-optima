@@ -3,10 +3,12 @@ import BMI from "@/assets/images/bmi.png";
 import Water from "@/assets/images/water drinking.png";
 import Task from "@/assets/images/to do list.png";
 import Link from "next/link";
-import { auth } from '@clerk/nextjs/server';
+import { auth } from "@clerk/nextjs/server";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { redirect } from "next/navigation";
+import MotionDiv from "@/components/animations/MotionDiv";
+import MotionP from "@/components/animations/MotionP";
 
 const data = [
   {
@@ -42,54 +44,75 @@ const data = [
     image: Task,
   },
 ];
+const page = () => {
+  const { userId }: { userId: string | null } = auth();
 
-const Apps = () => {
-
-  const { userId } : { userId: string | null } = auth();
-
-  if (!userId){
-    redirect("/sign-in")
+  if (!userId) {
+    redirect("/sign-in");
   }
 
   return (
-    <section className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 m-12 my-16 md:px-20">
-      <h1 className="sm:col-span-2 text-center font-serif text-4xl font-semibold text-primary-10 md:text-5xl">
-        Our Applications
-      </h1>
-      <h2 className="text-black font-medium text-center text-lg sm:col-span-2 mt-4 mb-2">Choose an App to Enhance Your Day-to-Day Life</h2>
-      {data.map((app, index) => (
-        <div
-          key={index}
-          className="my-6 hover:scale-105 transition duration-300 flex flex-col items-center md:flex-row md:items-start md:gap-4 p-4 bg-white shadow-lg"
-        >
-          <Image
-            src={app.image}
-            alt={app.name}
-            height={248}
-            width={248}
-            loading="lazy"
-            className="rounded-lg shadow-lg"
-          />
-          <div className="flex flex-col items-center gap-2 md:items-start md:gap-4">
-            <h2 className="mt-4 font-serif text-xl font-semibold text-secondary md:text-3xl min-h-8">
-              {app.name}
-            </h2>
-            <h3 className="text-center font-sans text-xl font-light md:text-start md:text-2xl min-h-14">
-              {app.tagline}
-            </h3>
-            <div className="text-center font-sans text-sm font-normal md:text-start md:text-sm min-h-16">
-              {app.description}
-            </div>
-            <div>
-              <Link href={app.link}>
-              <Button size="sm">See</Button>
-              </Link>
-            </div>
-          </div>
+    <section className="from-primary-50 min-h-screen bg-gradient-to-b to-white px-4 py-16 sm:px-6 lg:px-8">
+      <MotionDiv
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="mx-auto max-w-7xl"
+      >
+        <h1 className="text-primary-900 mb-4 text-center font-serif text-5xl font-bold">
+          Our Applications
+        </h1>
+        <h2 className="mb-12 text-center font-sans text-xl text-gray-600">
+          Choose an App to Enhance Your Day-to-Day Life
+        </h2>
+
+        <div className="mx-auto grid grid-cols-1 gap-8 md:grid-cols-2">
+          {data.map((app, index) => (
+            <MotionDiv
+              key={index}
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="flex transform flex-col overflow-hidden rounded-lg bg-white shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg sm:flex-row"
+            >
+              <div className="relative w-full sm:w-2/5">
+                <Image
+                  src={app.image}
+                  alt={app.name}
+                  layout="fill"
+                  objectFit="cover"
+                  className="transition-opacity duration-300 hover:opacity-90"
+                />
+              </div>
+              <div className="flex w-full flex-col justify-between p-6 sm:w-3/5">
+                <div>
+                  <h3 className="text-primary-800 mb-2 font-serif text-2xl font-semibold">
+                    {app.name}
+                  </h3>
+                  <p className="mb-3 text-base font-medium text-gray-600">
+                    {app.tagline}
+                  </p>
+                  <MotionP
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                    className="mb-4 text-sm text-gray-500"
+                  >
+                    {app.description}
+                  </MotionP>
+                </div>
+                <Link href={app.link} className="mt-auto">
+                  <Button className="w-full rounded-md px-4 py-2 text-base font-semibold text-white transition duration-300">
+                    Explore {app.name}
+                  </Button>
+                </Link>
+              </div>
+            </MotionDiv>
+          ))}
         </div>
-      ))}
+      </MotionDiv>
     </section>
   );
 };
 
-export default Apps;
+export default page;

@@ -43,8 +43,8 @@ function Calendar({
         ),
         day_range_end: "day-range-end",
         day_selected:
-          "bg-primary-4 text-slate-50 hover:bg-primary-9 hover:text-slate-50 focus:bg-primary-9 focus:text-slate-50 dark:bg-slate-50 dark:text-primary-9 dark:hover:bg-slate-50 dark:hover:text-primary-9 dark:focus:bg-slate-50 dark:focus:text-primary-9",
-        day_today: "bg-slate-100 text-primary-9 dark:bg-slate-800 dark:text-slate-50",
+          "bg-primary-4 text-slate-50 hover:bg-primary-9 hover:text-slate-50 focus:bg-primary-3 focus:text-primary-9 dark:bg-slate-50 dark:text-primary-9 dark:hover:bg-slate-50 dark:hover:text-primary-9 dark:focus:bg-slate-50 dark:focus:text-primary-9",
+        day_today: "bg-primary-3 text-primary-9 dark:focus:text-primary-9 focus:text-primary-9 dark:bg-slate-800 dark:text-slate-50",
         day_outside:
           "day-outside text-slate-500 opacity-50 aria-selected:bg-slate-100/50 aria-selected:text-slate-500 aria-selected:opacity-30 dark:text-slate-400 dark:aria-selected:bg-slate-800/50 dark:aria-selected:text-slate-400",
         day_disabled: "text-slate-500 opacity-50 dark:text-slate-400",
