@@ -75,7 +75,7 @@ const page = () => {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="flex transform flex-col overflow-hidden rounded-lg bg-white shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg sm:flex-row"
             >
-              <div className="relative w-full sm:w-2/5">
+              <div className="relative h-48 w-full sm:h-auto sm:w-2/5">
                 <Image
                   src={app.image}
                   alt={app.name}
