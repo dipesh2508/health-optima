@@ -52,7 +52,7 @@ const page = () => {
   }
 
   return (
-    <section className="from-primary-50 min-h-screen bg-gradient-to-b to-white px-4 py-16 sm:px-6 lg:px-8">
+    <section className="px-4 py-16 sm:px-6 lg:px-8">
       <MotionDiv
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

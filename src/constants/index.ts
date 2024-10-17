@@ -35,24 +35,24 @@ export const blogData = [
   {
     no: "01",
     image: blog1,
-    category: "category",
-    title: "Lorem ipsum dolor sit amet, consectetur adipiscing.",
+    category: "Food",
+    title: "The Power of Plant-Based Eating: A Guide to Meals",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi viverra magna sed pretium sagittis. Nullam ultrices nec ipsum non vestibulum. Proin a tincidunt est.",
-    link: "#",
+      "Discover the benefits of a plant-based diet and learn how to create balanced, flavorful meals that nourish your body and delight your taste buds. From protein-packed legumes to nutrient-dense greens, explore the world of plant-based cuisine.",
+    link: "/blogs/power-of-plant-based-eating",
   },
   {
     no: "02",
     image: blog2,
-    category: "category",
-    title: "Lorem ipsum dolor sit amet, consectetur adipiscing.",
+    category: "fitness",
+    title: "The Ultimate Guide to a Healthy Workout Routine",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi viverra magna sed pretium sagittis. Nullam ultrices nec ipsum non vestibulum. Proin a tincidunt est.",
-    link: "#",
+      "Achieve your fitness goals with our expert tips and personalized workout plans. Whether you're a beginner or a seasoned athlete, our guide will help you stay motivated and achieve your best results.",
+    link: "/blogs/ultimate-guide-to-a-healthy-workout-routine",
   },
   {
     no: "03",
-    category: "Category",
+    category: "Health",
     title: "The Lifesaving Elixir: Why Staying Hydrated is Vital for Your Health",
     description:
       "Water is essential for life with many health benefits. Stay hydrated by drinking enough water, eating fruits and vegetables, avoiding sugary drinks, and paying attention to your thirst cues.",

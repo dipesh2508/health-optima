@@ -9,23 +9,23 @@ import popular3 from "@/assets/images/popular3.jpg";
 
 export const popular = [
   {
-    name: "Title of the Blog",
+    name: "The Power of Plant-Based Eating...",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.",
+      "Discover the benefits of a plant-based...",
     link: "",
     image: popular1,
   },
   {
-    name: "Title of the Blog",
+    name: "Sore Throat? Here's...",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.",
+      "Sore throat? Here's what you can do...",
     link: "",
     image: popular2,
   },
   {
-    name: "Title of the Blog",
+    name: "Tips of a goodnight's sleep",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.",
+      "Here are some tips to help you get a good...",
     link: "",
     image: popular3,
   },
@@ -52,23 +52,23 @@ export const featured = [
 
 export const blog = [
   {
-    category: "Category",
-    name: "Lorem ipsum dolor sit amet, consectetur adipiscing.",
+    category: "Food",
+    name: "The Power of Plant-Based Eating: A Guide to Nutritious and Delicious Meals",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi viverra magna sed pretium sagittis. Nullam ultrices nec ipsum non vestibulum. Proin a tincidunt est. Aenean id imperdiet risus, vel fermentum...",
+      "Discover the benefits of a plant-based diet and learn how to create balanced, flavorful meals that nourish your body and delight your taste buds. From protein-packed legumes to nutrient-dense greens, explore the world of plant-based cuisine.",
     link: "",
     image: blog1,
   },
   {
-    category: "Category",
-    name: "Lorem ipsum dolor sit amet, consectetur adipiscing.",
+    category: "Fitness",
+    name: "The Ultimate Guide to a Healthy Workout Routine",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi viverra magna sed pretium sagittis. Nullam ultrices nec ipsum non vestibulum. Proin a tincidunt est. Aenean id imperdiet risus, vel fermentum...",
+      "Achieve your fitness goals with our expert tips and personalized workout plans. Whether you're a beginner or a seasoned athlete, our guide will help you stay motivated and achieve your best results.",
     link: "",
     image: blog2,
   },
   {
-    category: "Category",
+    category: "Health",
     name: "The Lifesaving Elixir: Why Staying Hydrated is Vital for Your Health",
     description:
       "Water is essential for life with many health benefits. Stay hydrated by drinking enough water, eating fruits and vegetables, avoiding sugary drinks, and paying attention to your thirst cues.",
