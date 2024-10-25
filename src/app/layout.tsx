@@ -7,6 +7,7 @@ import FootBar from "@/components/shared/FootBar";
 import { ClerkProvider } from "@clerk/nextjs";
 import { auth } from "@clerk/nextjs/server";
 import localFont from 'next/font/local'
+import ChatBot from "@/components/shared/ChatBot";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 const mona = localFont({src: '../assets/font/Mona-Sans.ttf'})
@@ -75,6 +76,7 @@ export default async function RootLayout({
         <body className={`${montserrat.className} ${mona.className}`}>
           <NavBar signedIn={isSignedIn} />
           {children}
+          <ChatBot />
           <FootBar />
         </body>
       </html>
