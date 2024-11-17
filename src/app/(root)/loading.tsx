@@ -3,7 +3,7 @@ export default function Loading() {
     <div className="flex h-[720px] items-center justify-center" role="status">
       <svg
         aria-hidden="true"
-        className="h-16 w-16 animate-spin fill-primary text-gray-200 dark:text-gray-600"
+        className="h-16 w-16 animate-spin fill-primary-5 text-gray-200 dark:text-gray-600"
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

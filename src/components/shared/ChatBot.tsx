@@ -20,7 +20,9 @@ const ChatBot: React.FC = () => {
           y: isOpen ? 0 : 20,
         }}
         transition={{ duration: 0.3 }}
-        className="mb-4 flex h-96 w-80 md:w-96 flex-col rounded-3xl bg-primary-0 shadow-lg"
+        className={`mb-4 flex flex-col rounded-3xl bg-primary-0 shadow-lg ${
+          isOpen ? "h-96 w-80 md:w-96" : "h-min w-min"
+        }`}
       >
         {isOpen && <ChatBody />}
       </MotionDiv>
