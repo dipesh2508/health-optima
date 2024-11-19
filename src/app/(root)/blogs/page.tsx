@@ -4,19 +4,35 @@ import { blog } from "@/constants/blogs";
 import { featured } from "@/constants/blogs";
 import { popular } from "@/constants/blogs";
 
-import { FaTag } from "react-icons/fa";
+import { FaTag, FaPlus } from "react-icons/fa";
 
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import MotionDiv from "@/components/animations/MotionDiv";
 
 const blogs = () => {
   return (
     <main>
       <section className="mx-8 my-12 px-2 md:mx-28">
-        <h1 className="text-center font-serif text-2xl font-semibold text-dark-primary md:text-left md:text-4xl">
-          Popular works
-        </h1>
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="font-serif text-2xl font-semibold text-dark-primary md:text-4xl">
+            Popular works
+          </h1>
+          <MotionDiv
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Link href="/blogs/add">
+              <Button type={"button"} variant={"secondary"} className="flex items-center gap-2 ">
+                <FaPlus size={16} />
+                <span>Create Blog</span>
+              </Button>
+            </Link>
+          </MotionDiv>
+        </div>
         <div className="my-8 flex flex-col gap-4 md:my-12 md:flex-row">
           {popular.map((app, index) => (
             <div key={index} className="flex flex-row gap-2 md:w-auto">
