@@ -7,6 +7,7 @@ export interface IUser extends Document {
   email: string;
   lists: Object[];
   waterRecords: Object[];
+  blogs: Object[];
 }
 
 const userSchema = new Schema<IUser>(
@@ -41,6 +42,12 @@ const userSchema = new Schema<IUser>(
       {
         type: mongoose.Types.ObjectId,
         ref: "WaterRecord",
+      },
+    ],
+    blogs: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: "Blog",
       },
     ],
   },
