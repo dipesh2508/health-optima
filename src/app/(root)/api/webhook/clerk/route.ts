@@ -74,6 +74,7 @@ export async function POST(req: Request) {
       id,
       `${first_name}${last_name ? ` ${last_name}` : ""}`,
       username!,
+      image_url,
       email_addresses[0].email_address,
     );
 
@@ -98,6 +99,7 @@ export async function POST(req: Request) {
         name: `${first_name}${last_name ? ` ${last_name}` : ""}`,
         username: username!,
         email: email_addresses[0].email_address,
+        profileImage: image_url,
       },
       path: `/`,
     });

@@ -9,7 +9,9 @@ import MotionDiv from "@/components/animations/MotionDiv";
 import { useUser } from "@clerk/nextjs";
 import { getUserByClerkId } from "@/lib/actions/user.actions";
 import { createBlog } from "@/lib/actions/blog.actions";
-import { useToast } from "@/hooks/use-toast"
+import { useToast } from "@/hooks/use-toast";
+import { z } from "zod";
+import { useRouter } from "next/navigation";
 
 const ReactQuill = dynamic(() => import("react-quill"), {
   ssr: false,
@@ -17,7 +19,13 @@ const ReactQuill = dynamic(() => import("react-quill"), {
 });
 import "react-quill/dist/quill.snow.css";
 
-const FormField = ({ children, delay }: { children: React.ReactNode; delay: number }) => (
+const FormField = ({
+  children,
+  delay,
+}: {
+  children: React.ReactNode;
+  delay: number;
+}) => (
   <MotionDiv
     initial={{ opacity: 0, x: -20 }}
     animate={{ opacity: 1, x: 0 }}
@@ -28,17 +36,42 @@ const FormField = ({ children, delay }: { children: React.ReactNode; delay: numb
   </MotionDiv>
 );
 
+const blogSchema = z.object({
+  title: z
+    .string()
+    .min(3, "Title must be at least 3 characters long")
+    .max(100, "Title must be less than 100 characters"),
+  category: z
+    .string()
+    .min(2, "Category must be at least 2 characters long")
+    .max(50, "Category must be less than 50 characters"),
+  description: z
+    .string()
+    .min(10, "Description must be at least 10 characters long")
+    .max(200, "Description must be less than 200 characters"),
+  content: z.string().min(50, "Content must be at least 50 characters long"),
+});
+
+// Create a type from the schema
+type BlogFormData = z.infer<typeof blogSchema>;
+
+const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB in bytes
+
 const BlogAddForm = () => {
-  const { toast } = useToast()
-  const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("");
-  const [description, setDescription] = useState("");
-  const [content, setContent] = useState("");
+  const { toast } = useToast();
+  const [formData, setFormData] = useState<BlogFormData>({
+    title: "",
+    category: "",
+    description: "",
+    content: "",
+  });
   const [image, setImage] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [userId, setUserId] = useState("");
   const { user } = useUser();
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const router = useRouter();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -55,6 +88,18 @@ const BlogAddForm = () => {
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      if (file.size > MAX_FILE_SIZE) {
+        setErrors({ image: "Image size must be less than 5MB" });
+        e.target.value = ""; // Reset input
+        setImage(null);
+        setPreview(null);
+        return;
+      }
+
+      setErrors((prev) => {
+        const { image, ...rest } = prev;
+        return rest;
+      });
       setImage(file);
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -64,21 +109,39 @@ const BlogAddForm = () => {
     }
   };
 
+  // Handle form field changes
+  const handleChange = (field: keyof BlogFormData, value: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setErrors({});
     
     try {
-      if (!image) {
-        throw new Error("Please select an image");
+      const result = blogSchema.safeParse(formData);
+
+      if (!result.success) {
+        const formattedErrors: { [key: string]: string } = {};
+        result.error.issues.forEach((issue) => {
+          formattedErrors[issue.path[0] as string] = issue.message;
+        });
+        setErrors(formattedErrors);
+        return;
       }
-      
-      setIsSubmitting(true)
+
+      if (!image) {
+        setErrors({ image: "Please select an image" });
+        return;
+      }
+
+      setIsSubmitting(true);
       await createBlog({
         userId,
-        title,
-        category,
-        description,
-        content,
+        ...formData,
         coverImage: preview!,
       });
 
@@ -86,24 +149,31 @@ const BlogAddForm = () => {
         title: "Success!",
         description: "Your blog post has been created successfully.",
         variant: "default",
-      })
+      });
 
-      // Reset form
-      setTitle("");
-      setCategory("");
-      setDescription("");
-      setContent("");
+      // Redirect to blogs page
+      router.push("/blogs");
+
+      // Reset form (though not necessary since we're redirecting)
+      setFormData({
+        title: "",
+        category: "",
+        description: "",
+        content: "",
+      });
       setImage(null);
       setPreview(null);
-      
+      // Reset file input
+      const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
+      if (fileInput) fileInput.value = '';
     } catch (error) {
       toast({
         title: "Error",
         description: "Something went wrong. Please try again.",
         variant: "destructive",
-      })
+      });
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
   };
 
@@ -123,33 +193,42 @@ const BlogAddForm = () => {
         <label className="block text-sm font-medium">Blog Title</label>
         <Input
           type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          value={formData.title}
+          onChange={(e) => handleChange("title", e.target.value)}
           placeholder="Enter blog title"
           required
         />
+        {errors.title && (
+          <p className="mt-1 text-sm text-red-500">{errors.title}</p>
+        )}
       </FormField>
 
       <FormField delay={0.4}>
         <label className="block text-sm font-medium">Category</label>
         <Input
           type="text"
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
+          value={formData.category}
+          onChange={(e) => handleChange("category", e.target.value)}
           placeholder="Enter blog category"
           required
         />
+        {errors.category && (
+          <p className="mt-1 text-sm text-red-500">{errors.category}</p>
+        )}
       </FormField>
 
       <FormField delay={0.5}>
         <label className="block text-sm font-medium">Short Description</label>
         <Input
           type="text"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          value={formData.description}
+          onChange={(e) => handleChange("description", e.target.value)}
           placeholder="Enter short description"
           required
         />
+        {errors.description && (
+          <p className="mt-1 text-sm text-red-500">{errors.description}</p>
+        )}
       </FormField>
 
       <FormField delay={0.6}>
@@ -176,6 +255,9 @@ const BlogAddForm = () => {
             />
           </MotionDiv>
         )}
+        {errors.image && (
+          <p className="mt-1 text-sm text-red-500">{errors.image}</p>
+        )}
       </FormField>
 
       <FormField delay={0.7}>
@@ -183,12 +265,15 @@ const BlogAddForm = () => {
         <div className="h-[400px]">
           <ReactQuill
             theme="snow"
-            value={content}
-            onChange={setContent}
+            value={formData.content}
+            onChange={(value) => handleChange("content", value)}
             modules={modules}
             className="h-[300px]"
           />
         </div>
+        {errors.content && (
+          <p className="mt-1 text-sm text-red-500">{errors.content}</p>
+        )}
       </FormField>
 
       <MotionDiv
@@ -200,7 +285,7 @@ const BlogAddForm = () => {
           {isSubmitting ? (
             <>
               <svg
-                className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                className="-ml-1 mr-3 h-5 w-5 animate-spin text-white"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
