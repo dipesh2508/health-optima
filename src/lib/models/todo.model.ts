@@ -30,4 +30,4 @@ const listSchema = new Schema<ILists>(
 );
 
 export const List =
-  mongoose.models.Todo || mongoose.model<ILists>("List", listSchema);
+  mongoose.models.List || mongoose.model<ILists>("List", listSchema);

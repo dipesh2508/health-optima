@@ -11,6 +11,7 @@ export const createUser = async (
   clerkId: string,
   name: string,
   username: string,
+  image: string,
   email: string,
 ) => {
   try {
@@ -20,6 +21,7 @@ export const createUser = async (
       clerkId,
       name,
       username,
+      profileImage: image,
       email,
     });
 
@@ -49,7 +51,7 @@ export const getUserByClerkId = async (clerkId: string) => {
     await connectToDB();
 
     const user = await User.findOne({ clerkId: clerkId });
-    return user;
+    return JSON.parse(JSON.stringify(user));
   } catch (error) {
     throw error;
   }
