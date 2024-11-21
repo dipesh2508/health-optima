@@ -40,7 +40,9 @@ export const createBlog = async ({
     });
 
     revalidatePath("/blogs");
-    return blog;
+    
+    // Return a plain object instead of the Mongoose document
+    return JSON.parse(JSON.stringify(blog));
   } catch (error) {
     throw error;
   }

@@ -49,7 +49,7 @@ export const getUserByClerkId = async (clerkId: string) => {
     await connectToDB();
 
     const user = await User.findOne({ clerkId: clerkId });
-    return user;
+    return JSON.parse(JSON.stringify(user));
   } catch (error) {
     throw error;
   }

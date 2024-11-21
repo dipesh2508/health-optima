@@ -1,11 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import MotionDiv from "@/components/animations/MotionDiv";
+import { useUser } from "@clerk/nextjs";
+import { getUserByClerkId } from "@/lib/actions/user.actions";
+import { createBlog } from "@/lib/actions/blog.actions";
+import { useToast } from "@/hooks/use-toast"
 
 const ReactQuill = dynamic(() => import("react-quill"), {
   ssr: false,
@@ -25,12 +29,28 @@ const FormField = ({ children, delay }: { children: React.ReactNode; delay: numb
 );
 
 const BlogAddForm = () => {
+  const { toast } = useToast()
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
   const [content, setContent] = useState("");
   const [image, setImage] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
+  const [userId, setUserId] = useState("");
+  const { user } = useUser();
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (user?.id) {
+        const dbUser = await getUserByClerkId(user.id);
+        if (dbUser) {
+          setUserId(dbUser._id);
+        }
+      }
+    };
+    fetchUser();
+  }, [user]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -46,8 +66,45 @@ const BlogAddForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Add your form submission logic here
-    console.log({ title, category, description, content, image });
+    
+    try {
+      if (!image) {
+        throw new Error("Please select an image");
+      }
+      
+      setIsSubmitting(true)
+      await createBlog({
+        userId,
+        title,
+        category,
+        description,
+        content,
+        coverImage: preview!,
+      });
+
+      toast({
+        title: "Success!",
+        description: "Your blog post has been created successfully.",
+        variant: "default",
+      })
+
+      // Reset form
+      setTitle("");
+      setCategory("");
+      setDescription("");
+      setContent("");
+      setImage(null);
+      setPreview(null);
+      
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Something went wrong. Please try again.",
+        variant: "destructive",
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
   };
 
   const modules = {
@@ -139,8 +196,34 @@ const BlogAddForm = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8, duration: 0.5 }}
       >
-        <Button type="submit" className="w-full">
-          Publish Blog
+        <Button type="submit" className="w-full" disabled={isSubmitting}>
+          {isSubmitting ? (
+            <>
+              <svg
+                className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                />
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                />
+              </svg>
+              Creating Post...
+            </>
+          ) : (
+            "Create Post"
+          )}
         </Button>
       </MotionDiv>
     </form>
