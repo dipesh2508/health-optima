@@ -47,8 +47,7 @@ const blogSchema = z.object({
     .max(50, "Category must be less than 50 characters"),
   description: z
     .string()
-    .min(10, "Description must be at least 10 characters long")
-    .max(200, "Description must be less than 200 characters"),
+    .min(10, "Description must be at least 10 characters long"),
   content: z.string().min(50, "Content must be at least 50 characters long"),
 });
 

@@ -10,46 +10,54 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import MotionDiv from "@/components/animations/MotionDiv";
+import { auth } from "@clerk/nextjs/server";
 
-const blogs = () => {
+const blogs = async () => {
+  const session = await auth();
+  console.log(session);
   return (
     <main>
       <section className="mx-8 my-12 px-2 md:mx-28">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="font-serif text-2xl font-semibold text-dark-primary md:text-4xl">
+        <div className="mb-8 flex items-center justify-between">
+          <h1 className="text-dark-primary font-serif text-2xl font-semibold md:text-4xl">
             Popular works
           </h1>
-          <MotionDiv
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <Link href="/blogs/add">
-              <Button type={"button"} variant={"secondary"} className="flex items-center gap-2 ">
-                <FaPlus size={16} />
-                <span>Create Blog</span>
-              </Button>
-            </Link>
-          </MotionDiv>
+          {session?.sessionId && (
+            <MotionDiv
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Link href="/blogs/add">
+                <Button
+                  type={"button"}
+                  variant={"secondary"}
+                  className="flex items-center gap-2"
+                >
+                  <FaPlus size={16} />
+                  <span>Create Blog</span>
+                </Button>
+              </Link>
+            </MotionDiv>
+          )}
         </div>
         <div className="my-8 flex flex-col gap-4 md:my-12 md:flex-row">
           {popular.map((app, index) => (
             <div key={index} className="flex flex-row gap-2 md:w-auto">
               <div className="grid content-center">
-                
-                  <Image
-                    height={121}
-                    width={121}
-                    src={app.image}
-                    alt={app.name}
+                <Image
+                  height={121}
+                  width={121}
+                  src={app.image}
+                  alt={app.name}
                   className="rounded-full shadow-custom"
                 />
               </div>
               <div className="flex flex-col">
                 <h2 className="font-serif text-lg font-medium md:text-2xl">
                   {app.name}
-                  </h2>
+                </h2>
 
                 <p className="font-sans text-xs font-light md:text-sm">
                   {app.description}
@@ -73,16 +81,16 @@ const blogs = () => {
             <div className="relative ml-0 w-72 md:w-96">
               <Image
                 src={run}
-                  alt="featured image"
-                  height={384}
-                  width={384}
-                  className="rounded-3xl"
-                />
-              <div className="absolute left-0 top-0 h-72 w-72  rounded-3xl bg-black opacity-40 duration-200 ease-in-out hover:bg-transparent md:h-96 md:w-96"></div>
+                alt="featured image"
+                height={384}
+                width={384}
+                className="rounded-3xl"
+              />
+              <div className="absolute left-0 top-0 h-72 w-72 rounded-3xl bg-black opacity-40 duration-200 ease-in-out hover:bg-transparent md:h-96 md:w-96"></div>
               <h4 className="absolute left-4 top-4 bg-black p-1 text-white">
                 Featured
               </h4>
-              <div className="absolute left-48 top-4 flex items-center gap-1 p-1 md:left-72 ">
+              <div className="absolute left-48 top-4 flex items-center gap-1 p-1 md:left-72">
                 <FaTag />
                 <h2 className="font-sans">Health</h2>
               </div>
@@ -92,7 +100,7 @@ const blogs = () => {
                 </h1>
                 <p className="mr-8 font-sans text-xs text-white">
                   Start your day with a refreshing jog to boost your energy and
-                  clear your mind.  
+                  clear your mind.
                 </p>
               </div>
             </div>
@@ -110,15 +118,15 @@ const blogs = () => {
                   <div className="grid items-center">
                     <Image
                       height={34}
-                        width={300}
-                        src={item.image}
-                        alt=""
-                        className="rounded-md hover:shadow-custom"
-                        loading="lazy"
-                      />
+                      width={300}
+                      src={item.image}
+                      alt=""
+                      className="rounded-md hover:shadow-custom"
+                      loading="lazy"
+                    />
                   </div>
                   <div className="col-span-2 mt-4 flex flex-col items-center text-center md:mt-0 md:items-start md:text-left">
-                    <h1 className="font-sans text-base font-light ">
+                    <h1 className="font-sans text-base font-light">
                       {item.category}
                     </h1>
 
@@ -134,11 +142,11 @@ const blogs = () => {
                       <Link href={item.link}>
                         <Button
                           variant={"secondary"}
-                            size={"sm"}
-                            className="mt-2"
-                          >
-                            Read
-                          </Button>
+                          size={"sm"}
+                          className="mt-2"
+                        >
+                          Read
+                        </Button>
                       </Link>
                     </div>
                   </div>
@@ -149,7 +157,7 @@ const blogs = () => {
         </div>
       </section>
       <section className="mx-8 my-16 px-2 md:mx-28">
-        <h1 className=" text-center font-serif text-2xl font-semibold text-black md:text-left md:text-5xl">
+        <h1 className="text-center font-serif text-2xl font-semibold text-black md:text-left md:text-5xl">
           ALL <span className="text-dark-primary">BLOGS</span>
         </h1>
         <div className="col-span-2 mt-8 flex flex-col items-center gap-12 md:mt-16">
@@ -161,16 +169,16 @@ const blogs = () => {
               <div className="grid-1 grid content-center">
                 <Image
                   height={34}
-                    width={500}
-                    src={item.image}
-                    alt=""
-                    className="rounded-md hover:shadow-custom"
-                    loading="lazy"
-                  />
+                  width={500}
+                  src={item.image}
+                  alt=""
+                  className="rounded-md hover:shadow-custom"
+                  loading="lazy"
+                />
               </div>
 
               <div className="col-span-2 mt-4 flex flex-col gap-1 text-center md:mt-0 md:gap-2 md:text-left">
-                <h1 className="font-sans text-base font-light md:text-2xl ">
+                <h1 className="font-sans text-base font-light md:text-2xl">
                   {item.category}
                 </h1>
 

@@ -53,7 +53,7 @@ export const getAllBlogs = async () => {
   try {
     await connectToDB();
     const blogs = await Blog.find()
-      .populate("userId", "name username")
+      .populate("userId", "name username profileImage")
       .sort({ createdAt: -1 });
     return blogs;
   } catch (error) {
@@ -65,7 +65,7 @@ export const getAllBlogs = async () => {
 export const getBlogById = async (blogId: string) => {
   try {
     await connectToDB();
-    const blog = await Blog.findById(blogId).populate("userId", "name username");
+    const blog = await Blog.findById(blogId).populate("userId", "name username profileImage");
     if (!blog) throw new Error("Blog not found");
     return blog;
   } catch (error) {
@@ -78,7 +78,7 @@ export const getUserBlogs = async (userId: string) => {
   try {
     await connectToDB();
     const blogs = await Blog.find({ userId })
-      .populate("userId", "name username")
+      .populate("userId", "name username profileImage")
       .sort({ createdAt: -1 });
     return blogs;
   } catch (error) {
