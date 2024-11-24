@@ -37,6 +37,8 @@ const Page = async ({ params }: { params: { id: string } }) => {
     notFound();
   }
 
+  console.log(blog.youtubeVideo);
+
   const comments = await getComments(params.id);
 
   return (
@@ -75,21 +77,38 @@ const Page = async ({ params }: { params: { id: string } }) => {
         <div className="md:col-span-2 md:border-r md:border-gray-200 md:pr-8">
           <div className="flex flex-col gap-4">
             {/* Add YouTube embed if video URL exists */}
-            {blog.videoUrl && getYouTubeEmbedUrl(blog.videoUrl) && (
-              <div className="relative aspect-video w-full overflow-hidden rounded-lg">
+            {blog.youtubeVideo && getYouTubeEmbedUrl(blog.youtubeVideo) && (
+              <div className="flex justify-center">
                 <iframe
-                  src={getYouTubeEmbedUrl(blog.videoUrl)}
+                  src={getYouTubeEmbedUrl(blog.youtubeVideo)}
                   title={blog.title}
+                  className="h-48 w-80 rounded-2xl drop-shadow-2xl md:h-[315px] md:w-[560px]"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
-                  className="absolute inset-0 h-full w-full border-0"
                 />
               </div>
             )}
             
             {/* Existing blog content */}
             <div
-              className="text-justify font-sans text-base text-slate-800"
+              className="prose prose-lg max-w-none text-justify font-sans text-slate-800
+                prose-headings:font-serif prose-headings:font-semibold prose-headings:text-primary-9
+                prose-h1:text-4xl prose-h1:mb-0 prose-h1:mt-0
+                prose-h2:text-3xl prose-h2:mb-0 prose-h2:mt-0
+                prose-h3:text-2xl prose-h3:mb-0 prose-h3:mt-0
+                prose-h4:text-xl prose-h4:mb-0 prose-h4:mt-0
+                prose-p:mb-0 prose-p:mt-0 prose-p:leading-6
+                prose-a:text-primary-7 prose-a:no-underline hover:prose-a:text-primary-8
+                prose-strong:font-semibold prose-strong:text-primary-9
+                prose-ul:list-disc prose-ul:pl-6 prose-ul:mb-0 prose-ul:mt-0
+                prose-ol:list-decimal prose-ol:pl-6 prose-ol:mb-0 prose-ol:mt-0
+                prose-li:mb-0 prose-li:mt-0 prose-li:leading-7
+                prose-blockquote:border-l-4 prose-blockquote:border-primary-5 
+                prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:my-0
+                prose-img:rounded-lg prose-img:my-0
+                prose-code:bg-gray-100 prose-code:px-1 prose-code:rounded
+                prose-pre:bg-gray-100 prose-pre:p-4 prose-pre:rounded-lg prose-pre:my-0
+                [&>*]:mt-0 [&>*]:mb-0"
               dangerouslySetInnerHTML={{ __html: blog.content }}
             />
           </div>
