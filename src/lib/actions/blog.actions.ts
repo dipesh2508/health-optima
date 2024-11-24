@@ -73,7 +73,7 @@ export const getBlogById = async (blogId: string) => {
       "userId",
       "name username profileImage",
     );
-    if (!blog) throw new Error("Blog not found");
+    if (!blog) return null;
     return blog;
   } catch (error) {
     throw error;

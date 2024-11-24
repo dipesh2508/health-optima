@@ -14,6 +14,7 @@ import { getUserByClerkId } from "@/lib/actions/user.actions";
 import { SignInButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import MotionP from "@/components/animations/MotionP";
 
 // Add this utility function at the top of the file, outside the component
 const getYouTubeEmbedUrl = (url: string) => {
@@ -50,16 +51,31 @@ const Page = async ({ params }: { params: { id: string } }) => {
       >
         <div className="mx-8 grid content-end gap-4 md:col-span-7 md:mx-0 md:ml-28">
           {/* Headline section */}
-          <h1 className="text-center font-serif text-2xl font-semibold text-white md:text-left md:text-4xl">
+          <MotionP
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-center font-serif text-2xl font-semibold text-white md:text-left md:text-4xl"
+          >
             {blog.title}
-          </h1>
-          <p className="text-justify font-sans text-sm font-medium text-black md:text-base">
+          </MotionP>
+          <MotionP
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="text-justify font-sans text-sm font-medium text-black md:text-base"
+          >
             {blog.description}
-          </p>
+          </MotionP>
         </div>
 
         {/* Cover image */}
-        <div className="mx-8 md:col-span-5 md:mx-0 md:mr-28">
+        <MotionDiv
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="mx-8 md:col-span-5 md:mx-0 md:mr-28"
+        >
           <div className="relative aspect-[5/3] w-full">
             <Image
               src={blog.coverImage}
@@ -69,12 +85,17 @@ const Page = async ({ params }: { params: { id: string } }) => {
               loading="lazy"
             />
           </div>
-        </div>
+        </MotionDiv>
       </section>
 
       <section className="grid gap-12 px-8 py-12 md:grid-cols-3 md:gap-0 md:px-28">
         {/* Blog content */}
-        <div className="md:col-span-2 md:border-r md:border-gray-200 md:pr-8">
+        <MotionDiv
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+          className="md:col-span-2 md:border-r md:border-gray-200 md:pr-8"
+        >
           <div className="flex flex-col gap-4">
             {/* Add YouTube embed if video URL exists */}
             {blog.youtubeVideo && getYouTubeEmbedUrl(blog.youtubeVideo) && (
@@ -112,10 +133,15 @@ const Page = async ({ params }: { params: { id: string } }) => {
               dangerouslySetInnerHTML={{ __html: blog.content }}
             />
           </div>
-        </div>
+        </MotionDiv>
 
         {/* Right sidebar */}
-        <div className="flex flex-col gap-8 md:pl-8">
+        <MotionDiv
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, delay: 0.8 }}
+          className="flex flex-col gap-8 md:pl-8"
+        >
           {/* Author card */}
           <div className="flex flex-row items-center gap-3">
             <Image
@@ -171,7 +197,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
               ))}
             </div>
           </div>
-        </div>
+        </MotionDiv>
       </section>
     </main>
   );
