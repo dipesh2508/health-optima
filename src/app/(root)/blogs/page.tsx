@@ -14,7 +14,6 @@ import { auth } from "@clerk/nextjs/server";
 
 const blogs = async () => {
   const session = await auth();
-  console.log(session);
   return (
     <main>
       <section className="mx-8 my-12 px-2 md:mx-28">

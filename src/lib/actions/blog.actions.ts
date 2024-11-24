@@ -13,6 +13,7 @@ export const createBlog = async ({
   category,
   description,
   content,
+  youtubeVideo,
   coverImage,
 }: {
   userId: string;
@@ -20,6 +21,7 @@ export const createBlog = async ({
   category: string;
   description: string;
   content: string;
+  youtubeVideo?: string;
   coverImage: string;
 }) => {
   try {
@@ -32,6 +34,7 @@ export const createBlog = async ({
       category,
       description,
       content,
+      youtubeVideo,
       coverImage,
     });
 

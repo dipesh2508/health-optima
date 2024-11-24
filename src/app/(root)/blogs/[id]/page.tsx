@@ -15,6 +15,19 @@ import { SignInButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
+// Add this utility function at the top of the file, outside the component
+const getYouTubeEmbedUrl = (url: string) => {
+  if (!url) return undefined;
+  
+  // Handle different YouTube URL formats
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+  const match = url.match(regExp);
+
+  return match && match[2].length === 11
+    ? `https://www.youtube.com/embed/${match[2]}`
+    : undefined;
+};
+
 const Page = async ({ params }: { params: { id: string } }) => {
   const clerkUser = await currentUser();
   const user = clerkUser ? await getUserByClerkId(clerkUser.id) : null;
@@ -61,6 +74,20 @@ const Page = async ({ params }: { params: { id: string } }) => {
         {/* Blog content */}
         <div className="md:col-span-2 md:border-r md:border-gray-200 md:pr-8">
           <div className="flex flex-col gap-4">
+            {/* Add YouTube embed if video URL exists */}
+            {blog.videoUrl && getYouTubeEmbedUrl(blog.videoUrl) && (
+              <div className="relative aspect-video w-full overflow-hidden rounded-lg">
+                <iframe
+                  src={getYouTubeEmbedUrl(blog.videoUrl)}
+                  title={blog.title}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="absolute inset-0 h-full w-full border-0"
+                />
+              </div>
+            )}
+            
+            {/* Existing blog content */}
             <div
               className="text-justify font-sans text-base text-slate-800"
               dangerouslySetInnerHTML={{ __html: blog.content }}
