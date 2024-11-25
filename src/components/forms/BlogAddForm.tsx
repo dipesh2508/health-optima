@@ -12,6 +12,7 @@ import { createBlog } from "@/lib/actions/blog.actions";
 import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
+import { Textarea } from "@/components/ui/textarea";
 
 const ReactQuill = dynamic(() => import("react-quill"), {
   ssr: false,
@@ -47,9 +48,9 @@ const blogSchema = z.object({
     .max(50, "Category must be less than 50 characters"),
   description: z
     .string()
-    .min(10, "Description must be at least 10 characters long")
-    .max(200, "Description must be less than 200 characters"),
+    .min(10, "Description must be at least 10 characters long"),
   content: z.string().min(50, "Content must be at least 50 characters long"),
+  youtubeVideo: z.string().regex(/^https:\/\/www\.youtube\.com\/embed\/.+$/, "Invalid YouTube video link").optional(),
 });
 
 // Create a type from the schema
@@ -63,6 +64,7 @@ const BlogAddForm = () => {
     title: "",
     category: "",
     description: "",
+    youtubeVideo: "",
     content: "",
   });
   const [image, setImage] = useState<File | null>(null);
@@ -219,12 +221,13 @@ const BlogAddForm = () => {
 
       <FormField delay={0.5}>
         <label className="block text-sm font-medium">Short Description</label>
-        <Input
-          type="text"
+        <Textarea
           value={formData.description}
           onChange={(e) => handleChange("description", e.target.value)}
           placeholder="Enter short description"
           required
+          className="resize-none"
+          rows={3}
         />
         {errors.description && (
           <p className="mt-1 text-sm text-red-500">{errors.description}</p>
@@ -258,6 +261,16 @@ const BlogAddForm = () => {
         {errors.image && (
           <p className="mt-1 text-sm text-red-500">{errors.image}</p>
         )}
+      </FormField>
+
+      <FormField delay={0.65}>
+        <label className="block text-sm font-medium">Embed Youtube Video (Optional)</label>
+        <Input
+          type="text"
+          value={formData.youtubeVideo}
+          onChange={(e) => handleChange("youtubeVideo", e.target.value)}
+          placeholder="Enter youtube video link"
+        />
       </FormField>
 
       <FormField delay={0.7}>

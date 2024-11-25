@@ -12,6 +12,16 @@ const nextConfig = {
                 hostname: 'res.cloudinary.com',
                 pathname: '**',
             },
+            {
+                protocol: 'https',
+                hostname: 'avatars.githubusercontent.com',
+                pathname: '**',
+            },
+            {
+                protocol: 'https',
+                hostname: 'img.clerk.com',
+                pathname: '**',
+            },
         ],
     },
     experimental: {

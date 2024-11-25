@@ -6,6 +6,7 @@ export interface IBlog extends Document {
   category: string;
   description: string;
   content: string;
+  youtubeVideo?: string;
   coverImage: string;
   likes: number;
   comments: ObjectId[];
@@ -33,6 +34,10 @@ const blogSchema = new Schema<IBlog>(
     content: {
       type: String,
       required: true,
+    },
+    youtubeVideo: {
+      type: String,
+      optional: true,
     },
     coverImage: {
       type: String,
