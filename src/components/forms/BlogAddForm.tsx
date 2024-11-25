@@ -14,6 +14,8 @@ import { z } from "zod";
 import { useRouter } from "next/navigation";
 import { Textarea } from "@/components/ui/textarea";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import HtmlRenderer from "@/components/shared/blogs/HtmlRenderer";
 
 const ReactQuill = dynamic(() => import("react-quill"), {
   ssr: false,
@@ -307,7 +309,26 @@ const BlogAddForm = () => {
       </FormField>
 
       <FormField delay={0.7}>
-        <label className="block text-sm font-medium">Content</label>
+        <div className="flex items-center justify-between">
+          <label className="block text-sm font-medium">Content</label>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button type="button" variant="ghost" size="sm" className="flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
+                  <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg>
+                Preview
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
+              <DialogHeader>
+                <DialogTitle>Content Preview</DialogTitle>
+              </DialogHeader>
+              <HtmlRenderer content={formData.content} />
+            </DialogContent>
+          </Dialog>
+        </div>
         <div className="h-[350px]">
           <ReactQuill
             theme="snow"

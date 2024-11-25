@@ -13,8 +13,8 @@ import { getUserByClerkId } from "@/lib/actions/user.actions";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import MotionP from "@/components/animations/MotionP";
+import HtmlRenderer from "@/components/shared/blogs/HtmlRenderer";
 
-// Add this utility function at the top of the file, outside the component
 const getYouTubeEmbedUrl = (url: string) => {
   if (!url) return undefined;
   
@@ -109,27 +109,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
             )}
             
             {/* Existing blog content */}
-            <div
-              className="prose prose-lg max-w-none text-justify font-sans text-slate-800
-                prose-headings:font-serif prose-headings:font-semibold prose-headings:text-primary-9
-                prose-h1:text-4xl prose-h1:mb-0 prose-h1:mt-0
-                prose-h2:text-3xl prose-h2:mb-0 prose-h2:mt-0
-                prose-h3:text-2xl prose-h3:mb-0 prose-h3:mt-0
-                prose-h4:text-xl prose-h4:mb-0 prose-h4:mt-0
-                prose-p:mb-0 prose-p:mt-0 prose-p:leading-6
-                prose-a:text-primary-7 prose-a:no-underline hover:prose-a:text-primary-8
-                prose-strong:font-semibold prose-strong:text-primary-9
-                prose-ul:list-disc prose-ul:pl-6 prose-ul:mb-0 prose-ul:mt-0
-                prose-ol:list-decimal prose-ol:pl-6 prose-ol:mb-0 prose-ol:mt-0
-                prose-li:mb-0 prose-li:mt-0 prose-li:leading-7
-                prose-blockquote:border-l-4 prose-blockquote:border-primary-5 
-                prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:my-0
-                prose-img:rounded-lg prose-img:my-0
-                prose-code:bg-gray-100 prose-code:px-1 prose-code:rounded
-                prose-pre:bg-gray-100 prose-pre:p-4 prose-pre:rounded-lg prose-pre:my-0
-                [&>*]:mt-0 [&>*]:mb-0"
-              dangerouslySetInnerHTML={{ __html: blog.content }}
-            />
+            <HtmlRenderer content={blog.content} />
           </div>
         </MotionDiv>
 
