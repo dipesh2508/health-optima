@@ -8,10 +8,8 @@ import {
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import CommentCard from "@/components/shared/CommentCard";
-import { Heart } from "lucide-react";
 import { currentUser } from "@clerk/nextjs/server";
 import { getUserByClerkId } from "@/lib/actions/user.actions";
-import { SignInButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import MotionP from "@/components/animations/MotionP";
@@ -99,7 +97,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
           <div className="flex flex-col gap-4">
             {/* Add YouTube embed if video URL exists */}
             {blog.youtubeVideo && getYouTubeEmbedUrl(blog.youtubeVideo) && (
-              <div className="flex justify-center">
+              <div className="flex justify-center mb-8">
                 <iframe
                   src={getYouTubeEmbedUrl(blog.youtubeVideo)}
                   title={blog.title}

@@ -13,6 +13,7 @@ import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
 import { Textarea } from "@/components/ui/textarea";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 const ReactQuill = dynamic(() => import("react-quill"), {
   ssr: false,
@@ -50,7 +51,12 @@ const blogSchema = z.object({
     .string()
     .min(10, "Description must be at least 10 characters long"),
   content: z.string().min(50, "Content must be at least 50 characters long"),
-  youtubeVideo: z.string().regex(/^https:\/\/www\.youtube\.com\/embed\/.+$/, "Invalid YouTube video link").optional(),
+  youtubeVideo: z.string()
+    .refine(
+      (value) => !value || /^https:\/\/www\.youtube\.com\/embed\/.+$/.test(value),
+      "Invalid YouTube video link"
+    )
+    .optional(),
 });
 
 // Create a type from the schema
@@ -264,18 +270,45 @@ const BlogAddForm = () => {
       </FormField>
 
       <FormField delay={0.65}>
-        <label className="block text-sm font-medium">Embed Youtube Video (Optional)</label>
+        <div className="flex items-center gap-2">
+          <label className="block text-sm font-medium">Embed Youtube Video (Optional)</label>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button type="button" variant="ghost" size="icon" className="h-5 w-5">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M12 16v-4" />
+                  <path d="M12 8h.01" />
+                </svg>
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-80">
+              <div className="space-y-2">
+                <h4 className="font-medium">How to get YouTube embed link:</h4>
+                <ol className="list-decimal ml-4 text-sm space-y-1">
+                  <li>Go to the YouTube video</li>
+                  <li>Click &quot;Share&quot; button below the video</li>
+                  <li>Click &quot;Embed&quot;</li>
+                  <li>Copy the URL from the src attribute in the iframe code (starts with https://www.youtube.com/embed/)</li>
+                </ol>
+              </div>
+            </PopoverContent>
+          </Popover>
+        </div>
         <Input
           type="text"
           value={formData.youtubeVideo}
           onChange={(e) => handleChange("youtubeVideo", e.target.value)}
           placeholder="Enter youtube video link"
         />
+        {errors.youtubeVideo && (
+          <p className="mt-1 text-sm text-red-500">{errors.youtubeVideo}</p>
+        )}
       </FormField>
 
       <FormField delay={0.7}>
         <label className="block text-sm font-medium">Content</label>
-        <div className="h-[400px]">
+        <div className="h-[350px]">
           <ReactQuill
             theme="snow"
             value={formData.content}
