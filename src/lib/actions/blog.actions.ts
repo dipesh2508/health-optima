@@ -105,7 +105,7 @@ export const updateBlog = async (
       new: true,
     });
     revalidatePath(path);
-    return blog;
+    return JSON.parse(JSON.stringify(blog));
   } catch (error) {
     throw error;
   }

@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import MotionP from "@/components/animations/MotionP";
 import HtmlRenderer from "@/components/shared/blogs/HtmlRenderer";
+import { PenSquare } from "lucide-react";
 
 const getYouTubeEmbedUrl = (url: string) => {
   if (!url) return undefined;
@@ -36,6 +37,8 @@ const Page = async ({ params }: { params: { id: string } }) => {
     notFound();
   }
 
+  const isAuthor = user?._id.toString() === blog.userId._id.toString();
+
   console.log(blog.youtubeVideo);
 
   const comments = await getComments(params.id);
@@ -48,15 +51,18 @@ const Page = async ({ params }: { params: { id: string } }) => {
         className="grid gap-8 bg-primary-5 py-12 md:grid-cols-12"
       >
         <div className="mx-8 grid content-end gap-4 md:col-span-7 md:mx-0 md:ml-28">
-          {/* Headline section */}
-          <MotionP
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-center font-serif text-2xl font-semibold text-white md:text-left md:text-4xl"
-          >
-            {blog.title}
-          </MotionP>
+          <div className="flex items-start justify-between">
+            <div>
+              <MotionP
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="text-center font-serif text-2xl font-semibold text-white md:text-left md:text-4xl"
+              >
+                {blog.title}
+              </MotionP>
+            </div>
+          </div>
           <MotionP
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -113,7 +119,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
           </div>
         </MotionDiv>
 
-        {/* Right sidebar */}
+        {/* Author and comments section */}
         <MotionDiv
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -121,22 +127,36 @@ const Page = async ({ params }: { params: { id: string } }) => {
           className="flex flex-col gap-8 md:pl-8"
         >
           {/* Author card */}
-          <div className="flex flex-row items-center gap-3">
-            <Image
-              src={blog.userId.profileImage}
-              alt={blog.userId.name}
-              width={64}
-              height={64}
-              className="rounded-full"
-            />
-            <div className="flex flex-col gap-1">
-              <h3 className="font-serif text-2xl font-semibold text-primary-9">
-                {blog.userId.name}
-              </h3>
-              <h5 className="font-sans text-lg font-medium text-slate-500">
-                Published on {new Date(blog.createdAt).toLocaleDateString()}
-              </h5>
+          <div className="flex flex-col gap-3">
+            <div className="flex flex-row items-center gap-3">
+              <Image
+                src={blog.userId.profileImage}
+                alt={blog.userId.name}
+                width={64}
+                height={64}
+                className="rounded-full"
+              />
+              <div className="flex flex-col gap-1">
+                <h3 className="font-serif text-2xl font-semibold text-primary-9">
+                  {blog.userId.name}
+                </h3>
+                <h5 className="font-sans text-lg font-medium text-slate-500">
+                  Published on {new Date(blog.createdAt).toLocaleDateString()}
+                </h5>
+              </div>
             </div>
+            {isAuthor && (
+              <Link href={`/blogs/${params.id}/edit`}>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="w-fit bg-primary-5 text-white"
+                >
+                  <PenSquare className="h-4 w-4 mr-2" />
+                  Edit Blog
+                </Button>
+              </Link>
+            )}
           </div>
 
           {/* Comments section */}
