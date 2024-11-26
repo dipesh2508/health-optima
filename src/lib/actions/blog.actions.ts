@@ -105,7 +105,7 @@ export const updateBlog = async (
       new: true,
     });
     revalidatePath(path);
-    return blog;
+    return JSON.parse(JSON.stringify(blog));
   } catch (error) {
     throw error;
   }
@@ -201,3 +201,86 @@ export async function likeComment(commentId: string, userId: string) {
     throw error;
   }
 }
+
+// New pagination function for blogs
+export const getPaginatedBlogs = async (page: number = 1, limit: number = 6) => {
+  try {
+    await connectToDB();
+    
+    // Get total count for pagination
+    const totalBlogs = await Blog.countDocuments();
+    const totalPages = Math.ceil(totalBlogs / limit);
+    
+    // Get blogs for current page
+    const blogs = await Blog.find()
+      .populate("userId", "name username profileImage")
+      .sort({ createdAt: -1 })
+      .skip((page - 1) * limit)
+      .limit(limit);
+
+    return {
+      blogs: JSON.parse(JSON.stringify(blogs)),
+      totalPages,
+      currentPage: page
+    };
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Add this utility function to generate a daily number
+const getDailySkip = () => {
+  const today = new Date();
+  // Use date as a number between 0-30 that changes daily
+  return today.getDate() - 1; // 0-30 range
+};
+
+export const getFeaturedBlogs = async () => {
+  try {
+    await connectToDB();
+    
+    const skipCount = getDailySkip();
+    const totalBlogs = await Blog.countDocuments();
+    
+    // Ensure we don't skip more than possible
+    const safeSkip = skipCount % Math.max(totalBlogs - 3, 1);
+    
+    // Get blogs with consistent daily skip
+    const allBlogs = await Blog.find()
+      .populate("userId", "name username profileImage")
+      .skip(safeSkip)
+      .limit(3);
+
+    const [mainFeatured, ...otherFeatured] = allBlogs;
+
+    return {
+      mainFeatured: JSON.parse(JSON.stringify(mainFeatured)),
+      otherFeatured: JSON.parse(JSON.stringify(otherFeatured))
+    };
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getPopularBlogs = async (limit: number) => {
+  try {
+    await connectToDB();
+    
+    const skipCount = getDailySkip();
+    const totalBlogs = await Blog.countDocuments();
+    
+    // Use a different skip count than featured blogs to ensure different results
+    const safeSkip = (skipCount + limit) % Math.max(totalBlogs - limit, 1); // Offset by 3 from featured blogs
+    
+    // Get blogs with consistent daily skip
+    const popularBlogs = await Blog.find()
+      .populate("userId", "name username profileImage")
+      .sort({ createdAt: -1 })
+      .skip(safeSkip)
+      .limit(limit);
+
+    return JSON.parse(JSON.stringify(popularBlogs));
+  } catch (error) {
+    throw error;
+  }
+};
