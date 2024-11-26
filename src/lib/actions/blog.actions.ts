@@ -262,7 +262,7 @@ export const getFeaturedBlogs = async () => {
   }
 };
 
-export const getPopularBlogs = async () => {
+export const getPopularBlogs = async (limit: number) => {
   try {
     await connectToDB();
     
@@ -270,14 +270,14 @@ export const getPopularBlogs = async () => {
     const totalBlogs = await Blog.countDocuments();
     
     // Use a different skip count than featured blogs to ensure different results
-    const safeSkip = (skipCount + 3) % Math.max(totalBlogs - 3, 1); // Offset by 3 from featured blogs
+    const safeSkip = (skipCount + limit) % Math.max(totalBlogs - limit, 1); // Offset by 3 from featured blogs
     
     // Get blogs with consistent daily skip
     const popularBlogs = await Blog.find()
       .populate("userId", "name username profileImage")
       .sort({ createdAt: -1 })
       .skip(safeSkip)
-      .limit(3);
+      .limit(limit);
 
     return JSON.parse(JSON.stringify(popularBlogs));
   } catch (error) {

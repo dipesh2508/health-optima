@@ -36,7 +36,7 @@ const Blogs = async ({
     currentPage,
   } = await getPaginatedBlogs(page);
   const { mainFeatured, otherFeatured } = await getFeaturedBlogs();
-  const popularBlogs = await getPopularBlogs();
+  const popularBlogs = await getPopularBlogs(3);
 
   const session = await auth();
   return (
