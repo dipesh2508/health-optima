@@ -9,6 +9,53 @@ import Image from "next/image";
 import { redirect } from "next/navigation";
 import MotionDiv from "@/components/animations/MotionDiv";
 import MotionP from "@/components/animations/MotionP";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: 'Applications | Health Optima',
+  description: 'Explore Health Optima\'s suite of wellness applications including Sleep Tracker, BMI Calculator, Water Tracker, and Task Manager. Tools designed for your complete health journey.',
+  keywords: 'health apps, sleep tracker, BMI calculator, water tracker, task manager, wellness tools, health monitoring, Health Optima applications',
+  openGraph: {
+    title: 'Health & Wellness Applications | Health Optima',
+    description: 'Discover our comprehensive suite of health applications. From sleep tracking to BMI calculations, we provide the tools you need for your wellness journey.',
+    images: [
+      {
+        url: '/logo.png',
+        width: 800,
+        height: 600,
+        alt: 'Health Optima Logo',
+      },
+    ],
+    type: 'website',
+    siteName: 'Health Optima',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Health & Wellness Apps - Health Optima',
+    description: 'Transform your health journey with our suite of wellness applications. Track sleep, calculate BMI, monitor hydration, and manage tasks.',
+    images: ['/logo.png'],
+    creator: '@dipeshranjan12',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  alternates: {
+    canonical: 'https://healthoptima.com/apps',
+  },
+  authors: [{ name: 'Dipesh Ranjan' }, { name: 'Isheta Aggarwal' }],
+};
+
+export const viewport = {
+  themeColor: '#7c3aed',
+};
 
 const data = [
   {
