@@ -22,6 +22,11 @@ const nextConfig = {
                 hostname: 'img.clerk.com',
                 pathname: '**',
             },
+            {
+                protocol: 'https',
+                hostname: 'raw.githubusercontent.com',
+                pathname: '**',
+            },
         ],
     },
     experimental: {

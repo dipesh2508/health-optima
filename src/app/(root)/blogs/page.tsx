@@ -67,41 +67,49 @@ const Blogs = async ({
           )}
         </div>
         <div className="my-4 flex flex-col gap-4 md:my-6 md:flex-row">
-          {popularBlogs.map((blog: any) => (
-            <Card key={blog._id} className="flex-1 overflow-hidden">
-              <div className="flex flex-col gap-4 p-4 md:flex-row md:items-center">
-                <div className="relative h-32 w-32 flex-shrink-0">
-                  <Image
-                    src={blog.coverImage}
-                    alt={blog.title}
-                    fill
-                    className="rounded-full object-cover shadow-md"
-                  />
-                </div>
-
-                <div className="flex flex-grow flex-col">
-                  <div className="mb-2 flex items-center gap-2">
-                    <span className="text-muted-foreground text-sm font-medium">
-                      {blog.category}
-                    </span>
+          {popularBlogs.map((blog: any, index: number) => (
+            <MotionDiv
+              key={blog._id}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.2 }}
+            >
+              <Card className="flex-1 overflow-hidden">
+                <div className="flex flex-col gap-4 p-4 md:flex-row md:items-center">
+                  <div className="relative h-32 w-32 flex-shrink-0">
+                    <Image
+                      src={blog.coverImage}
+                      alt={blog.title}
+                      fill
+                      className="rounded-full object-cover shadow-md"
+                    />
                   </div>
 
-                  <CardTitle className="mb-2 line-clamp-1 text-lg">
-                    {blog.title}
-                  </CardTitle>
+                  <div className="flex flex-grow flex-col">
+                    <div className="mb-2 flex items-center gap-2">
+                      <span className="text-muted-foreground text-sm font-medium">
+                        {blog.category}
+                      </span>
+                    </div>
 
-                  <CardDescription className="mb-3 line-clamp-2 text-sm">
-                    {truncateText(blog.description, 150)}
-                  </CardDescription>
+                    <CardTitle className="mb-2 line-clamp-1 text-lg">
+                      {blog.title}
+                    </CardTitle>
 
-                  <Link href={`/blogs/${blog._id}`}>
-                    <Button size="sm">
-                      Read More
-                    </Button>
-                  </Link>
+                    <CardDescription className="mb-3 line-clamp-2 text-sm">
+                      {truncateText(blog.description, 150)}
+                    </CardDescription>
+
+                    <Link href={`/blogs/${blog._id}`}>
+                      <Button size="sm">
+                        Read More
+                      </Button>
+                    </Link>
+                  </div>
                 </div>
-              </div>
-            </Card>
+              </Card>
+            </MotionDiv>
           ))}
         </div>
       </section>
@@ -113,85 +121,100 @@ const Blogs = async ({
         <div className="mt-4 grid gap-6">
           {/* Main Featured Post */}
           {mainFeatured && (
-            <Card className="relative h-[400px] overflow-hidden md:h-[300px]">
-              <div className="relative h-full">
-                <Image
-                  src={mainFeatured.coverImage}
-                  alt={mainFeatured.title}
-                  fill
-                  className="object-cover transition-transform duration-300 hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+            <MotionDiv
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <Card className="relative h-[400px] overflow-hidden md:h-[300px]">
+                <div className="relative h-full">
+                  <Image
+                    src={mainFeatured.coverImage}
+                    alt={mainFeatured.title}
+                    fill
+                    className="object-cover transition-transform duration-300 hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
 
-                <div className="absolute inset-0 flex flex-col justify-between p-3 md:p-4">
-                  <div className="flex items-start justify-between">
-                    <span className="bg-primary rounded-full px-2 py-0.5 text-xs font-medium text-white md:text-sm">
-                      Featured
-                    </span>
-                    <div className="flex items-center gap-1 rounded-full bg-black/20 px-2 py-0.5 backdrop-blur-sm">
-                      <FaTag className="text-white" size={10} />
-                      <span className="text-xs text-white md:text-sm">
-                        {mainFeatured.category}
+                  <div className="absolute inset-0 flex flex-col justify-between p-3 md:p-4">
+                    <div className="flex items-start justify-between">
+                      <span className="bg-primary rounded-full px-2 py-0.5 text-xs font-medium text-white md:text-sm">
+                        Featured
                       </span>
+                      <div className="flex items-center gap-1 rounded-full bg-black/20 px-2 py-0.5 backdrop-blur-sm">
+                        <FaTag className="text-white" size={10} />
+                        <span className="text-xs text-white md:text-sm">
+                          {mainFeatured.category}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="text-white">
+                      <h2 className="mb-2 font-serif text-xl font-bold md:text-2xl">
+                        {mainFeatured.title}
+                      </h2>
+                      <p className="line-clamp-2 max-w-xl text-xs text-gray-200 md:text-sm">
+                        {mainFeatured.description}
+                      </p>
+                      <Link href={`/blogs/${mainFeatured._id}`}>
+                        <Button
+                          className="mt-2 md:mt-3"
+                          size="sm"
+                          variant="secondary"
+                        >
+                          Read Article
+                        </Button>
+                      </Link>
                     </div>
                   </div>
-
-                  <div className="text-white">
-                    <h2 className="mb-2 font-serif text-xl font-bold md:text-2xl">
-                      {mainFeatured.title}
-                    </h2>
-                    <p className="line-clamp-2 max-w-xl text-xs text-gray-200 md:text-sm">
-                      {mainFeatured.description}
-                    </p>
-                    <Link href={`/blogs/${mainFeatured._id}`}>
-                      <Button
-                        className="mt-2 md:mt-3"
-                        size="sm"
-                        variant="secondary"
-                      >
-                        Read Article
-                      </Button>
-                    </Link>
-                  </div>
                 </div>
-              </div>
-            </Card>
+              </Card>
+            </MotionDiv>
           )}
 
           {/* Grid for other featured posts */}
           <div className="grid gap-6 md:grid-cols-2">
             {/* Other Featured Posts */}
-            {otherFeatured.map((item: any) => (
-              <Card key={item._id} className="overflow-hidden">
-                <div className="relative aspect-[16/9]">
-                  <Image
-                    src={item.coverImage}
-                    alt={item.title}
-                    fill
-                    className="object-cover transition-transform duration-300 hover:scale-105"
-                  />
-                </div>
-
-                <CardHeader className="p-4">
-                  <div className="mb-1 flex items-center gap-2">
-                    <span className="text-muted-foreground text-sm font-medium">
-                      {item.category}
-                    </span>
+            {otherFeatured.map((item: any, index: number) => (
+              <MotionDiv
+                key={item._id}
+                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.2 }}
+              >
+                <Card className="overflow-hidden">
+                  <div className="relative aspect-[16/9]">
+                    <Image
+                      src={item.coverImage}
+                      alt={item.title}
+                      fill
+                      className="object-cover transition-transform duration-300 hover:scale-105"
+                    />
                   </div>
-                  <CardTitle className="line-clamp-2 text-xl">
-                    {item.title}
-                  </CardTitle>
-                  <CardDescription className="line-clamp-2 text-sm">
-                    {truncateText(item.description, 100)}
-                  </CardDescription>
-                </CardHeader>
 
-                <CardFooter className="p-4 pt-0">
-                  <Link href={`/blogs/${item._id}`}>
-                    <Button variant="secondary">Read Article</Button>
-                  </Link>
-                </CardFooter>
-              </Card>
+                  <CardHeader className="p-4">
+                    <div className="mb-1 flex items-center gap-2">
+                      <span className="text-muted-foreground text-sm font-medium">
+                        {item.category}
+                      </span>
+                    </div>
+                    <CardTitle className="line-clamp-2 text-xl">
+                      {item.title}
+                    </CardTitle>
+                    <CardDescription className="line-clamp-2 text-sm">
+                      {truncateText(item.description, 100)}
+                    </CardDescription>
+                  </CardHeader>
+
+                  <CardFooter className="p-4 pt-0">
+                    <Link href={`/blogs/${item._id}`}>
+                      <Button variant="secondary">Read Article</Button>
+                    </Link>
+                  </CardFooter>
+                </Card>
+              </MotionDiv>
             ))}
           </div>
         </div>
@@ -202,56 +225,63 @@ const Blogs = async ({
         </h1>
 
         <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {allBlogs.map((item: any) => (
-            <Card
+          {allBlogs.map((item: any, index: number) => (
+            <MotionDiv
               key={item._id}
-              className="overflow-hidden transition-all hover:shadow-lg"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: (index % 3) * 0.2 }}
             >
-              <div className="relative aspect-video w-full overflow-hidden">
-                <Image
-                  src={item.coverImage}
-                  alt={item.title}
-                  fill
-                  className="object-cover transition-transform duration-300 hover:scale-105"
-                />
-              </div>
-
-              <CardHeader>
-                <div className="flex items-center gap-2">
-                  <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-800">
-                    {item.category}
-                  </span>
+              <Card
+                className="overflow-hidden transition-all hover:shadow-lg"
+              >
+                <div className="relative aspect-video w-full overflow-hidden">
+                  <Image
+                    src={item.coverImage}
+                    alt={item.title}
+                    fill
+                    className="object-cover transition-transform duration-300 hover:scale-105"
+                  />
                 </div>
-                <CardTitle className="line-clamp-2 font-serif text-xl">
-                  {item.title}
-                </CardTitle>
-                <CardDescription className="line-clamp-2">
-                  {truncateText(item.description, 150)}
-                </CardDescription>
-              </CardHeader>
 
-              <CardFooter className="flex justify-between">
-                <div className="flex items-center gap-2">
-                  {item.userId?.profileImage && (
-                    <Image
-                      src={item.userId.profileImage}
-                      alt={item.userId.name || "author"}
-                      width={24}
-                      height={24}
-                      className="rounded-full"
-                    />
-                  )}
-                  <span className="text-sm text-slate-600">
-                    {item.userId?.name || "Anonymous"}
-                  </span>
-                </div>
-                <Link href={`/blogs/${item._id}`}>
-                  <Button variant="secondary" size="sm">
-                    Read More
-                  </Button>
-                </Link>
-              </CardFooter>
-            </Card>
+                <CardHeader>
+                  <div className="flex items-center gap-2">
+                    <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-800">
+                      {item.category}
+                    </span>
+                  </div>
+                  <CardTitle className="line-clamp-2 font-serif text-xl">
+                    {item.title}
+                  </CardTitle>
+                  <CardDescription className="line-clamp-2">
+                    {truncateText(item.description, 150)}
+                  </CardDescription>
+                </CardHeader>
+
+                <CardFooter className="flex justify-between">
+                  <div className="flex items-center gap-2">
+                    {item.userId?.profileImage && (
+                      <Image
+                        src={item.userId.profileImage}
+                        alt={item.userId.name || "author"}
+                        width={24}
+                        height={24}
+                        className="rounded-full"
+                      />
+                    )}
+                    <span className="text-sm text-slate-600">
+                      {item.userId?.name || "Anonymous"}
+                    </span>
+                  </div>
+                  <Link href={`/blogs/${item._id}`}>
+                    <Button variant="secondary" size="sm">
+                      Read More
+                    </Button>
+                  </Link>
+                </CardFooter>
+              </Card>
+            </MotionDiv>
           ))}
         </div>
 
