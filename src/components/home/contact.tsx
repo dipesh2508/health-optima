@@ -69,12 +69,12 @@ const Contact = () => {
   return (
     <section className="my-20" id="contact">
       <div className="my-12">
-        <h1 className="text-center font-serif text-3xl font-bold md:text-5xl">
+        <h2 className="text-center font-serif text-3xl font-bold md:text-5xl">
           Contact <span className="text-primary-5">Us</span>
-        </h1>
-        <h1 className="mt-4 text-center font-sans text-base font-light">
+        </h2>
+        <h3 className="mt-4 text-center font-sans text-base font-light">
           We would love to hear from you
-        </h1>
+        </h3>
       </div>
 
       <div className="mb-12 md:grid md:grid-cols-2">

@@ -1,15 +1,19 @@
 const Hero = () => {
   return (
-    <section className="relative h-screen overflow-hidden">
+    <section className="relative h-screen overflow-hidden" aria-label="Welcome to Health Optima">
       <video
         muted
         loop
         autoPlay
         playsInline
+        preload="metadata"
+        aria-label="Background video showing health and wellness activities"
         className="absolute inset-0 w-full h-full object-cover"
       >
-        <source src="https://res.cloudinary.com/dw5m5d0tl/video/upload/v1719844666/bgVideo_htnodr.mp4" type="video/mp4" />
-        <source src="https://res.cloudinary.com/dw5m5d0tl/video/upload/v1719844666/bgVideo_htnodr.mp4" type="video/ogg" />
+        <source 
+          src="https://res.cloudinary.com/dw5m5d0tl/video/upload/q_auto,f_auto,w_1920/v1719844666/bgVideo_htnodr.mp4" 
+          type="video/mp4" 
+        />
         Your browser does not support the video tag.
       </video>
 

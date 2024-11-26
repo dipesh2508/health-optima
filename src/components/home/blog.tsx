@@ -10,12 +10,19 @@ const Blog = async () => {
   const limitedPosts = blogPosts.slice(0, 4);
 
   return (
-    <section className="mt-28 flex min-h-screen flex-col items-center">
-      <h1 className="font-serif text-3xl font-bold md:text-5xl">
-        Take a <span className="text-secondary">Look</span>
-      </h1>
+    <section 
+      className="mt-28 flex min-h-screen flex-col items-center"
+      aria-label="Featured Blog Posts"
+    >
+      <h2 className="font-serif text-3xl font-bold md:text-5xl">
+        Latest Health <span className="text-secondary">Insights</span>
+      </h2>
 
-      <div className="content center mx-12 my-14 grid grid-cols-1 gap-12 md:mx-24 md:mt-28 md:grid-cols-2">
+      <div 
+        className="content center mx-12 my-14 grid grid-cols-1 gap-12 md:mx-24 md:mt-16 md:grid-cols-2"
+        role="feed"
+        aria-label="Blog posts grid"
+      >
         {limitedPosts.map((post:any) => (
           <Card 
             key={post._id} 
@@ -24,7 +31,7 @@ const Blog = async () => {
             <div className="w-full h-[200px] md:w-[40%] md:h-auto relative">
               <Image
                 src={post.coverImage}
-                alt={post.title}
+                alt={`Featured image for article: ${post.title}`}
                 fill
                 className="object-cover"
                 loading="lazy"
@@ -35,17 +42,20 @@ const Blog = async () => {
                 <p className="font-sans text-sm md:text-base font-light text-muted-foreground">
                   {post.category}
                 </p>
-                <h2 className="font-serif text-lg md:text-xl font-semibold line-clamp-2">
+                <h3 className="font-serif text-lg md:text-xl font-semibold line-clamp-2">
                   {post.title}
-                </h2>
+                </h3>
                 <p className="font-sans text-xs md:text-sm font-light line-clamp-2 text-muted-foreground">
                   {post.description}
                 </p>
               </div>
               <div className="flex justify-start mt-4 md:mt-auto">
-                <Link href={`/blogs/${post._id}`}>
+                <Link 
+                  href={`/blogs/${post._id}`}
+                  aria-label={`Read full article about ${post.title}`}
+                >
                   <Button variant={"secondary"} size={"sm"}>
-                    Read
+                    Read Article
                   </Button>
                 </Link>
               </div>
@@ -54,8 +64,11 @@ const Blog = async () => {
         ))}
       </div>
 
-      <Link href="/blogs">
-        <Button variant={"secondary"}>See More</Button>
+      <Link 
+        href="/blogs"
+        aria-label="View all blog posts"
+      >
+        <Button variant={"secondary"}>Explore All Articles</Button>
       </Link>
     </section>
   );
