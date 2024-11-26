@@ -1,10 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../ui/button";
+import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
 
-import { blogData } from "@/constants";
+import { getPopularBlogs } from "@/lib/actions/blog.actions";
 
-const blog = () => {
+const Blog = async () => {
+  const blogPosts = await getPopularBlogs(4);
+  const limitedPosts = blogPosts.slice(0, 4);
+
   return (
     <section className="mt-28 flex min-h-screen flex-col items-center">
       <h1 className="font-serif text-3xl font-bold md:text-5xl">
@@ -12,41 +16,38 @@ const blog = () => {
       </h1>
 
       <div className="content center mx-12 my-14 grid grid-cols-1 gap-12 md:mx-24 md:mt-28 md:grid-cols-2">
-        {blogData.map((item, index) => (
-          <div
-            className="grid grid-cols-1 gap-3 align-middle md:grid-cols-2 md:content-center"
-            key={index}
-          >
-            <div className="grid-1 grid content-center">
+        {limitedPosts.map((post:any) => (
+          <Card key={post._id} className="border-none shadow-custom flex flex-row overflow-hidden h-[200px] transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+            <div className="w-[40%] relative">
               <Image
-                height={34}
-                width={473}
-                src={item.image}
-                alt={item.title}
-                className="rounded-md hover:shadow-custom"
+                src={post.coverImage}
+                alt={post.title}
+                fill
+                className="object-cover"
                 loading="lazy"
               />
             </div>
-            <div className="flex flex-col text-center md:text-left">
-              <h1 className="font-sans text-base font-light ">
-                {item.category}
-              </h1>
-
-              <h1 className="font-serif text-2xl font-semibold leading-6">
-                {item.title}
-              </h1>
-              <h1 className="mt-1 font-sans text-xs font-light">
-                {item.description}
-              </h1>
-              <div className="flex justify-center md:justify-start">
-                <Link href={item.link}>
-                <Button variant={"secondary"} size={"sm"} className="mt-2">
-                  Read
-                </Button>
+            <div className="w-[60%] flex flex-col justify-between p-4">
+              <div className="space-y-2">
+                <p className="font-sans text-base font-light text-muted-foreground">
+                  {post.category}
+                </p>
+                <h2 className="font-serif text-xl font-semibold line-clamp-2">
+                  {post.title}
+                </h2>
+                <p className="font-sans text-sm font-light line-clamp-2 text-muted-foreground">
+                  {post.description}
+                </p>
+              </div>
+              <div className="flex justify-start mt-auto">
+                <Link href={`/blogs/${post._id}`}>
+                  <Button variant={"secondary"} size={"sm"}>
+                    Read
+                  </Button>
                 </Link>
               </div>
             </div>
-          </div>
+          </Card>
         ))}
       </div>
 
@@ -57,4 +58,4 @@ const blog = () => {
   );
 };
 
-export default blog;
+export default Blog;
