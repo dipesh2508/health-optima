@@ -1,4 +1,5 @@
 import { FaTag, FaPlus } from "react-icons/fa";
+import { Metadata } from "next";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -17,6 +18,52 @@ import {
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
+
+export const metadata: Metadata = {
+  title: 'Blogs | Health Optima',
+  description: 'Explore our collection of health and wellness articles. Stay informed with the latest medical insights, health tips, and expert advice from Health Optima.',
+  keywords: 'health blogs, medical articles, wellness tips, healthcare insights, Health Optima blog',
+  openGraph: {
+    title: 'Blogs | Health Optima',
+    description: 'Explore our collection of health and wellness articles. Stay informed with the latest medical insights and expert advice.',
+    images: [
+      {
+        url: '/logo.png',
+        width: 800,
+        height: 600,
+        alt: 'Health Optima Logo',
+      },
+    ],
+    type: 'website',
+    siteName: 'Health Optima',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Blogs | Health Optima',
+    description: 'Explore our collection of health and wellness articles. Stay informed with the latest medical insights and expert advice.',
+    images: ['/logo.png'],
+    creator: '@dipeshranjan12',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  alternates: {
+    canonical: 'https://healthoptima.com/blogs',
+  },
+  authors: [{ name: 'Dipesh Ranjan' }, { name: 'Isheta Aggarwal' }],
+};
+
+export const viewport = {
+  themeColor: '#7c3aed',
+};
 import AllBlogs from "@/components/shared/blogs/AllBlogs";
 import { truncateText } from "@/lib/utils";
 

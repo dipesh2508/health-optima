@@ -15,6 +15,7 @@ import Link from "next/link";
 import MotionP from "@/components/animations/MotionP";
 import HtmlRenderer from "@/components/shared/blogs/HtmlRenderer";
 import { PenSquare } from "lucide-react";
+import { Metadata } from 'next';
 
 const getYouTubeEmbedUrl = (url: string) => {
   if (!url) return undefined;
@@ -26,6 +27,50 @@ const getYouTubeEmbedUrl = (url: string) => {
   return match && match[2].length === 11
     ? `https://www.youtube.com/embed/${match[2]}`
     : undefined;
+};
+
+export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
+  const blog = await getBlogById(params.id);
+  
+  if (!blog) {
+    return {
+      title: 'Blog Not Found | Health Optima',
+      description: 'The requested blog post could not be found.',
+    };
+  }
+
+  return {
+    title: `${blog.title} | Health Optima`,
+    description: blog.description,
+    keywords: `${blog.category}, health article, medical blog, Health Optima, ${blog.title}`,
+    openGraph: {
+      title: blog.title,
+      description: blog.description,
+      images: [
+        {
+          url: blog.coverImage,
+          width: 800,
+          height: 600,
+          alt: blog.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: blog.title,
+      description: blog.description,
+      images: [blog.coverImage],
+      creator: 'dipeshranjan12',
+    },
+    authors: [{ name: blog.userId.name }],
+    alternates: {
+      canonical: `https://healthoptima.com/blogs/${blog._id}`,
+    },
+  };
+}
+
+export const viewport = {
+  themeColor: '#7c3aed',
 };
 
 const Page = async ({ params }: { params: { id: string } }) => {

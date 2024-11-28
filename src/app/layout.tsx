@@ -14,13 +14,33 @@ const montserrat = Montserrat({ subsets: ["latin"] });
 const mona = localFont({src: '../assets/font/Mona-Sans.ttf'})
 
 export const metadata: Metadata = {
-  title: "Health Optima",
-  description:
-    "Empower Your Wellness Journey with Health Optima: Your Ultimate Health and Wellness Companion",
-  keywords:
-    "health optima, health, wellness, fitness, sleep, hydration, bmi, todo, tasks, productivity, health apps, wellness apps, fitness apps, sleep apps, hydration apps, bmi apps, todo apps, tasks apps, productivity apps",
+  title: "Health Optima - Your Ultimate Health and Wellness Companion",
+  description: "Discover comprehensive health resources, wellness tools, and expert guidance at Health Optima. Transform your lifestyle with personalized fitness tracking, nutrition advice, and mental wellness support. Start your journey to optimal health today.",
+  keywords: "health optima, wellness platform, fitness tracking, nutrition guidance, mental health, wellness tools, health monitoring, personal wellness, health optimization, wellness journey, health technology, wellness companion",
   robots: "index, follow",
   authors: [{ name: "Health Optima" }, { name: "Dipesh Ranjan" }],
+  openGraph: {
+    title: "Health Optima - Your Ultimate Health and Wellness Companion",
+    description: "Transform your lifestyle with Health Optima's comprehensive wellness tools, personalized health tracking, and expert guidance. Start your journey to optimal health today.",
+    url: "https://www.healthoptima.in",
+    siteName: "Health Optima",
+    images: [{
+      url: "/logo.png",
+      width: 1200,
+      height: 630,
+    }],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Health Optima - Your Ultimate Health and Wellness Companion",
+    description: "Transform your lifestyle with Health Optima's comprehensive wellness tools, personalized health tracking, and expert guidance.",
+    images: ["/logo.png"],
+  },
+  alternates: {
+    canonical: "https://www.healthoptima.in"
+  }
 };
 
 export default async function RootLayout({

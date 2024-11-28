@@ -47,3 +47,9 @@
     content: "...";
   }
 }
+
+.lazy-section {
+  min-height: 100px;
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 5000px;
+}

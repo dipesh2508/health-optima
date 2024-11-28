@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Metadata } from "next";
 
 import About from "@/assets/images/about.png";
 import Mission from "@/assets/images/mission.png";
@@ -13,6 +14,52 @@ import { teamMembers } from "@/constants/profile";
 const variants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1 },
+};
+
+export const metadata: Metadata = {
+  title: 'About Us | Health Optima',
+  description: 'Learn about Health Optima - your trusted companion for comprehensive well-being.',
+  keywords: 'Health Optima, healthcare platform, wellness company, health technology, medical services, health team, Devi AI assistant',
+  openGraph: {
+    title: 'About Us | Health Optima',
+    description: 'Discover the team and vision behind Health Optima - your partner in comprehensive health and wellness solutions.',
+    images: [
+      {
+        url: '/logo.png',
+        width: 800,
+        height: 600,
+        alt: 'Health Optima Logo',
+      },
+    ],
+    type: 'website',
+    siteName: 'Health Optima',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'About Health Optima',
+    description: 'Your trusted companion for comprehensive well-being. Discover our mission and meet our team.',
+    images: ['/logo.png'],
+    creator: '@dipeshranjan12',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  alternates: {
+    canonical: 'https://healthoptima.com/about',
+  },
+  authors: [{ name: 'Dipesh Ranjan' }, { name: 'Isheta Aggarwal' }],
+};
+
+export const viewport = {
+  themeColor: '#7c3aed',
 };
 
 const about = () => {
