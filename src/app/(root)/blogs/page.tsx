@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import MotionDiv from "@/components/animations/MotionDiv";
 import { auth } from "@clerk/nextjs/server";
 import {
-  getPaginatedBlogs,
   getFeaturedBlogs,
   getPopularBlogs,
 } from "@/lib/actions/blog.actions";
@@ -65,11 +64,8 @@ export const metadata: Metadata = {
 export const viewport = {
   themeColor: '#7c3aed',
 };
-
-const truncateText = (text: string, limit: number = 250) => {
-  if (text.length <= limit) return text;
-  return text.slice(0, limit) + "...";
-};
+import AllBlogs from "@/components/shared/blogs/AllBlogs";
+import { truncateText } from "@/lib/utils";
 
 const Blogs = async ({
   searchParams,
@@ -77,11 +73,6 @@ const Blogs = async ({
   searchParams: { [key: string]: string | undefined };
 }) => {
   const page = Number(searchParams?.page) || 1;
-  const {
-    blogs: allBlogs,
-    totalPages,
-    currentPage,
-  } = await getPaginatedBlogs(page);
   const { mainFeatured, otherFeatured } = await getFeaturedBlogs();
   const popularBlogs = await getPopularBlogs(3);
 
@@ -266,76 +257,7 @@ const Blogs = async ({
           </div>
         </div>
       </section>
-      <section className="mx-8 my-16 px-2 md:mx-28">
-        <h1 className="text-center font-serif text-2xl font-semibold text-secondary md:text-left md:text-4xl">
-          ALL <span className="text-dark-primary">BLOGS</span>
-        </h1>
-
-        <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {allBlogs.map((item: any, index: number) => (
-            <MotionDiv
-              key={item._id}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: (index % 3) * 0.2 }}
-            >
-              <Card
-                className="overflow-hidden transition-all hover:shadow-lg"
-              >
-                <div className="relative aspect-video w-full overflow-hidden">
-                  <Image
-                    src={item.coverImage}
-                    alt={item.title}
-                    fill
-                    className="object-cover transition-transform duration-300 hover:scale-105"
-                  />
-                </div>
-
-                <CardHeader>
-                  <div className="flex items-center gap-2">
-                    <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-800">
-                      {item.category}
-                    </span>
-                  </div>
-                  <CardTitle className="line-clamp-2 font-serif text-xl">
-                    {item.title}
-                  </CardTitle>
-                  <CardDescription className="line-clamp-2">
-                    {truncateText(item.description, 150)}
-                  </CardDescription>
-                </CardHeader>
-
-                <CardFooter className="flex justify-between">
-                  <div className="flex items-center gap-2">
-                    {item.userId?.profileImage && (
-                      <Image
-                        src={item.userId.profileImage}
-                        alt={item.userId.name || "author"}
-                        width={24}
-                        height={24}
-                        className="rounded-full"
-                      />
-                    )}
-                    <span className="text-sm text-slate-600">
-                      {item.userId?.name || "Anonymous"}
-                    </span>
-                  </div>
-                  <Link href={`/blogs/${item._id}`}>
-                    <Button variant="secondary" size="sm">
-                      Read More
-                    </Button>
-                  </Link>
-                </CardFooter>
-              </Card>
-            </MotionDiv>
-          ))}
-        </div>
-
-        <div className="mt-12 flex justify-center">
-          <Pagination totalPages={totalPages} currentPage={currentPage} />
-        </div>
-      </section>
+      <AllBlogs />
     </main>
   );
 };

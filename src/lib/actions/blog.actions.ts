@@ -202,32 +202,6 @@ export async function likeComment(commentId: string, userId: string) {
   }
 }
 
-// New pagination function for blogs
-export const getPaginatedBlogs = async (page: number = 1, limit: number = 6) => {
-  try {
-    await connectToDB();
-    
-    // Get total count for pagination
-    const totalBlogs = await Blog.countDocuments();
-    const totalPages = Math.ceil(totalBlogs / limit);
-    
-    // Get blogs for current page
-    const blogs = await Blog.find()
-      .populate("userId", "name username profileImage")
-      .sort({ createdAt: -1 })
-      .skip((page - 1) * limit)
-      .limit(limit);
-
-    return {
-      blogs: JSON.parse(JSON.stringify(blogs)),
-      totalPages,
-      currentPage: page
-    };
-  } catch (error) {
-    throw error;
-  }
-};
-
 // Add this utility function to generate a daily number
 const getDailySkip = () => {
   const today = new Date();
@@ -280,6 +254,39 @@ export const getPopularBlogs = async (limit: number) => {
       .limit(limit);
 
     return JSON.parse(JSON.stringify(popularBlogs));
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Search and sort blogs
+export const searchAndSortBlogs = async (
+  searchQuery: string = "",
+  sortOrder: "asc" | "desc" = "desc",
+  page: number = 1,
+  limit: number = 6
+) => {
+  try {
+    await connectToDB();
+
+    const query = searchQuery
+      ? { title: { $regex: searchQuery, $options: "i" } }
+      : {};
+
+    const totalBlogs = await Blog.countDocuments(query);
+    const totalPages = Math.ceil(totalBlogs / limit);
+
+    const blogs = await Blog.find(query)
+      .populate("userId", "name username profileImage")
+      .sort({ createdAt: sortOrder === "asc" ? 1 : -1 })
+      .skip((page - 1) * limit)
+      .limit(limit);
+
+    return {
+      blogs: JSON.parse(JSON.stringify(blogs)),
+      totalPages,
+      currentPage: page,
+    };
   } catch (error) {
     throw error;
   }
