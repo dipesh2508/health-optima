@@ -17,12 +17,8 @@ import {
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
-import AllBlogs from "@/components/AllBlogs";
-
-export const truncateText = (text: string, limit: number = 250) => {
-  if (text.length <= limit) return text;
-  return text.slice(0, limit) + "...";
-};
+import AllBlogs from "@/components/shared/blogs/AllBlogs";
+import { truncateText } from "@/lib/utils";
 
 const Blogs = async ({
   searchParams,

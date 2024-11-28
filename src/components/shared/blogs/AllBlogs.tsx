@@ -24,7 +24,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useSearchParams } from "next/navigation";
-import { truncateText } from "@/app/(root)/blogs/page";
+import { truncateText } from "@/lib/utils";
 import { FaSearch } from "react-icons/fa";
 import { Skeleton } from "@/components/ui/skeleton";
 
