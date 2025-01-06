@@ -58,10 +58,10 @@ export async function DELETE(
         if (!listId || !taskId) {
             return new NextResponse("Invalid request", { status: 400 });
         }
-
+        
         await deleteTask(taskId);
 
-        return NextResponse.json("Task deleted", { status: 200 });
+        return new NextResponse(null, { status: 204 });
     } catch (e: any) {
         console.error("[DELETE_TASKID]", e.message);
         return new NextResponse("Internal server error", { status: 500 });

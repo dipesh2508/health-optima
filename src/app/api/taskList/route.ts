@@ -20,8 +20,9 @@ export async function POST(req: Request) {
 
 export async function GET(req: Request) {
   try {
-    const body = await req.json();
-    const { userId } = body;
+
+    const { searchParams } = new URL(req.url);
+    const userId = searchParams.get('userId');
 
     if (!userId) {
       return new NextResponse("Invalid request", { status: 400 });

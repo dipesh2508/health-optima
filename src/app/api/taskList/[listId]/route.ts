@@ -38,6 +38,8 @@ export async function PUT(
     }
 
     const list = await updateList(listId, listName);
+
+    return NextResponse.json({ list }, { status: 200 });
   } catch (e: any) {
     console.error("POST_LISTID", e.message);
     return new NextResponse("Internal Error", { status: 500 });
