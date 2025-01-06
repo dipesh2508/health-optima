@@ -114,10 +114,15 @@ export const getAllTasksByListId = async (listId: string) => {
 };
 
 // Retrieves a specific task by its ID
-export const getTaskById = async (taskId: string) => {
+export const getTask = async (listId: string, taskId: string) => {
   try {
     await connectToDB();
-    const task = await Task.findById(taskId);
+
+    const task = await Task.findOne({
+      _id: taskId,
+      listId: listId
+    }).lean();
+
     if (!task) {
       throw new Error("Task not found");
     }
@@ -132,10 +137,11 @@ export const updateTask = async (
   taskId: string,
   taskName: string,
   dueTime: string,
+  complete: boolean,
 ) => {
   try {
     await connectToDB();
-    const task = await Task.findByIdAndUpdate(taskId, { taskName, dueTime });
+    const task = await Task.findByIdAndUpdate(taskId, { taskName, dueTime, complete });
     if (!task) {
       throw new Error("Task not found");
     }

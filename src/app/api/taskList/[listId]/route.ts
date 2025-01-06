@@ -18,7 +18,7 @@ export async function GET(
     const list = await getListById(listId);
     return NextResponse.json({ list }, { status: 200 });
   } catch (e: any) {
-    console.error("[GET_LISTID] ", e);
+    console.error("[GET_LISTID] ", e.message);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }
@@ -39,7 +39,25 @@ export async function PUT(
 
     const list = await updateList(listId, listName);
   } catch (e: any) {
-    console.error("POST_LISTID", e);
+    console.error("POST_LISTID", e.message);
+    return new NextResponse("Internal Error", { status: 500 });
+  }
+}
+
+export async function DELETE(
+  req: Request,
+  { params }: { params: { listId: string } },
+) {
+  try {
+    const { listId } = params;
+    if (!listId) {
+      return new NextResponse("Invalid request", { status: 400 });
+    }
+
+    await deleteList(listId);
+    return new NextResponse(null, { status: 204 });
+  } catch (e: any) {
+    console.error("[DELETE_LISTID] ", e.message);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }

@@ -13,7 +13,7 @@ export async function POST(req: Request) {
     const list = await createList(userId, listName);
     return NextResponse.json({ list }, { status: 201 });
   } catch (e: any) {
-    console.error("[POST_TASKLIST] ", e);
+    console.error("[POST_TASKLIST] ", e.message);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }
@@ -30,7 +30,7 @@ export async function GET(req: Request) {
     const lists = await getLists(userId);
     return NextResponse.json({ lists }, { status: 200 });
   } catch (e: any) {
-    console.error("[GET_TASKLIST] ", e);
+    console.error("[GET_TASKLIST] ", e.message);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }
