@@ -4,6 +4,7 @@ import { Task, ITask } from "../models/task.model";
 import { List, ILists } from "../models/todo.model";
 import { User } from "../models/user.model";
 import { connectToDB } from "../mongoose";
+import mongoose from "mongoose";
 
 // Creates a new list for a user
 export const createList = async (userId: string, listName: string) => {
@@ -67,7 +68,40 @@ export const updateList = async (listId: string, listName: string) => {
 export const deleteList = async (listId: string) => {
   try {
     await connectToDB();
-    await List.findByIdAndDelete(listId);
+    
+    // Start a session for transaction
+    const session = await mongoose.startSession();
+    session.startTransaction();
+    
+    try {
+      // Find the list to get associated tasks and userId
+      const list = await List.findById(listId);
+      if (!list) {
+        throw new Error("List not found");
+      }
+
+      // Delete all tasks in the list
+      await Task.deleteMany({ listId: listId }).session(session);
+
+      // Remove list reference from user's lists
+      await User.findByIdAndUpdate(
+        list.userId,
+        { $pull: { lists: listId } },
+        { session }
+      );
+
+      // Delete the list
+      await List.findByIdAndDelete(listId).session(session);
+
+      // Commit the transaction
+      await session.commitTransaction();
+    } catch (error) {
+      // Rollback on error
+      await session.abortTransaction();
+      throw error;
+    } finally {
+      session.endSession();
+    }
   } catch (error) {
     throw error;
   }
@@ -114,10 +148,15 @@ export const getAllTasksByListId = async (listId: string) => {
 };
 
 // Retrieves a specific task by its ID
-export const getTaskById = async (taskId: string) => {
+export const getTask = async (listId: string, taskId: string) => {
   try {
     await connectToDB();
-    const task = await Task.findById(taskId);
+
+    const task = await Task.findOne({
+      _id: taskId,
+      listId: listId
+    }).lean();
+
     if (!task) {
       throw new Error("Task not found");
     }
@@ -132,10 +171,11 @@ export const updateTask = async (
   taskId: string,
   taskName: string,
   dueTime: string,
+  complete: boolean,
 ) => {
   try {
     await connectToDB();
-    const task = await Task.findByIdAndUpdate(taskId, { taskName, dueTime });
+    const task = await Task.findByIdAndUpdate(taskId, { taskName, dueTime, complete });
     if (!task) {
       throw new Error("Task not found");
     }
@@ -149,9 +189,33 @@ export const updateTask = async (
 export const deleteTask = async (taskId: string) => {
   try {
     await connectToDB();
-    const task = await Task.findByIdAndDelete(taskId);
-    if (!task) {
-      throw new Error("Task not found");
+    
+    const session = await mongoose.startSession();
+    session.startTransaction();
+    
+    try {
+      // Find task to get listId
+      const task = await Task.findById(taskId);
+      if (!task) {
+        throw new Error("Task not found");
+      }
+
+      // Delete task
+      await Task.findByIdAndDelete(taskId).session(session);
+
+      // Remove taskId from List
+      await List.findByIdAndUpdate(
+        task.listId,
+        { $pull: { taskIds: taskId } },
+        { session }
+      );
+
+      await session.commitTransaction();
+    } catch (error) {
+      await session.abortTransaction();
+      throw error;
+    } finally {
+      session.endSession();
     }
   } catch (error) {
     throw error;
