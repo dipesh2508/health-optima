@@ -34,7 +34,8 @@ import {
 } from "@/components/ui/form";
 import { useApi } from "@/hooks/useApi";
 import { useUserDetails } from "@/hooks/useUserDetails";
-import Loading from "@/app/(root)/loading";
+import { useToast } from "@/hooks/use-toast";
+import { SidebarSkeleton } from "./SidebarSkeleton";
 
 const formSchema = z.object({
   newListTitle: z.string().min(1, {
@@ -58,9 +59,13 @@ interface TaskList {
   __v: number;
 }
 
+interface TaskListData {
+  lists: TaskList[];
+}
+
 const Sidebar = () => {
   const [open, setOpen] = useState(false);
-  const [url, setUrl] = useState("");
+  const {toast} = useToast();
 
   const form = useForm<fieldType>({
     resolver: zodResolver(formSchema),
@@ -69,46 +74,70 @@ const Sidebar = () => {
     },
   });
 
-  const userDetails = useUserDetails();
-  const { error, isLoading, mutate } = useApi("/api/taskList", {
+  const { userId, isLoading: userLoading } = useUserDetails();
+
+  const {
+    data: newList,
+    error,
+    isLoading,
+    mutate,
+  } = useApi("/api/taskList", {
     method: "POST",
     onSuccess: (data) => {
-      console.log("New List created successfully", data);
+      toast({
+        title: "List Created",
+        description: "Your new list has been created successfully",
+      });
     },
     onError: (error) => {
-      console.error("Failed to create new list", error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Error creating new list",
+      });
     },
   });
 
-  function onSubmit(data: fieldType) {
-    console.log(data);
-    mutate({
-      body: { userId: userDetails.userId, listName: data.newListTitle },
+  async function onSubmit(data: fieldType) {
+    await mutate({
+      body: { userId: userId, listName: data.newListTitle },
     });
     setOpen(false);
   }
 
-  useEffect(() => {
-    if (isLoading) {
-      <Loading />;
-    } else {
-      setUrl(`/api/taskList?userId=${userDetails.userId}`);
-    }
-  }, [isLoading, userDetails.userId]);
-
   const {
     data: listNames,
     error: fetchError,
-    isLoading: FetchisLoading,
-  } = useApi(url);
-  // if (fetchError) return <p>Error: {fetchError.message}</p>;
-  console.log(listNames);
-  const listNamesString = JSON.parse(JSON.stringify(listNames, null, 2));
-  console.log(listNamesString);
+    isLoading: fetchIsLoading,
+  } = useApi<TaskListData>(`/api/taskList?userId=${userId}`, {
+    enabled: !!userId,
+    dependencies: [userId],
+    onError: (error) => {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Error fetching lists",
+      });
+    },
+    onSuccess: (data) => {
+      toast({
+        title: "Lists Fetched",
+        description: "Lists fetched successfully",
+      });
+    }
+  });
+
+  if (userLoading || fetchIsLoading) {
+    return <SidebarSkeleton />;
+  }
+
+  if (fetchError || error) {
+    return <div>Error loading lists</div>;
+  }
 
   return (
     <div className="sidebar col-span-1 flex flex-col justify-between border-r-2 border-primary-2 bg-white p-6">
-      <Collapsible>
+      <Collapsible defaultOpen={true}>
         <div className="mb-3 mt-4 flex items-center justify-between space-x-4 bg-primary-0 p-2 px-4">
           <h4 className="text-lg font-medium text-primary-10">My Lists</h4>
           <CollapsibleTrigger asChild>
@@ -123,11 +152,13 @@ const Sidebar = () => {
         </div>
         <CollapsibleContent>
           <div className="flex flex-col gap-1">
-            {!listNamesString?.lists?.length ? (
+            {!listNames?.lists.length ? (
               <BorderBox key={0}>No List created</BorderBox>
             ) : (
-              listNamesString.lists.map((it: TaskList) => {
-                return <BorderBox key={it._id}>{it.listName}</BorderBox>;
+              listNames.lists.map((it: TaskList) => {
+                return (
+                  <BorderBox key={it._id}>{it.listName as string}</BorderBox>
+                );
               })
             )}
           </div>
