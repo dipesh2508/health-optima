@@ -36,6 +36,7 @@ import { useApi } from "@/hooks/useApi";
 import { useUserDetails } from "@/hooks/useUserDetails";
 import { useToast } from "@/hooks/use-toast";
 import { SidebarSkeleton } from "./SidebarSkeleton";
+import Loading from "@/app/(root)/loading";
 
 const formSchema = z.object({
   newListTitle: z.string().min(1, {
@@ -43,11 +44,6 @@ const formSchema = z.object({
   }),
 });
 type fieldType = z.infer<typeof formSchema>;
-
-interface ListNames {
-  userid: string;
-  listname: string;
-}
 
 interface TaskList {
   _id: string;
@@ -62,10 +58,17 @@ interface TaskList {
 interface TaskListData {
   lists: TaskList[];
 }
+interface TaskListPostData {
+  list: TaskList;
+}
 
-const Sidebar = () => {
+const Sidebar = ({ setListId }: { setListId: (str: string) => void }) => {
   const [open, setOpen] = useState(false);
-  const {toast} = useToast();
+  const { toast } = useToast();
+
+  const [listSelected, setListSelected] = useState<string>("");
+  // const [updateListName, setUpdateListName] = useState<string>("");
+  // const [deleteList, setDeleteList] = useState<string>("");
 
   const form = useForm<fieldType>({
     resolver: zodResolver(formSchema),
@@ -81,9 +84,11 @@ const Sidebar = () => {
     error,
     isLoading,
     mutate,
-  } = useApi("/api/taskList", {
+  } = useApi<TaskListPostData>("/api/taskList", {
     method: "POST",
     onSuccess: (data) => {
+      console.log(data);
+      listNames?.lists.push(data.list);
       toast({
         title: "List Created",
         description: "Your new list has been created successfully",
@@ -98,15 +103,8 @@ const Sidebar = () => {
     },
   });
 
-  async function onSubmit(data: fieldType) {
-    await mutate({
-      body: { userId: userId, listName: data.newListTitle },
-    });
-    setOpen(false);
-  }
-
   const {
-    data: listNames,
+    data: apiListNames,
     error: fetchError,
     isLoading: fetchIsLoading,
   } = useApi<TaskListData>(`/api/taskList?userId=${userId}`, {
@@ -124,16 +122,92 @@ const Sidebar = () => {
         title: "Lists Fetched",
         description: "Lists fetched successfully",
       });
-    }
+    },
   });
+  const [listNames, setListNames] = useState<TaskListData | null>(apiListNames);
+  const [updateId, setUpdateId] = useState<string>("");
+
+  const {
+    mutate: updateTaskList,
+    error: updateError,
+    isLoading: updateIsLoading,
+  } = useApi<TaskListPostData>(`/api/taskList/${updateId}`, {
+    method: "PUT",
+    enabled: false,
+    onError: (error) => {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to update task list.",
+      });
+    },
+    onSuccess: (data) => {
+      setListNames((prev) => {
+        if (!prev) return null;
+        return {
+          ...prev,
+          lists: prev.lists.map((item) => {
+            if (item._id === updateId) {
+              return data.list;
+            }
+            return item;
+          }),
+        };
+      });
+
+      toast({
+        title: "Updated",
+        description: "Task list updated successfully.",
+      });
+    },
+  });
+
+  useEffect(() => {
+    if (apiListNames) {
+      setListNames(apiListNames);
+    }
+  }, [apiListNames]);
 
   if (userLoading || fetchIsLoading) {
     return <SidebarSkeleton />;
   }
 
+  if (updateIsLoading) {
+    return <Loading />;
+  }
+
   if (fetchError || error) {
     return <div>Error loading lists</div>;
   }
+
+  async function onSubmit(data: fieldType) {
+    await mutate({
+      body: { userId: userId, listName: data.newListTitle },
+    });
+
+    setOpen(false);
+  }
+
+  const delList = (id: string) => {
+    setListNames((prev) => {
+      if (!prev) return null;
+      return {
+        ...prev,
+        lists: prev.lists.filter((item) => item._id !== id),
+      };
+    });
+  };
+
+  const updateList = async (id: string, nameUpdate: string) => {
+    setUpdateId(id);
+    if (updateId) {
+      console.log("entry");
+
+      await updateTaskList({
+        body: { userId: userId, listName: nameUpdate },
+      });
+    }
+  };
 
   return (
     <div className="sidebar col-span-1 flex flex-col justify-between border-r-2 border-primary-2 bg-white p-6">
@@ -153,11 +227,31 @@ const Sidebar = () => {
         <CollapsibleContent>
           <div className="flex flex-col gap-1">
             {!listNames?.lists.length ? (
-              <BorderBox key={0}>No List created</BorderBox>
+              <BorderBox
+                key={0}
+                setListId={setListId}
+                taskListId={""}
+                setListSelected={setListSelected}
+                listSelected={listSelected}
+                delList={delList}
+                updateList={updateList}
+              >
+                No List created
+              </BorderBox>
             ) : (
               listNames.lists.map((it: TaskList) => {
                 return (
-                  <BorderBox key={it._id}>{it.listName as string}</BorderBox>
+                  <BorderBox
+                    key={it._id}
+                    setListId={setListId}
+                    taskListId={it._id}
+                    setListSelected={setListSelected}
+                    listSelected={listSelected}
+                    delList={delList}
+                    updateList={updateList}
+                  >
+                    {it.listName as string}
+                  </BorderBox>
                 );
               })
             )}

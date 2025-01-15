@@ -12,6 +12,24 @@ import {
 } from "@/components/ui/popover";
 import { getLists } from "@/lib/actions/todo.actions";
 import { boolean, number } from "zod";
+import Loading from "@/app/(root)/loading";
+import { toast } from "@/hooks/use-toast";
+import { useApi } from "@/hooks/useApi";
+import { useUserDetails } from "@/hooks/useUserDetails";
+
+interface TaskList {
+  _id: string;
+  userId: string;
+  listName: string | null;
+  taskIds: [];
+  createdAt: string | null;
+  updatedAt: string | null;
+  __v: number;
+}
+
+interface TaskListData {
+  lists: TaskList[];
+}
 
 const completedItems = [
   { id: 0, title: "Grocerry", date: "15/10/24" },
@@ -27,7 +45,9 @@ interface taskInterface {
   completed: boolean;
 }
 
-const TaskInputField = () => {
+const TaskInputField = ({ listId }: { listId: string }) => {
+  const { userId, isLoading: userLoading } = useUserDetails();
+
   const [taskitem, setTaskitem] = useState<taskInterface>({
     title: "",
     date: "",
@@ -38,6 +58,36 @@ const TaskInputField = () => {
   // const [isChecked, setIsChecked] = useState(false);
 
   const [date, setDate] = React.useState<Date | undefined>(new Date());
+
+  const {
+    data: listNames,
+    error: fetchError,
+    isLoading: fetchIsLoading,
+  } = useApi<TaskListData>(`/api/taskList?userId=${userId}`, {
+    enabled: !!userId,
+    dependencies: [userId],
+    onError: (error) => {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Error fetching lists",
+      });
+    },
+    onSuccess: (data) => {
+      toast({
+        title: "Lists Fetched",
+        description: "Lists fetched successfully",
+      });
+    },
+  });
+
+  if (userLoading || fetchIsLoading) {
+    return <Loading />;
+  }
+
+  if (fetchError) {
+    return <div>Error loading lists</div>;
+  }
 
   // console.log(tasks);
   function handletaskSubmit(e: React.FormEvent) {
@@ -72,7 +122,7 @@ const TaskInputField = () => {
   return (
     <div className="col-span-3 px-28 py-11">
       <h2 className="mb-12 bg-gradient-to-b from-primary-9 to-primary-5 bg-clip-text font-serif text-4xl font-semibold text-transparent">
-        Untitled List
+        Untitiled List
       </h2>
 
       <div className="min-h-96 bg-purple-50 px-16 pb-4 pt-10">
