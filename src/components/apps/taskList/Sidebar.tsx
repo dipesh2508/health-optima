@@ -67,8 +67,6 @@ const Sidebar = ({ setListId }: { setListId: (str: string) => void }) => {
   const { toast } = useToast();
 
   const [listSelected, setListSelected] = useState<string>("");
-  // const [updateListName, setUpdateListName] = useState<string>("");
-  // const [deleteList, setDeleteList] = useState<string>("");
 
   const form = useForm<fieldType>({
     resolver: zodResolver(formSchema),
@@ -125,42 +123,6 @@ const Sidebar = ({ setListId }: { setListId: (str: string) => void }) => {
     },
   });
   const [listNames, setListNames] = useState<TaskListData | null>(apiListNames);
-  const [updateId, setUpdateId] = useState<string>("");
-
-  const {
-    mutate: updateTaskList,
-    error: updateError,
-    isLoading: updateIsLoading,
-  } = useApi<TaskListPostData>(`/api/taskList/${updateId}`, {
-    method: "PUT",
-    enabled: false,
-    onError: (error) => {
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: "Failed to update task list.",
-      });
-    },
-    onSuccess: (data) => {
-      setListNames((prev) => {
-        if (!prev) return null;
-        return {
-          ...prev,
-          lists: prev.lists.map((item) => {
-            if (item._id === updateId) {
-              return data.list;
-            }
-            return item;
-          }),
-        };
-      });
-
-      toast({
-        title: "Updated",
-        description: "Task list updated successfully.",
-      });
-    },
-  });
 
   useEffect(() => {
     if (apiListNames) {
@@ -170,10 +132,6 @@ const Sidebar = ({ setListId }: { setListId: (str: string) => void }) => {
 
   if (userLoading || fetchIsLoading) {
     return <SidebarSkeleton />;
-  }
-
-  if (updateIsLoading) {
-    return <Loading />;
   }
 
   if (fetchError || error) {
@@ -199,14 +157,12 @@ const Sidebar = ({ setListId }: { setListId: (str: string) => void }) => {
   };
 
   const updateList = async (id: string, nameUpdate: string) => {
-    setUpdateId(id);
-    if (updateId) {
-      console.log("entry");
-
-      await updateTaskList({
-        body: { userId: userId, listName: nameUpdate },
-      });
-    }
+    setListNames((prev) => {
+      if (!prev) return null;
+      return {
+        ...prev,
+        lists: prev.lists.map((item) => { return item._id === id ? { ...item, listName: nameUpdate } : item }),
+    }})
   };
 
   return (
@@ -235,6 +191,7 @@ const Sidebar = ({ setListId }: { setListId: (str: string) => void }) => {
                 listSelected={listSelected}
                 delList={delList}
                 updateList={updateList}
+                userId={userId}
               >
                 No List created
               </BorderBox>
@@ -249,6 +206,7 @@ const Sidebar = ({ setListId }: { setListId: (str: string) => void }) => {
                     listSelected={listSelected}
                     delList={delList}
                     updateList={updateList}
+                    userId={userId}
                   >
                     {it.listName as string}
                   </BorderBox>

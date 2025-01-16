@@ -1,195 +1,215 @@
-import clsx from "clsx";
-import React, { useState } from "react";
-import { MdOutlineModeEditOutline } from "react-icons/md";
-import { RiDeleteBin2Line } from "react-icons/ri";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogClose,
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { BsThreeDotsVertical } from "react-icons/bs";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-  DialogClose,
-} from "@/components/ui/dialog";
-import { Button } from "../ui/button";
+import { MoreVertical, Pencil, Trash2 } from "lucide-react";
+import clsx from "clsx";
 import { useApi } from "@/hooks/useApi";
 import { toast } from "@/hooks/use-toast";
-import Loading from "@/app/(root)/loading";
 
-const BorderBox = ({
+interface BorderBoxProps {
+  children: React.ReactNode;
+  taskListId: string;
+  setListId: (id: string) => void;
+  setListSelected: (selected: string) => void;
+  listSelected: string;
+  delList: (id: string) => void;
+  updateList: (id: string, newTitle: string) => void;
+  userId: string;
+}
+
+export default function BorderBox({
   children,
-  setListId,
   taskListId,
+  setListId,
   setListSelected,
   listSelected,
   delList,
   updateList,
-}: {
-  children: string;
-  setListId: (str: string) => void;
-  taskListId: string;
-  setListSelected: (str: string) => void;
-  listSelected: string;
-  delList: (str: string) => void;
-  updateList: (str: string, val: string) => void;
-}) => {
-  const [isListNameEditable, setIsListNameEditable] = useState(false);
-  const [listMsg, setListMsg] = useState(children);
-  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
-  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-
-  const editListName = () => {
-    console.log("hello");
-
-    updateList(taskListId, listMsg);
-    setIsListNameEditable(false);
-  };
+  userId,
+}: BorderBoxProps) {
+  const [isEditOpen, setIsEditOpen] = useState(false);
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [editValue, setEditValue] = useState("");
 
   const {
-    mutate: deleteTaskList,
+    mutate: deleteList,
     error: deleteError,
-    isLoading: deleteIsLoading,
+    isLoading: deleteLoading,
   } = useApi<void>(`/api/taskList/${taskListId}`, {
     method: "DELETE",
     enabled: false,
-    onError: (error) => {
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: "Failed to delete task list.",
-      });
-    },
     onSuccess: () => {
       toast({
         title: "Deleted",
-        description: "Task list deleted successfully.",
+        description: "List has been deleted",
+      });
+    },
+    onError: (error) => {
+      toast({
+        title: "Error",
+        description: "Failed to delete task list",
+        variant: "destructive",
       });
     },
   });
 
-  const handleDelete = async () => {
+  const {
+    data,
+    mutate: updateListName,
+    error: updateError,
+    isLoading: updateLoading,
+  } = useApi<void>(`/api/taskList/${taskListId}`, {
+    method: "PUT",
+    enabled: false,
+    onSuccess: () => {
+      toast({
+        title: "Updated",
+        description: "List has been updated",
+      });
+    },
+    onError: (error) => {
+      toast({
+        title: "Error",
+        description: "Failed to update task list",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const handleBoxClick = (e: React.MouseEvent) => {
+    setListId(taskListId);
+    setListSelected(taskListId);
+  };
+
+  const handleDropdownClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+  };
+
+  const handleEditClick = () => {
+    setEditValue(children?.toString() || "");
+    setIsEditOpen(true);
+  };
+
+  const handleDeleteClick = () => {
+    setIsDeleteOpen(true);
+  };
+
+  const handleEdit = () => {
+    updateListName({
+      body: {
+        userId: userId,
+        listName: editValue,
+      },
+    });
+
+    if (data) {
+      updateList(taskListId, editValue);
+    }
+    setIsEditOpen(false);
+  };
+
+  const handleDelete = () => {
+    deleteList();
     delList(taskListId);
-    await deleteTaskList();
+    setIsDeleteOpen(false);
   };
 
   return (
     <div
       className={clsx(
-        "flex cursor-pointer justify-between rounded-md border border-purple-400 p-2 text-sm font-medium text-primary-9",
+        "flex cursor-pointer items-center rounded-md border border-purple-400 p-2 text-sm font-medium text-primary-9 hover:border-none",
         {
-          "border-teal-400 text-teal-600": listSelected === taskListId,
-          "from-primary-5 to-primary-2 hover:border-none hover:bg-gradient-to-r hover:text-white":
+          "border-teal-400 from-teal-500 to-teal-200 hover:bg-gradient-to-r hover:text-white":
+            listSelected === taskListId,
+          "from-primary-5 to-primary-2 hover:bg-gradient-to-r hover:text-white":
             listSelected !== taskListId,
         },
       )}
-      onClick={() => {
-        setListId(taskListId);
-        setListSelected(taskListId);
-      }}
+      onClick={handleBoxClick}
     >
-      {children}
-      {/* <Input
-        value={listMsg}
-        readOnly={!isListNameEditable}
-        onChange={(e) => {
-          setListMsg(e.target.value);
-        }}
-        className={`foucs:outline-none focus-ring-offset-0 w-2/3 cursor-pointer rounded-lg border bg-transparent outline-none focus:ring-0 ${isListNameEditable ? "border-black/10" : "focus-ring-offset-0 border-transparent focus:border-teal-800 focus:outline-none focus:ring-0"}`}
-      /> */}
-      <div>
-        <DropdownMenu>
+      <div className="flex-1 text-left">{children}</div>
+
+      <div onClick={handleDropdownClick}>
+        <DropdownMenu modal={false}>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-              <BsThreeDotsVertical
-                className={`self-center rounded-lg text-lg ${
-                  listSelected == taskListId
-                    ? "text-teal-600 hover:bg-teal-100"
-                    : "text-primary-7 hover:bg-primary-4"
-                }`}
-              />
+            <Button
+              variant="ghost"
+              size="icon"
+              className={clsx("h-8 w-8 rounded-full transition-colors", {
+                "hover:bg-teal-100": listSelected === taskListId,
+                "hover:bg-primary-1": listSelected !== taskListId,
+              })}
+            >
+              <MoreVertical className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            {/* <DropdownMenuItem
-              onClick={() => {
-                if (isListNameEditable) {
-                  editListName();
-                } else {
-                  setIsListNameEditable((prev) => !prev);
-                }
-              }}
+            <DropdownMenuItem onSelect={handleEditClick} className="gap-2">
+              <Pencil className="h-4 w-4" />
+              <span>Edit</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onSelect={handleDeleteClick}
+              className="gap-2 text-red-500"
             >
-              <MdOutlineModeEditOutline
-                className={`self-center rounded-lg text-lg ${
-                  listSelected == taskListId
-                    ? "text-teal-600 hover:bg-teal-100"
-                    : "text-primary-8 hover:bg-primary-4"
-                }`}
-              />
-              Rename
-            </DropdownMenuItem> */}
-            {/* <DropdownMenuSeparator /> */}
-
-            <Dialog
-              open={isDeleteDialogOpen}
-              onOpenChange={(isOpen) => {
-                setIsDeleteDialogOpen(isOpen);
-              }}
-            >
-              <DialogTrigger asChild>
-                <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
-                  <RiDeleteBin2Line
-                    className={`self-center rounded-full text-lg ${
-                      listSelected == taskListId
-                        ? "text-teal-600 hover:bg-teal-100"
-                        : "text-primary-8 hover:bg-primary-4"
-                    }`}
-                  />
-                  Delete
-                </DropdownMenuItem>
-              </DialogTrigger>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>Are you absolutely sure?</DialogTitle>
-                  <DialogDescription>
-                    This action cannot be undone. This will permanently delete
-                    your TaskList.
-                  </DialogDescription>
-                </DialogHeader>
-                <DialogFooter className="sm:justify-start">
-                  <Button
-                    type="button"
-                    variant="destructive"
-                    onClick={handleDelete}
-                  >
-                    {deleteIsLoading ? "Deleting..." : "Delete"}
-                  </Button>
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={() => setIsDeleteDialogOpen(false)}
-                  >
-                    Cancel
-                  </Button>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
+              <Trash2 className="h-4 w-4" />
+              <span>Delete</span>
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
+
+      <Dialog open={isEditOpen} onOpenChange={setIsEditOpen}>
+        <DialogContent onClick={(e) => e.stopPropagation()}>
+          <DialogHeader>
+            <DialogTitle>Edit List Name</DialogTitle>
+          </DialogHeader>
+          <Input
+            value={editValue}
+            onChange={(e) => setEditValue(e.target.value)}
+            placeholder="Enter new name"
+            autoFocus
+          />
+          <div className="flex justify-end gap-2">
+            <DialogClose asChild>
+              <Button variant="outline" onClick={() => setEditValue("")}>
+                Cancel
+              </Button>
+            </DialogClose>
+            <Button onClick={handleEdit}>Save</Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={isDeleteOpen} onOpenChange={setIsDeleteOpen}>
+        <DialogContent onClick={(e) => e.stopPropagation()}>
+          <DialogHeader>
+            <DialogTitle>Confirm Deletion</DialogTitle>
+          </DialogHeader>
+          <p>Are you sure you want to delete this list?</p>
+          <div className="flex justify-end gap-2">
+            <DialogClose asChild>
+              <Button variant="outline">Cancel</Button>
+            </DialogClose>
+            <Button variant="destructive" onClick={handleDelete}>
+              Delete
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
-};
-
-export default BorderBox;
+}
