@@ -1,9 +1,5 @@
 import { NextResponse } from "next/server";
-import {
-  getTask,
-  updateTask,
-  deleteTask,
-} from "@/lib/actions/todo.actions";
+import { getTask, updateTask, deleteTask } from "@/lib/actions/todo.actions";
 
 export async function GET(
   req: Request,
@@ -25,45 +21,45 @@ export async function GET(
 }
 
 export async function PUT(
-    req: Request,
-    { params }: { params: { listId: string; taskId: string } },
-){
-    try {
-        const { listId, taskId } = params;
+  req: Request,
+  { params }: { params: { listId: string; taskId: string } },
+) {
+  try {
+    const { listId, taskId } = params;
 
-        if (!listId || !taskId) {
-            return new NextResponse("Invalid request", { status: 400 });
-        }
-
-        const body = await req.json();
-
-        const { title, description, completed } = body;
-
-        const updatedTask = await updateTask(taskId, title, description, completed);
-
-        return NextResponse.json(updatedTask, { status: 200 });
-    } catch (e: any) {
-        console.error("[PUT_TASKID]", e.message);
-        return new NextResponse("Internal server error", { status: 500 });
+    if (!listId || !taskId) {
+      return new NextResponse("Invalid request", { status: 400 });
     }
+
+    const body = await req.json();
+
+    const { taskName, dueTime, complete } = body;
+
+    const updatedTask = await updateTask(taskId, taskName, dueTime, complete);
+
+    return NextResponse.json(updatedTask, { status: 200 });
+  } catch (e: any) {
+    console.error("[PUT_TASKID]", e.message);
+    return new NextResponse("Internal server error", { status: 500 });
+  }
 }
 
 export async function DELETE(
-    req: Request,
-    { params }: { params: { listId: string; taskId: string } },
-){
-    try {
-        const { listId, taskId } = params;
+  req: Request,
+  { params }: { params: { listId: string; taskId: string } },
+) {
+  try {
+    const { listId, taskId } = params;
 
-        if (!listId || !taskId) {
-            return new NextResponse("Invalid request", { status: 400 });
-        }
-        
-        await deleteTask(taskId);
-
-        return new NextResponse(null, { status: 204 });
-    } catch (e: any) {
-        console.error("[DELETE_TASKID]", e.message);
-        return new NextResponse("Internal server error", { status: 500 });
+    if (!listId || !taskId) {
+      return new NextResponse("Invalid request", { status: 400 });
     }
+
+    await deleteTask(taskId);
+
+    return new NextResponse(null, { status: 204 });
+  } catch (e: any) {
+    console.error("[DELETE_TASKID]", e.message);
+    return new NextResponse("Internal server error", { status: 500 });
+  }
 }
