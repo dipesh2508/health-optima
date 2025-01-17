@@ -9,7 +9,7 @@ const Page = () => {
   return (
     <div className="grid min-h-[85vh] grid-cols-4 bg-white">
       <Sidebar setListId={setListId} />
-      <TaskInputField listId={listId} />
+      <TaskInputField listId={listId} setListId={setListId} />
     </div>
   );
 };

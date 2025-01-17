@@ -132,7 +132,7 @@ export default function BorderBox({
       className={clsx(
         "flex cursor-pointer items-center rounded-md border border-purple-400 p-2 text-sm font-medium text-primary-9 hover:border-none",
         {
-          "border-teal-400 from-teal-500 to-teal-200 hover:bg-gradient-to-r hover:text-white":
+          "border-teal-400 from-primary-5 to-teal-200 text-teal-800 hover:bg-gradient-to-r hover:text-white":
             listSelected === taskListId,
           "from-primary-5 to-primary-2 hover:bg-gradient-to-r hover:text-white":
             listSelected !== taskListId,
