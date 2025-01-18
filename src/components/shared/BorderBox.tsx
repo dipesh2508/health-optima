@@ -19,6 +19,20 @@ import clsx from "clsx";
 import { useApi } from "@/hooks/useApi";
 import { toast } from "@/hooks/use-toast";
 
+interface TaskList {
+  _id: string;
+  userId: string;
+  listName: string | null;
+  taskIds: [];
+  createdAt: string | null;
+  updatedAt: string | null;
+  __v: number;
+}
+
+interface TaskListPostData {
+  list: TaskList;
+}
+
 interface BorderBoxProps {
   children: React.ReactNode;
   taskListId: string;
@@ -26,7 +40,7 @@ interface BorderBoxProps {
   setListSelected: (selected: string) => void;
   listSelected: string;
   delList: (id: string) => void;
-  updateList: (id: string, newTitle: string) => void;
+  updateList: (listdata: TaskList) => void;
   userId: string;
 }
 
@@ -71,10 +85,13 @@ export default function BorderBox({
     mutate: updateListName,
     error: updateError,
     isLoading: updateLoading,
-  } = useApi<void>(`/api/taskList/${taskListId}`, {
+  } = useApi<TaskListPostData>(`/api/taskList/${taskListId}`, {
     method: "PUT",
     enabled: false,
-    onSuccess: () => {
+    onSuccess: (data) => {
+      console.log("Inside put success", data);
+
+      updateList(data.list);
       toast({
         title: "Updated",
         description: "List has been updated",
@@ -107,17 +124,13 @@ export default function BorderBox({
     setIsDeleteOpen(true);
   };
 
-  const handleEdit = () => {
-    updateListName({
+  const handleEdit = async () => {
+    const response = await updateListName({
       body: {
         userId: userId,
         listName: editValue,
       },
     });
-
-    if (data) {
-      updateList(taskListId, editValue);
-    }
     setIsEditOpen(false);
   };
 

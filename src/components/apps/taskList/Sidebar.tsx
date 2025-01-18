@@ -66,8 +66,6 @@ const Sidebar = ({ setListId }: { setListId: (str: string) => void }) => {
   const [open, setOpen] = useState(false);
   const { toast } = useToast();
 
-  const [listSelected, setListSelected] = useState<string>("");
-
   const form = useForm<fieldType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -123,10 +121,12 @@ const Sidebar = ({ setListId }: { setListId: (str: string) => void }) => {
     },
   });
   const [listNames, setListNames] = useState<TaskListData | null>(apiListNames);
+  const [listSelected, setListSelected] = useState<string>("");
 
   useEffect(() => {
     if (apiListNames) {
       setListNames(apiListNames);
+      setListSelected(apiListNames.lists.at(0)?._id || "");
     }
   }, [apiListNames]);
 
@@ -156,13 +156,25 @@ const Sidebar = ({ setListId }: { setListId: (str: string) => void }) => {
     });
   };
 
-  const updateList = async (id: string, nameUpdate: string) => {
+  const updateList = async (listData: TaskList) => {
+    console.log("inside update list", listData);
+
     setListNames((prev) => {
       if (!prev) return null;
+      // return {
+      //   ...prev,
+      //   lists: prev.lists.map((item) => {
+      //     return item._id === id ? { ...item, listName: nameUpdate } : item;
+      //   }),
       return {
         ...prev,
-        lists: prev.lists.map((item) => { return item._id === id ? { ...item, listName: nameUpdate } : item }),
-    }})
+        lists: prev.lists.map((item) => {
+          return item._id === listData._id
+            ? { ...item, listName: listData.listName }
+            : item;
+        }),
+      };
+    });
   };
 
   return (
@@ -181,7 +193,7 @@ const Sidebar = ({ setListId }: { setListId: (str: string) => void }) => {
           </CollapsibleTrigger>
         </div>
         <CollapsibleContent>
-          <div className="flex flex-col gap-1">
+          <div className="flex max-h-96 flex-col gap-1 overflow-y-auto">
             {!listNames?.lists.length ? (
               <BorderBox
                 key={0}

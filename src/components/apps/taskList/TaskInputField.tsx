@@ -10,7 +10,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { getLists } from "@/lib/actions/todo.actions";
 import { boolean, number, z } from "zod";
 import Loading from "@/app/(root)/loading";
 import { toast } from "@/hooks/use-toast";
@@ -27,8 +26,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { cn } from "@/lib/utils";
-import { format } from "date-fns";
 
 const schema = z.object({
   newTaskName: z.string().min(1, {
@@ -87,17 +84,10 @@ interface TaskGetData {
 interface PostResponse {
   task: TaskGetData;
 }
+
 interface Tasks {
   tasks: TaskGetData[];
 }
-
-const completedItems = [
-  { id: 0, title: "Grocerry", date: "15/10/24" },
-  { id: 1, title: "Study bla bal blaljfoijiorjggeio", date: "15/10/24" },
-  { id: 2, title: "Work", date: "20/10/24" },
-  { id: 3, title: "Gym", date: "30/10/24" },
-  { id: 4, title: "I", date: "25/10/24" },
-];
 
 const TaskInputField = ({
   listId,
@@ -110,9 +100,6 @@ const TaskInputField = ({
 
   const [tasksLocal, setTasksLocal] = useState<Tasks | null>();
   const [date, setDate] = React.useState<Date | undefined>(new Date());
-
-  const [completed, setcompleted] = useState<string[]>([]);
-  // const [isChecked, setIsChecked] = useState(false);
 
   const form = useForm<fieldType>({
     resolver: zodResolver(schema),
@@ -138,8 +125,6 @@ const TaskInputField = ({
     },
     onSuccess: (data) => {
       if (data) {
-        console.log(data);
-
         setListId(data.lists.at(0)?._id || "");
       }
       toast({
@@ -164,7 +149,6 @@ const TaskInputField = ({
       });
     },
     onSuccess: (data) => {
-      console.log("Get request to fetch the List selected in sidebar");
       toast({
         title: "List Fetched",
         description: "List fetched successfully",
@@ -180,15 +164,12 @@ const TaskInputField = ({
   } = useApi<PostResponse>(`/api/taskList/${listId}/tasks`, {
     method: "POST",
     onSuccess: (data) => {
-      console.log("list ka data aa gya", data);
-      console.log("list mein task hai ki nhi", data.task);
       if (data?.task.taskName.trim() !== "") {
         setTasksLocal((prev) => {
           if (!prev) return null;
           return { ...prev, tasks: [...prev.tasks, data.task] };
         });
       }
-      console.log("updated Array: ", tasksLocal);
       toast({
         title: "List Created",
         description: "Your new list has been created successfully",
@@ -219,8 +200,6 @@ const TaskInputField = ({
       });
     },
     onSuccess: (data) => {
-      console.log("Get req to fetch the tasks of the list");
-
       if (data) {
         setTasksLocal(data);
       }
@@ -264,24 +243,45 @@ const TaskInputField = ({
     });
   }
 
-  // function handleCheck(item:string, isChecked: boolean | 'indeterminate'){
+  const toggleComplete = (id: string) => {
+    setTasksLocal((prevTasks) => {
+      if (!prevTasks) return null;
+      return {
+        ...prevTasks,
+        tasks: prevTasks?.tasks.map((todo) =>
+          todo._id === id ? { ...todo, complete: !todo.complete } : todo,
+        ),
+      };
+    });
+  };
 
-  //   if(isChecked){//means was completed but now unchecking
+  const deleteTask = (id: string) => {
+    setTasksLocal((prevTasks) => {
+      if (!prevTasks) return null;
+      return {
+        ...prevTasks,
+        tasks: prevTasks.tasks.filter((todo) => todo._id !== id),
+      };
+    });
+  };
 
-  //     setcompleted(completed.filter((checked)=>{checked!==item}));
-  //     setTasks([...tasks, item]);
+  const updateTask = (todo: TaskGetData) => {
+    setTasksLocal((prevTasks) => {
+      if (!prevTasks) return null;
+      return {
+        ...prevTasks,
+        tasks: prevTasks.tasks.map((item) =>
+          item._id === todo._id
+            ? { ...item, taskName: todo.taskName, dueTime: todo.dueTime }
+            : item,
+        ),
+      };
+    });
+  };
 
-  //   }else{//was not completed but now clicked so completed
-
-  //     setTasks(tasks.filter((unchecked)=>{unchecked!==item}));
-  //     setcompleted([...completed, item]);//item added to completed
-  //   }
-
-  // }
-  // console.log(completed);
   return (
     <div className="col-span-3 px-28 py-11">
-      <h2 className="mb-12 bg-gradient-to-b from-primary-9 to-primary-5 bg-clip-text font-serif text-4xl font-semibold text-transparent">
+      <h2 className="mb-8 bg-gradient-to-b from-primary-9 to-primary-5 bg-clip-text font-serif text-4xl font-semibold text-transparent">
         {listData?.list.listName}
       </h2>
 
@@ -353,30 +353,38 @@ const TaskInputField = ({
           </Form>
         </div>
 
-        <h3 className="my-3 text-xl font-medium text-primary-10">To Do</h3>
-        <div className="flex flex-col gap-3">
-          {tasksLocal?.tasks.map((it, index) => (
-            <TaskItem
-              key={it._id}
-              it={it.taskName}
-              completed={it.complete}
-              date={new Date(it.dueTime).toLocaleDateString("en-GB")}
-            />
-          ))}
-        </div>
+        <div className="scrollbar scrollbar-none max-h-96 overflow-y-auto p-3">
+          <h3 className="my-3 text-xl font-medium text-primary-10">To Do</h3>
+          <div className="flex flex-col gap-3">
+            {tasksLocal?.tasks
+              .filter((it) => !it.complete)
+              .map((it) => (
+                <TaskItem
+                  key={it._id}
+                  task={it}
+                  toggleComplete={toggleComplete}
+                  deleteTask={deleteTask}
+                  updateTask={updateTask}
+                />
+              ))}
+          </div>
 
-        <h3 className="mb-3 mt-6 text-xl font-medium text-primary-10">
-          Completed
-        </h3>
-        <div className="flex flex-col gap-3">
-          {completedItems.map((it, index) => (
-            <TaskItem
-              key={index}
-              it={it.title}
-              completed={true}
-              date={it.date}
-            />
-          ))}
+          <h3 className="mb-3 mt-6 text-xl font-medium text-primary-10">
+            Completed
+          </h3>
+          <div className="flex flex-col gap-3">
+            {tasksLocal?.tasks
+              .filter((it) => it.complete)
+              .map((it) => (
+                <TaskItem
+                  key={it._id}
+                  task={it}
+                  toggleComplete={toggleComplete}
+                  deleteTask={deleteTask}
+                  updateTask={updateTask}
+                />
+              ))}
+          </div>
         </div>
       </div>
     </div>
