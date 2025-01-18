@@ -165,7 +165,7 @@ const TaskItem = ({
         <h4 className={cn(task.complete && "line-through")}>{task.taskName}</h4>
       </div>
 
-      <div className="flex items-center gap-3">
+      <div className="flex items-center md:gap-3">
         <Popover>
           <PopoverTrigger asChild>
             <Button size="icon" className="border-none bg-transparent">
@@ -196,10 +196,6 @@ const TaskItem = ({
                 variant="ghost"
                 size="icon"
                 className="h-8 w-8 rounded-full hover:bg-primary-2"
-                // className={clsx("h-8 w-8 rounded-full transition-colors", {
-                //   "hover:bg-teal-100": listSelected === taskListId,
-                //   "hover:bg-primary-1": listSelected !== taskListId,
-                // })}
               >
                 <MoreVertical className="h-4 w-4" />
               </Button>

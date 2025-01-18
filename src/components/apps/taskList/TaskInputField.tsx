@@ -26,6 +26,13 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { RxHamburgerMenu } from "react-icons/rx";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import Sidebar from "./Sidebar";
+import TaskInputFieldSkeleton from "./TaskInputFieldSkeleton";
+import todoImg from "@/assets/svgs/todo.svg";
+import Image from "next/image";
+import { HiOutlineClipboardList } from "react-icons/hi";
 
 const schema = z.object({
   newTaskName: z.string().min(1, {
@@ -211,7 +218,7 @@ const TaskInputField = ({
   });
 
   if (userLoading || fetchIsLoading || allTasksLoading || isLoadingTasks) {
-    return <Loading />;
+    return <TaskInputFieldSkeleton />;
   }
 
   if (fetchError || allTasksError || fetchErrorTasks) {
@@ -280,13 +287,24 @@ const TaskInputField = ({
   };
 
   return (
-    <div className="col-span-3 px-28 py-11">
-      <h2 className="mb-8 bg-gradient-to-b from-primary-9 to-primary-5 bg-clip-text font-serif text-4xl font-semibold text-transparent">
+    <div className="sheet col-span-4 px-0 py-11 md:col-span-3 md:px-5 lg:px-28">
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button variant="outline" className="mb-3 ml-4 md:ml-0 md:hidden">
+            <RxHamburgerMenu className="text-lg text-primary-10 group-hover:text-white" />
+          </Button>
+        </SheetTrigger>
+        <SheetContent className="h-full bg-zinc-50 px-0">
+          <Sidebar setListId={setListId} />
+        </SheetContent>
+      </Sheet>
+
+      <h2 className="mb-5 ml-4 bg-gradient-to-b from-primary-9 to-primary-5 bg-clip-text font-serif text-3xl font-semibold text-transparent md:ml-0 md:text-4xl lg:mb-8">
         {listData?.list.listName}
       </h2>
 
-      <div className="min-h-96 bg-purple-50 px-16 pb-4 pt-10">
-        <div className="mb-10 flex items-center gap-4 rounded-3xl bg-white p-3 shadow shadow-purple-300">
+      <div className="bg-purple-50 px-4 pb-4 pt-7 lg:px-16 lg:pt-10">
+        <div className="mb-7 flex items-center gap-4 rounded-3xl bg-white p-3 shadow shadow-purple-300 lg:mb-10">
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(handletaskSubmit)}
@@ -353,39 +371,54 @@ const TaskInputField = ({
           </Form>
         </div>
 
-        <div className="scrollbar scrollbar-none max-h-96 overflow-y-auto p-3">
-          <h3 className="my-3 text-xl font-medium text-primary-10">To Do</h3>
-          <div className="flex flex-col gap-3">
-            {tasksLocal?.tasks
-              .filter((it) => !it.complete)
-              .map((it) => (
-                <TaskItem
-                  key={it._id}
-                  task={it}
-                  toggleComplete={toggleComplete}
-                  deleteTask={deleteTask}
-                  updateTask={updateTask}
-                />
-              ))}
+        {tasksLocal?.tasks.length == 0 ? (
+          // <Image src={todoImg} alt="todoImg" className="m-auto" />
+          <div className="flex flex-col items-center justify-center">
+            <HiOutlineClipboardList className="text-9xl text-primary-3" />
+            <h3 className="mb-2 text-4xl text-primary-3">
+              Feel lighter, achieve more – start listing!
+            </h3>
           </div>
+        ) : (
+          <div className="scrollbar scrollbar-none max-h-screen overflow-y-auto p-3">
+            <h3 className="my-3 text-xl font-medium text-primary-10">To Do</h3>
+            <div className="flex flex-col gap-3">
+              {tasksLocal?.tasks
+                .filter((it) => !it.complete)
+                .map((it) => (
+                  <TaskItem
+                    key={it._id}
+                    task={it}
+                    toggleComplete={toggleComplete}
+                    deleteTask={deleteTask}
+                    updateTask={updateTask}
+                  />
+                ))}
+            </div>
 
-          <h3 className="mb-3 mt-6 text-xl font-medium text-primary-10">
-            Completed
-          </h3>
-          <div className="flex flex-col gap-3">
-            {tasksLocal?.tasks
-              .filter((it) => it.complete)
-              .map((it) => (
-                <TaskItem
-                  key={it._id}
-                  task={it}
-                  toggleComplete={toggleComplete}
-                  deleteTask={deleteTask}
-                  updateTask={updateTask}
-                />
-              ))}
+            {tasksLocal?.tasks.some((it) => it.complete) ? (
+              <h3 className="mb-3 mt-6 text-xl font-medium text-primary-10">
+                Completed
+              </h3>
+            ) : (
+              <div></div>
+            )}
+
+            <div className="flex flex-col gap-3">
+              {tasksLocal?.tasks
+                .filter((it) => it.complete)
+                .map((it) => (
+                  <TaskItem
+                    key={it._id}
+                    task={it}
+                    toggleComplete={toggleComplete}
+                    deleteTask={deleteTask}
+                    updateTask={updateTask}
+                  />
+                ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

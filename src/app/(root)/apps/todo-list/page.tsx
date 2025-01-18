@@ -8,7 +8,10 @@ const Page = () => {
   const [listId, setListId] = useState<string>("");
   return (
     <div className="grid min-h-[85vh] grid-cols-4 bg-white">
-      <Sidebar setListId={setListId} />
+      <div className="hidden md:col-span-1 md:flex">
+        <Sidebar setListId={setListId} />
+      </div>
+
       <TaskInputField listId={listId} setListId={setListId} />
     </div>
   );

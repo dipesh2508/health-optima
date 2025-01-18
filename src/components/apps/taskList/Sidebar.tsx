@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Label } from "@/components/ui/label";
 import {
   Dialog,
   DialogContent,
@@ -36,7 +35,6 @@ import { useApi } from "@/hooks/useApi";
 import { useUserDetails } from "@/hooks/useUserDetails";
 import { useToast } from "@/hooks/use-toast";
 import { SidebarSkeleton } from "./SidebarSkeleton";
-import Loading from "@/app/(root)/loading";
 
 const formSchema = z.object({
   newListTitle: z.string().min(1, {
@@ -161,11 +159,6 @@ const Sidebar = ({ setListId }: { setListId: (str: string) => void }) => {
 
     setListNames((prev) => {
       if (!prev) return null;
-      // return {
-      //   ...prev,
-      //   lists: prev.lists.map((item) => {
-      //     return item._id === id ? { ...item, listName: nameUpdate } : item;
-      //   }),
       return {
         ...prev,
         lists: prev.lists.map((item) => {
@@ -178,7 +171,7 @@ const Sidebar = ({ setListId }: { setListId: (str: string) => void }) => {
   };
 
   return (
-    <div className="sidebar col-span-1 flex flex-col justify-between border-r-2 border-primary-2 bg-white p-6">
+    <div className="flex h-full w-full flex-col justify-between border-primary-2 bg-zinc-50 p-6 md:border-r-2 lg:bg-white">
       <Collapsible defaultOpen={true}>
         <div className="mb-3 mt-4 flex items-center justify-between space-x-4 bg-primary-0 p-2 px-4">
           <h4 className="text-lg font-medium text-primary-10">My Lists</h4>

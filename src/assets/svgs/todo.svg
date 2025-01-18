@@ -1,0 +1,24 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 400 200"
+  width="780"
+  height="400"
+  fill="none"
+>
+  <!-- Define the dotted pattern -->
+  <defs>
+    <pattern
+      id="dottedGrid"
+      x="0"
+      y="0"
+      width="12"
+      height="12"
+      patternUnits="userSpaceOnUse"
+    >
+      <circle cx="1" cy="1" r="1" fill="#E9D5FF" />
+    </pattern>
+  </defs>
+
+  <!-- Apply the dotted pattern -->
+  <rect width="900" height="200" fill="url(#dottedGrid)" />
+</svg>
