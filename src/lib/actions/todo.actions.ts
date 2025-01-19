@@ -57,7 +57,11 @@ export const getListById = async (listId: string) => {
 export const updateList = async (listId: string, listName: string) => {
   try {
     await connectToDB();
-    const list = await List.findByIdAndUpdate(listId, { listName });
+    const list = await List.findByIdAndUpdate(
+      listId,
+      { listName },
+      { new: true },
+    );
     return list;
   } catch (error) {
     throw error;
@@ -68,11 +72,11 @@ export const updateList = async (listId: string, listName: string) => {
 export const deleteList = async (listId: string) => {
   try {
     await connectToDB();
-    
+
     // Start a session for transaction
     const session = await mongoose.startSession();
     session.startTransaction();
-    
+
     try {
       // Find the list to get associated tasks and userId
       const list = await List.findById(listId);
@@ -87,7 +91,7 @@ export const deleteList = async (listId: string) => {
       await User.findByIdAndUpdate(
         list.userId,
         { $pull: { lists: listId } },
-        { session }
+        { session },
       );
 
       // Delete the list
@@ -154,7 +158,7 @@ export const getTask = async (listId: string, taskId: string) => {
 
     const task = await Task.findOne({
       _id: taskId,
-      listId: listId
+      listId: listId,
     }).lean();
 
     if (!task) {
@@ -175,10 +179,16 @@ export const updateTask = async (
 ) => {
   try {
     await connectToDB();
-    const task = await Task.findByIdAndUpdate(taskId, { taskName, dueTime, complete });
+    const task = await Task.findByIdAndUpdate(
+      taskId,
+      { taskName, dueTime, complete },
+      { new: true },
+    );
     if (!task) {
       throw new Error("Task not found");
     }
+
+    task.save();
     return task;
   } catch (error) {
     throw error;
@@ -189,10 +199,10 @@ export const updateTask = async (
 export const deleteTask = async (taskId: string) => {
   try {
     await connectToDB();
-    
+
     const session = await mongoose.startSession();
     session.startTransaction();
-    
+
     try {
       // Find task to get listId
       const task = await Task.findById(taskId);
@@ -207,7 +217,7 @@ export const deleteTask = async (taskId: string) => {
       await List.findByIdAndUpdate(
         task.listId,
         { $pull: { taskIds: taskId } },
-        { session }
+        { session },
       );
 
       await session.commitTransaction();
