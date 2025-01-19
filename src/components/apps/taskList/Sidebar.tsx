@@ -8,7 +8,6 @@ import {
   DialogTrigger,
   DialogFooter,
 } from "@/components/ui/dialog";
-import { GiHamburgerMenu } from "react-icons/gi";
 import { FaPlus } from "react-icons/fa6";
 import {
   Collapsible,
@@ -16,7 +15,7 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { RxHamburgerMenu } from "react-icons/rx";
-import BorderBox from "@/components/shared/BorderBox";
+import BorderBox from "@/components/apps/taskList/BorderBox";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { z } from "zod";

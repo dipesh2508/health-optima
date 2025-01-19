@@ -25,7 +25,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { RxHamburgerMenu } from "react-icons/rx";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import Sidebar from "./Sidebar";
 import TaskInputFieldSkeleton from "./TaskInputFieldSkeleton";
@@ -33,7 +32,6 @@ import todoImg from "@/assets/svgs/todo.svg";
 import taskListImg from "@/assets/svgs/business-tasklist.svg";
 import Image from "next/image";
 import { FaArrowRight } from "react-icons/fa";
-import { HiOutlineClipboardList } from "react-icons/hi";
 
 const schema = z.object({
   newTaskName: z.string().min(1, {
