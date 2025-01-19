@@ -11,7 +11,6 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { boolean, number, z } from "zod";
-import Loading from "@/app/(root)/loading";
 import { toast } from "@/hooks/use-toast";
 import { useApi } from "@/hooks/useApi";
 import { useUserDetails } from "@/hooks/useUserDetails";
@@ -31,7 +30,9 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import Sidebar from "./Sidebar";
 import TaskInputFieldSkeleton from "./TaskInputFieldSkeleton";
 import todoImg from "@/assets/svgs/todo.svg";
+import taskListImg from "@/assets/svgs/business-tasklist.svg";
 import Image from "next/image";
+import { FaArrowRight } from "react-icons/fa";
 import { HiOutlineClipboardList } from "react-icons/hi";
 
 const schema = z.object({
@@ -290,8 +291,12 @@ const TaskInputField = ({
     <div className="sheet col-span-4 px-0 py-11 md:col-span-3 md:px-5 lg:px-28">
       <Sheet>
         <SheetTrigger asChild>
-          <Button variant="outline" className="mb-3 ml-4 md:ml-0 md:hidden">
-            <RxHamburgerMenu className="text-lg text-primary-10 group-hover:text-white" />
+          <Button
+            variant="outline"
+            className="mb-3 ml-4 items-center gap-2 text-primary-8 md:ml-0 md:hidden"
+          >
+            My Lists
+            <FaArrowRight className="text-lg text-primary-7 group-hover:text-white" />
           </Button>
         </SheetTrigger>
         <SheetContent className="h-full bg-zinc-50 px-0">
@@ -374,13 +379,11 @@ const TaskInputField = ({
         {tasksLocal?.tasks.length == 0 ? (
           // <Image src={todoImg} alt="todoImg" className="m-auto" />
           <div className="flex flex-col items-center justify-center">
-            <HiOutlineClipboardList className="text-9xl text-primary-3" />
-            <h3 className="mb-2 text-4xl text-primary-3">
-              Feel lighter, achieve more – start listing!
-            </h3>
+            <Image src={taskListImg} alt="todoImg" className="m-auto" />
+            <h3 className="mb-2 text-4xl text-primary-3">No Tasks</h3>
           </div>
         ) : (
-          <div className="scrollbar scrollbar-none max-h-screen overflow-y-auto p-3">
+          <div className="max-h-screen overflow-y-auto p-3 scrollbar scrollbar-none">
             <h3 className="my-3 text-xl font-medium text-primary-10">To Do</h3>
             <div className="flex flex-col gap-3">
               {tasksLocal?.tasks
