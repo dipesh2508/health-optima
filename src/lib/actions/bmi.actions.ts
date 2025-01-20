@@ -8,7 +8,10 @@ import mongoose from "mongoose";
 export const createBmi = async (
   userId: string,
   height: number,
-  weight: number
+  weight: number,
+  bmi: number,
+  gender: string,
+  age: number
 ) => {
   try {
     await connectToDB();
@@ -16,12 +19,13 @@ export const createBmi = async (
     session.startTransaction();
 
     try {
-        const bmi = parseFloat((weight / ((height / 100) * (height / 100))).toFixed(2));
       const bmiEntry = await Bmi.create([{
         userId,
         height,
         weight,
         bmi,
+        gender,
+        age
       }], { session });
 
       const user = await User.findByIdAndUpdate(
@@ -50,7 +54,10 @@ export const createBmi = async (
 export const updateBmi = async (
   bmiId: string,
   height: number,
-  weight: number
+  weight: number,
+  bmi: number,
+  gender: string,
+  age: number
 ) => {
   try {
     await connectToDB();
@@ -58,10 +65,9 @@ export const updateBmi = async (
     session.startTransaction();
 
     try {
-      const bmi = parseFloat((weight / ((height / 100) * (height / 100))).toFixed(2));
       const updatedBmi = await Bmi.findByIdAndUpdate(
         bmiId,
-        { height, weight, bmi },
+        { height, weight, bmi, gender, age },
         { new: true, session }
       );
 

@@ -4,13 +4,13 @@ import { createBmi, getBmiHistory, updateBmi, deleteBmi } from "@/lib/actions/bm
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { userId, height, weight } = body;
+    const { userId, height, weight, bmi, gender, age } = body;
 
     if (!userId || !height || !weight) {
       return new NextResponse("Missing required fields", { status: 400 });
     }
 
-    const bmiEntry = await createBmi(userId, height, weight);
+    const bmiEntry = await createBmi(userId, height, weight, bmi, gender, age);
     return NextResponse.json({ bmiEntry }, { status: 201 });
   } catch (e: any) {
     console.error("[POST_BMI] ", e.message);
@@ -38,13 +38,13 @@ export async function GET(req: Request) {
 export async function PUT(req: Request) {
   try {
     const body = await req.json();
-    const { bmiId, height, weight } = body;
+    const { bmiId, height, weight, bmi, gender, age } = body;
 
-    if (!bmiId || !height || !weight) {
+    if (!bmiId || !height || !weight ) {
       return new NextResponse("Missing required fields", { status: 400 });
     }
 
-    const updatedBmi = await updateBmi(bmiId, height, weight);
+    const updatedBmi = await updateBmi(bmiId, height, weight, bmi, gender, age);
     return NextResponse.json({ updatedBmi }, { status: 200 });
   } catch (e: any) {
     console.error("[PUT_BMI] ", e.message);

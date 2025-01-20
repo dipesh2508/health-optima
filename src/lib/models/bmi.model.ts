@@ -5,6 +5,8 @@ export interface IBmi extends Document {
   height: number;
   weight: number;
   bmi: number;
+  gender: string;
+  age: number;
 }
 
 const bmiSchema = new Schema<IBmi>(
@@ -23,6 +25,15 @@ const bmiSchema = new Schema<IBmi>(
       required: true,
     },
     bmi: {
+      type: Number,
+      required: true,
+    },
+    gender: {
+      type: String,
+      enum: ["male", "female"],
+      required: true,
+    },
+    age: {
       type: Number,
       required: true,
     },
