@@ -6,6 +6,7 @@ export interface IUser extends Document {
   username: string;
   profileImage: string;
   email: string;
+  bmi: Object;
   lists: Object[];
   waterRecords: Object[];
   blogs: Object[];
@@ -36,6 +37,11 @@ const userSchema = new Schema<IUser>(
       required: true,
       unique: true,
       lowercase: true,
+    },
+    bmi: {
+      type: mongoose.Types.ObjectId,
+      ref: "Bmi",
+      required: false
     },
     lists: [
       {
