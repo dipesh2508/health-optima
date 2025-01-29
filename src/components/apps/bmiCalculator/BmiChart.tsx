@@ -19,21 +19,13 @@ import {
 } from "@/components/ui/chart";
 import { useEffect, useState } from "react";
 
-const chartData = [
-  { category: "Underweight", value: 15, fill: "#9333EA" },
-  { category: "Normal weight", value: 45, fill: "#A855F7" },
-  { category: "Overweight", value: 30, fill: "#C084FC" },
-  { category: "Obesity", value: 10, fill: "#D8B4FE" },
-  { category: "Morbid Obesity", value: 10, fill: "#7E22CE" },
-];
-
 const chartConfig = {
   value: {
     label: "Percentage",
   },
   underweight: {
     label: "Underweight",
-    color: "#9333EA",
+    color: "#C084FC",
   },
   normalWeight: {
     label: "Normal weight",
@@ -41,19 +33,47 @@ const chartConfig = {
   },
   overweight: {
     label: "Overweight",
-    color: "#C084FC",
+    color: "#6B21A8",
   },
   obesity: {
     label: "Obesity",
-    color: "#D8B4FE",
+    color: "#50187D",
   },
-  morbidObesity: {
-    label: "Morbid Obesity",
-    color: "#7E22CE",
+  severeObesity: {
+    label: "Severe Obesity",
+    color: "#371256",
   },
 } satisfies ChartConfig;
 
-export function BmiChart({ bmi }: { bmi: string }) {
+const chartData = [
+  { category: "Underweight", value: 15, fill: chartConfig.underweight.color },
+  {
+    category: "Normal weight",
+    value: 45,
+    fill: chartConfig.normalWeight.color,
+  },
+  { category: "Overweight", value: 30, fill: chartConfig.overweight.color },
+  { category: "Obesity", value: 10, fill: chartConfig.obesity.color },
+  {
+    category: "Severe Obesity",
+    value: 10,
+    fill: chartConfig.severeObesity.color,
+  },
+];
+
+interface PercentileResult {
+  bmiVal: string;
+  percentile: string;
+  category: string;
+}
+
+export function BmiChart({
+  bmi,
+  percentileRes,
+}: {
+  bmi: string;
+  percentileRes: PercentileResult | null;
+}) {
   const [category, setCategory] = useState("Normal Weight");
 
   const [activeIdx, setActiveIdx] = useState<number>(1);
@@ -75,7 +95,7 @@ export function BmiChart({ bmi }: { bmi: string }) {
       setCategory("Obese");
     } else {
       setActiveIdx(4);
-      setCategory("Morbid Obesity");
+      setCategory("Severe Obesity");
     }
   }, [bmi]);
 
