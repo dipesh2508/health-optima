@@ -11,8 +11,8 @@ export async function GET(
       return new NextResponse("Invalid request", { status: 400 });
     }
 
-    const list = await getBlogById(blogId);
-    return NextResponse.json({ list }, { status: 200 });
+    const blog = await getBlogById(blogId);
+    return NextResponse.json({ blog }, { status: 200 });
   } catch (e: any) {
     console.error("[GET_BLOGID] ", e.message);
     return new NextResponse("Internal Error", { status: 500 });
