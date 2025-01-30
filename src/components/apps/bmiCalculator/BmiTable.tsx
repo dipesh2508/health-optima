@@ -44,7 +44,7 @@ const bmiCategories = [
 
 export function BmiTable() {
   return (
-    <div className="mx-2 flex flex-col gap-3 md:mx-0 lg:w-1/2">
+    <div className="mx-2 flex flex-col gap-3 lg:mx-0 lg:w-1/2">
       <h2 className="text-xl font-semibold text-primary-10 md:text-2xl">
         Adult BMI Classifications and Potential Health Consequences
       </h2>
@@ -62,17 +62,21 @@ export function BmiTable() {
           {bmiCategories.map((category) => (
             <TableRow key={category.category}>
               <TableCell
-                className={`${category.category === "Severe Obesity" ? "pb-9" : ""} font-medium`}
+                className={`${category.category === "Severe Obesity" ? "lg:pb-9" : ""} font-medium`}
               >
-                <Badge className={category.color}>{category.category}</Badge>
+                <Badge
+                  className={`${category.color} w-full justify-center text-center md:w-2/3 md:py-0.5 ${category.category !== "Severe Obesity" && category.category !== "Normal weight" ? "py-2" : ""}`}
+                >
+                  {category.category}
+                </Badge>
               </TableCell>
               <TableCell
-                className={`${category.category === "Severe Obesity" ? "pb-9" : ""}`}
+                className={`${category.category === "Severe Obesity" ? "lg:pb-9" : ""}`}
               >
                 {category.bmiRange}
               </TableCell>
               <TableCell
-                className={`${category.category === "Severe Obesity" ? "pb-9" : ""}`}
+                className={`${category.category === "Severe Obesity" ? "lg:pb-9" : ""}`}
               >
                 {category.description}
               </TableCell>

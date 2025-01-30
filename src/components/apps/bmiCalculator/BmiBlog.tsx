@@ -1,18 +1,9 @@
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { toast } from "@/hooks/use-toast";
 import { useApi } from "@/hooks/useApi";
-import { getBlogById } from "@/lib/actions/blog.actions";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 
 interface BlogData {
   blog: {
@@ -73,7 +64,7 @@ const BmiBlog = () => {
   }
 
   return (
-    <Card className="mx-2 mb-10 flex flex-col overflow-hidden transition-shadow duration-300 hover:shadow-lg md:mx-0 md:flex-row">
+    <Card className="mx-2 mb-10 flex flex-col overflow-hidden transition-shadow duration-300 hover:shadow-lg md:flex-row lg:mx-0">
       <div className="relative w-full overflow-hidden md:w-[45%] lg:h-[240px]">
         <Image
           src={bmiBlog.blog.coverImage}

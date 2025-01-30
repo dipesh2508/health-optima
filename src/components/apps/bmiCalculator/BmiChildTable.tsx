@@ -44,30 +44,30 @@ const bmiCategories = [
 
 export function BmiChildTable() {
   return (
-    <div className="mx-2 flex flex-col gap-3 md:mx-0 lg:w-1/2">
+    <div className="mx-2 flex flex-col gap-3 lg:mx-0 lg:w-1/2">
       <h2 className="text-xl font-semibold text-primary-10 md:text-2xl">
         BMI Categories for children and teens 2 through 19 and Health
         Implications
       </h2>
       <Table className="rounded-md bg-white">
         <TableHeader>
-          <TableRow className="bg-primary-5 hover:bg-primary-6">
+          <TableRow className="rounded-md bg-primary-5 hover:bg-primary-6">
             <TableHead className="w-[150px] text-white">Category</TableHead>
             <TableHead className="w-[150px] text-white">
               BMI Range
             </TableHead>{" "}
-            {/* Ensure consistent width */}
-            <TableHead className="w-[200px] text-white">
-              Description
-            </TableHead>{" "}
-            {/* Ensure consistent width */}
+            <TableHead className="w-[200px] text-white">Description</TableHead>{" "}
           </TableRow>
         </TableHeader>
         <TableBody>
           {bmiCategories.map((category) => (
             <TableRow key={category.category}>
-              <TableCell className="font-medium">
-                <Badge className={category.color}>{category.category}</Badge>
+              <TableCell className={`font-medium`}>
+                <Badge
+                  className={`${category.color} w-full justify-center text-center md:w-2/3 md:py-0.5 ${category.category !== "Severe Obesity" && category.category !== "Normal weight" ? "py-2" : ""}`}
+                >
+                  {category.category}
+                </Badge>
               </TableCell>
               <TableCell>{category.bmiRange}</TableCell>
               <TableCell>{category.description}</TableCell>
