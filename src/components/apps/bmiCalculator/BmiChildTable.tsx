@@ -44,8 +44,8 @@ const bmiCategories = [
 
 export function BmiChildTable() {
   return (
-    <div className="flex w-1/2 flex-col gap-3">
-      <h2 className="bg-gradient-to-r from-primary-6 to-primary-8 bg-clip-text text-3xl font-semibold text-transparent">
+    <div className="mx-2 flex flex-col gap-3 md:mx-0 lg:w-1/2">
+      <h2 className="text-xl font-semibold text-primary-10 md:text-2xl">
         BMI Categories for children and teens 2 through 19 and Health
         Implications
       </h2>

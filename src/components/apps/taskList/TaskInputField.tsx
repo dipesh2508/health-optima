@@ -22,13 +22,11 @@ import {
   FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import Sidebar from "./Sidebar";
 import TaskInputFieldSkeleton from "./TaskInputFieldSkeleton";
-import todoImg from "@/assets/svgs/todo.svg";
 import taskListImg from "@/assets/svgs/business-tasklist.svg";
 import Image from "next/image";
 import { FaArrowRight } from "react-icons/fa";
@@ -284,7 +282,15 @@ const TaskInputField = ({
       };
     });
   };
-
+  if (listId === "")
+    return (
+      <div className="col-span-4 bg-purple-50 px-4 py-11 pb-4 pt-7 md:col-span-3 md:px-5 lg:px-16 lg:pt-10">
+        <Image src={taskListImg} alt="todoImg" className="m-auto" />
+        <h3 className="mb-2 mt-1 text-center text-3xl text-primary-3">
+          Select/Create a List
+        </h3>
+      </div>
+    );
   return (
     <div className="sheet col-span-4 px-0 py-11 md:col-span-3 md:px-5 lg:px-28">
       <Sheet>
@@ -375,7 +381,6 @@ const TaskInputField = ({
         </div>
 
         {tasksLocal?.tasks.length == 0 ? (
-          // <Image src={todoImg} alt="todoImg" className="m-auto" />
           <div className="flex flex-col items-center justify-center">
             <Image src={taskListImg} alt="todoImg" className="m-auto" />
             <h3 className="mb-2 text-4xl text-primary-3">No Tasks</h3>
@@ -383,19 +388,26 @@ const TaskInputField = ({
         ) : (
           <div className="max-h-screen overflow-y-auto p-3 scrollbar scrollbar-none">
             <h3 className="my-3 text-xl font-medium text-primary-10">To Do</h3>
-            <div className="flex flex-col gap-3">
-              {tasksLocal?.tasks
-                .filter((it) => !it.complete)
-                .map((it) => (
-                  <TaskItem
-                    key={it._id}
-                    task={it}
-                    toggleComplete={toggleComplete}
-                    deleteTask={deleteTask}
-                    updateTask={updateTask}
-                  />
-                ))}
-            </div>
+
+            {tasksLocal?.tasks.some((it) => !it.complete) ? (
+              <div className="flex flex-col gap-3">
+                {tasksLocal?.tasks
+                  .filter((it) => !it.complete)
+                  .map((it) => (
+                    <TaskItem
+                      key={it._id}
+                      task={it}
+                      toggleComplete={toggleComplete}
+                      deleteTask={deleteTask}
+                      updateTask={updateTask}
+                    />
+                  ))}
+              </div>
+            ) : (
+              <div className="flex flex-col items-center justify-center">
+                <h3 className="mb-2 text-4xl text-primary-3">No Tasks</h3>
+              </div>
+            )}
 
             {tasksLocal?.tasks.some((it) => it.complete) ? (
               <h3 className="mb-3 mt-6 text-xl font-medium text-primary-10">

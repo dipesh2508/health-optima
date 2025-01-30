@@ -44,9 +44,9 @@ const bmiCategories = [
 
 export function BmiTable() {
   return (
-    <div className="flex w-1/2 flex-col gap-3">
-      <h2 className="bg-gradient-to-r from-primary-6 to-primary-8 bg-clip-text text-3xl font-semibold text-transparent">
-        BMI Categories for adults and Health Implications
+    <div className="mx-2 flex flex-col gap-3 md:mx-0 lg:w-1/2">
+      <h2 className="text-xl font-semibold text-primary-10 md:text-2xl">
+        Adult BMI Classifications and Potential Health Consequences
       </h2>
       <Table className="rounded-md bg-white">
         <TableHeader>
@@ -55,11 +55,7 @@ export function BmiTable() {
             <TableHead className="w-[150px] text-white">
               BMI Range
             </TableHead>{" "}
-            {/* Ensure consistent width */}
-            <TableHead className="w-[200px] text-white">
-              Description
-            </TableHead>{" "}
-            {/* Ensure consistent width */}
+            <TableHead className="w-[200px] text-white">Description</TableHead>{" "}
           </TableRow>
         </TableHeader>
         <TableBody>

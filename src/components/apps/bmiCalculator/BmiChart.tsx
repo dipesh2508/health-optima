@@ -100,7 +100,7 @@ export function BmiChart({
   }, [bmi]);
 
   return (
-    <Card className="z-10 col-span-4 flex flex-col">
+    <Card className="z-10 col-span-12 flex flex-col lg:col-span-4">
       <CardHeader className="items-center pb-0">
         <CardTitle>BMI Distribution Chart</CardTitle>
         <CardDescription>Body Mass Index Categories</CardDescription>

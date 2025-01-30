@@ -166,27 +166,7 @@ const TaskItem = ({
       </div>
 
       <div className="flex items-center md:gap-3">
-        <Popover>
-          <PopoverTrigger asChild>
-            <Button size="icon" className="border-none bg-transparent">
-              <IoCalendar
-                size={"20"}
-                className="text-primary-9 hover:text-slate-800"
-              />
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-auto">
-            <Calendar
-              mode="single"
-              selected={date}
-              onSelect={(selectedDate) => {
-                setDate(selectedDate || undefined);
-                handleDate(selectedDate);
-              }}
-              className="rounded-md border"
-            />
-          </PopoverContent>
-        </Popover>
+        <IoCalendar size={"20"} className="text-primary-9" />
         <h4>{new Date(task.dueTime).toLocaleDateString("en-GB")}</h4>
 
         <div onClick={handleDropdownClick}>
@@ -221,12 +201,32 @@ const TaskItem = ({
             <DialogHeader>
               <DialogTitle>Edit Task Name</DialogTitle>
             </DialogHeader>
-            <Input
-              value={editValue}
-              onChange={(e) => setEditValue(e.target.value)}
-              placeholder="Enter new name"
-              autoFocus
-            />
+            <div className="flex gap-2">
+              <Popover modal={true}>
+                <PopoverTrigger asChild>
+                  <Button className="rounded-lg border-none bg-primary-5 p-2 hover:bg-primary-8">
+                    <IoCalendarOutline className="text-xl text-white" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto">
+                  <Calendar
+                    mode="single"
+                    selected={date}
+                    onSelect={(selectedDate) => {
+                      setDate(selectedDate || undefined);
+                      handleDate(selectedDate);
+                    }}
+                    className="rounded-md border"
+                  />
+                </PopoverContent>
+              </Popover>
+              <Input
+                value={editValue}
+                onChange={(e) => setEditValue(e.target.value)}
+                placeholder="Enter new name"
+                autoFocus
+              />
+            </div>
             <div className="flex justify-end gap-2">
               <DialogClose asChild>
                 <Button variant="outline" onClick={() => setEditValue("")}>

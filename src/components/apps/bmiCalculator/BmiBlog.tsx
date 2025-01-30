@@ -21,7 +21,7 @@ interface BlogData {
     description: string;
     category: string;
     coverImage: string;
-  }
+  };
 }
 
 const BmiBlog = () => {
@@ -45,13 +45,13 @@ const BmiBlog = () => {
 
   if (isLoading) {
     return (
-      <Card className="animate-pulse flex flex-col md:flex-row overflow-hidden">
-        <div className="h-[240px] bg-gray-200 w-full md:w-[40%]" />
-        <div className="p-6 space-y-4 w-full md:w-[60%]">
-          <div className="h-4 bg-gray-200 rounded w-1/4" />
-          <div className="h-6 bg-gray-200 rounded w-3/4" />
-          <div className="h-20 bg-gray-200 rounded w-full" />
-          <div className="h-8 bg-gray-200 rounded w-24" />
+      <Card className="flex animate-pulse flex-col overflow-hidden md:flex-row">
+        <div className="h-[240px] w-full bg-gray-200 md:w-[40%]" />
+        <div className="w-full space-y-4 p-6 md:w-[60%]">
+          <div className="h-4 w-1/4 rounded bg-gray-200" />
+          <div className="h-6 w-3/4 rounded bg-gray-200" />
+          <div className="h-20 w-full rounded bg-gray-200" />
+          <div className="h-8 w-24 rounded bg-gray-200" />
         </div>
       </Card>
     );
@@ -59,13 +59,12 @@ const BmiBlog = () => {
 
   if (error || !bmiBlog?.blog) {
     return (
-      <Card className="p-6 mb-8">
-        <div className="text-center space-y-4">
-          <p className="text-red-500 font-medium">Failed to load blog content</p>
-          <Button 
-            onClick={() => window.location.reload()} 
-            variant="outline"
-          >
+      <Card className="mb-8 p-6">
+        <div className="space-y-4 text-center">
+          <p className="font-medium text-red-500">
+            Failed to load blog content
+          </p>
+          <Button onClick={() => window.location.reload()} variant="outline">
             Retry
           </Button>
         </div>
@@ -74,8 +73,8 @@ const BmiBlog = () => {
   }
 
   return (
-    <Card className="flex flex-col md:flex-row overflow-hidden hover:shadow-lg transition-shadow duration-300 mb-8">
-      <div className="relative h-[240px] w-full md:w-[40%] overflow-hidden">
+    <Card className="mx-2 mb-10 flex flex-col overflow-hidden transition-shadow duration-300 hover:shadow-lg md:mx-0 md:flex-row">
+      <div className="relative w-full overflow-hidden md:w-[45%] lg:h-[240px]">
         <Image
           src={bmiBlog.blog.coverImage}
           alt={`Featured image for article: ${bmiBlog.blog.title}`}
@@ -84,9 +83,9 @@ const BmiBlog = () => {
           loading="lazy"
         />
       </div>
-      <div className="flex w-full md:w-[60%] flex-col justify-between p-6 space-y-4">
+      <div className="flex w-full flex-col justify-between space-y-4 p-6 md:w-[60%]">
         <div className="space-y-3">
-          <p className="text-sm text-muted-foreground font-medium uppercase tracking-wide">
+          <p className="text-muted-foreground text-sm font-medium uppercase tracking-wide">
             {bmiBlog.blog.category}
           </p>
           <h3 className="text-xl font-bold leading-tight tracking-tight md:text-2xl">
@@ -101,10 +100,10 @@ const BmiBlog = () => {
             href={`/blogs/${bmiBlog.blog._id}`}
             aria-label={`Read full article about ${bmiBlog.blog.title}`}
           >
-            <Button 
-              variant="secondary" 
+            <Button
+              variant="secondary"
               size="sm"
-              className="hover:translate-x-1 transition-transform duration-200"
+              className="transition-transform duration-200 hover:translate-x-1"
             >
               Read Article
             </Button>
