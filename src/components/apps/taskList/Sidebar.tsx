@@ -127,6 +127,12 @@ const Sidebar = ({ setListId }: { setListId: (str: string) => void }) => {
     }
   }, [apiListNames]);
 
+  useEffect(() => {
+    if (!listNames?.lists.length) {
+      setListId("");
+    }
+  }, [listNames, setListId]);
+
   if (userLoading || fetchIsLoading) {
     return <SidebarSkeleton />;
   }
@@ -151,6 +157,7 @@ const Sidebar = ({ setListId }: { setListId: (str: string) => void }) => {
         lists: prev.lists.filter((item) => item._id !== id),
       };
     });
+    setListId("");
   };
 
   const updateList = async (listData: TaskList) => {
@@ -187,18 +194,9 @@ const Sidebar = ({ setListId }: { setListId: (str: string) => void }) => {
         <CollapsibleContent>
           <div className="flex max-h-96 flex-col gap-1 overflow-y-auto">
             {!listNames?.lists.length ? (
-              <BorderBox
-                key={0}
-                setListId={setListId}
-                taskListId={""}
-                setListSelected={setListSelected}
-                listSelected={listSelected}
-                delList={delList}
-                updateList={updateList}
-                userId={userId}
-              >
-                No List created
-              </BorderBox>
+              <div className="flex items-center rounded-md border border-teal-400 p-3 text-sm font-medium text-teal-700">
+                Create a new List
+              </div>
             ) : (
               listNames.lists.map((it: TaskList) => {
                 return (
