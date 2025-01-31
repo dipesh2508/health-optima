@@ -7,19 +7,19 @@ import { Skeleton } from "../ui/skeleton";
 import { getPopularBlogs } from "@/lib/actions/blog.actions";
 
 const BlogSkeleton = () => (
-  <Card className="w-full border-none shadow-custom flex flex-col md:flex-row overflow-hidden h-auto md:h-[200px]">
+  <Card className="mx-auto w-full max-w-4xl border-none shadow-custom flex flex-col md:flex-row overflow-hidden h-auto md:h-[200px]">
     <div className="w-full h-[200px] md:w-[40%] md:h-full relative">
       <Skeleton className="h-full w-full" />
     </div>
-    <div className="w-full md:w-[60%] flex flex-col justify-between p-4">
-      <div className="space-y-2">
-        <Skeleton className="h-4 w-20" />
-        <Skeleton className="h-6 w-full" />
-        <Skeleton className="h-4 w-full" />
-        <Skeleton className="h-4 w-2/3" />
+    <div className="w-full md:w-[60%] flex flex-col justify-between p-6">
+      <div className="space-y-3">
+        <Skeleton className="h-4 w-[30%]" /> {/* Category */}
+        <Skeleton className="h-8 w-[90%]" /> {/* Title */}
+        <Skeleton className="h-4 w-[85%]" /> {/* Description line 1 */}
+        <Skeleton className="h-4 w-[75%]" /> {/* Description line 2 */}
       </div>
-      <div className="flex justify-start mt-4 md:mt-auto">
-        <Skeleton className="h-8 w-24" />
+      <div className="flex justify-start mt-6">
+        <Skeleton className="h-9 w-28" /> {/* Button */}
       </div>
     </div>
   </Card>
@@ -85,7 +85,7 @@ const Blog = () => {
       </h2>
 
       <div 
-        className="content center mx-12 my-14 grid grid-cols-1 gap-12 md:mx-24 md:mt-16 md:grid-cols-2"
+        className="content-center px-12 py-14 grid grid-cols-1 gap-12 md:px-24 md:pt-16 md:grid-cols-2 w-full"
         role="feed"
         aria-label="Blog posts grid"
       >
