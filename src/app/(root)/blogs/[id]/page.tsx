@@ -84,57 +84,45 @@ const Page = async ({ params }: { params: { id: string } }) => {
 
   const isAuthor = user?._id.toString() === blog.userId._id.toString();
 
-  console.log(blog.youtubeVideo);
-
   const comments = await getComments(params.id);
 
   return (
     <main>
       {/* Title section */}
-      <section
-        id="headline"
-        className="grid gap-8 bg-primary-5 py-12 md:grid-cols-12"
-      >
-        <div className="mx-8 grid content-end gap-4 md:col-span-7 md:mx-0 md:ml-28">
-          <div className="flex items-start justify-between">
-            <div>
-              <MotionP
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="text-center font-serif text-2xl font-semibold text-white md:text-left md:text-4xl"
-              >
-                {blog.title}
-              </MotionP>
-            </div>
-          </div>
+      <section id="headline" className="relative min-h-[500px] w-full">
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <Image
+            src={blog.coverImage}
+            alt={blog.title}
+            fill
+            className="object-cover"
+            priority
+          />
+          {/* Overlay */}
+          <div className="absolute inset-0 bg-black/60" />
+        </div>
+
+        {/* Content */}
+        <div className="relative z-10 mx-auto flex min-h-[500px] flex-col justify-center space-y-6 px-8 md:px-28 py-20">
+          <MotionP
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="max-w-4xl font-serif text-3xl font-semibold text-white md:text-5xl"
+          >
+            {blog.title}
+          </MotionP>
+
           <MotionP
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-justify font-sans text-sm font-medium text-black md:text-base"
+            className="max-w-2xl text-base font-medium text-gray-200 md:text-lg"
           >
             {blog.description}
           </MotionP>
         </div>
-
-        {/* Cover image */}
-        <MotionDiv
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="mx-8 md:col-span-5 md:mx-0 md:mr-28"
-        >
-          <div className="relative aspect-[5/3] w-full">
-            <Image
-              src={blog.coverImage}
-              alt={blog.title}
-              fill
-              className="rounded-lg object-cover"
-              loading="lazy"
-            />
-          </div>
-        </MotionDiv>
       </section>
 
       <section className="grid gap-12 px-8 py-12 md:grid-cols-3 md:gap-0 md:px-28">
