@@ -1,5 +1,12 @@
 import { NextResponse } from "next/server";
-import { createBmi, getBmiHistory, updateBmi, deleteBmi } from "@/lib/actions/bmi.actions";
+import {
+  createBmi,
+  getBmiHistory,
+  updateBmi,
+  deleteBmi,
+} from "@/lib/actions/bmi.actions";
+import { connectToDB } from "@/lib/mongoose";
+import { User } from "@/lib/models/user.model";
 
 export async function POST(req: Request) {
   try {
@@ -21,13 +28,22 @@ export async function POST(req: Request) {
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
-    const userId = searchParams.get('userId');
+    const userId = searchParams.get("userId");
 
     if (!userId) {
       return new NextResponse("User ID is required", { status: 400 });
     }
 
-    const bmiHistory = await getBmiHistory(userId);
+    await connectToDB();
+    const user = await User.findById(userId).populate("bmi");
+    if (!user) {
+      return new NextResponse("User not found", { status: 404 });
+    }
+    const bmiHistory = user.bmi;
+
+    if (!bmiHistory) {
+      return new NextResponse("No BMI data found", { status: 404 });
+    }
     return NextResponse.json({ bmiHistory }, { status: 200 });
   } catch (e: any) {
     console.error("[GET_BMI] ", e.message);
@@ -40,7 +56,7 @@ export async function PUT(req: Request) {
     const body = await req.json();
     const { bmiId, height, weight, bmi, gender, age } = body;
 
-    if (!bmiId || !height || !weight ) {
+    if (!bmiId || !height || !weight) {
       return new NextResponse("Missing required fields", { status: 400 });
     }
 
@@ -55,7 +71,7 @@ export async function PUT(req: Request) {
 export async function DELETE(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
-    const bmiId = searchParams.get('bmiId');
+    const bmiId = searchParams.get("bmiId");
 
     if (!bmiId) {
       return new NextResponse("BMI ID is required", { status: 400 });
