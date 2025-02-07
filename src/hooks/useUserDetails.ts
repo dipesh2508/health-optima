@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 interface UserDetails {
   userId: string;
   clerkId: string;
+  bmi: string;
   name: string;
   username: string;
   profileImage: string;
@@ -17,6 +18,7 @@ export function useUserDetails(): UserDetails {
   const { userId: clerkId } = useAuth();
   const [userDetails, setUserDetails] = useState<UserDetails>({
     userId: "",
+    bmi: "",
     clerkId: "",
     name: "",
     username: "",
@@ -34,6 +36,7 @@ export function useUserDetails(): UserDetails {
         const user = await getUserByClerkId(clerkId);
         setUserDetails({
           userId: user._id,
+          bmi: user.bmi,
           clerkId: user.clerkId,
           name: user.name,
           username: user.username,
