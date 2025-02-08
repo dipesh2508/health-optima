@@ -1,6 +1,6 @@
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaFemale } from "react-icons/fa";
 import { FaMale } from "react-icons/fa";
@@ -72,12 +72,14 @@ interface PercentileResult {
 }
 
 interface bmiGetData {
-  BmiHistory: {
+  bmiHistory: {
     _id: string;
     userId: string;
     height: number;
     weight: number;
     bmi: number;
+    gender: string;
+    age: number;
     createdAt: string;
     updatedAt: string;
     __v: number;
@@ -85,25 +87,83 @@ interface bmiGetData {
 }
 
 const BmiCalc = () => {
+  const { userId, isLoading: userLoading, bmi: prevBmiId } = useUserDetails();
+  const {
+    data: getData,
+    error: getError,
+    isLoading: getLoading,
+  } = useApi<bmiGetData>(`/api/bmi?userId=${userId}`, {
+    method: "GET",
+    enabled: !!prevBmiId,
+    dependencies: [prevBmiId],
+    onSuccess: (data) => {
+      console.log("get data", data);
+      console.log("inside get data", data.bmiHistory._id);
+
+      toast({
+        title: "Bmi Data Fetched",
+        description: "Bmi data successfully fetched",
+      });
+    },
+    onError: (error) => {
+      console.log(error);
+      if (
+        error.cause === 404 ||
+        error?.message === "No BMI data found at fetchData"
+      ) {
+        console.log("prev BMI: ", prevBmiId);
+        console.log("BMI data not found. Continuing execution.");
+      }
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Error fetching BMI data",
+      });
+    },
+  });
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: {
       UserGender: "female",
       Age: 35,
-      HeightFeet: 5,
-      HeightInches: 5,
-      Weight: 62,
+      HeightFeet: 6,
+      HeightInches: 2,
+      Weight: 70,
     },
   });
 
-  const [bmi, setBmi] = useState<string>("");
+  const [bmi, setBmi] = useState<string>(
+    getData?.bmiHistory?.bmi.toString() || "",
+  );
   const [toggleHeightUnit, setToggleHeightUnit] = useState<boolean>(true);
   const [toggleSex, setToggleSex] = useState(true);
   const [percentileRes, setPercentileRes] = useState<PercentileResult | null>(
     null,
   );
   const [isBmiChildren, setIsBmiChildren] = useState(true);
-  const { userId, isLoading: userLoading, bmi: prevBmi } = useUserDetails();
+
+  useEffect(() => {
+    if (getData?.bmiHistory) {
+      let feet, inches;
+      if (getData?.bmiHistory?.height) {
+        const heightCm = getData?.bmiHistory?.height; // Default to 171 if undefined
+        const heightInFeet = heightCm / 30.48;
+
+        feet = Math.floor(heightInFeet); // Extract whole feet
+        inches = Math.round((heightInFeet - feet) * 12); // Convert remaining fraction to inches
+
+        console.log(`Feet: ${feet}, Inches: ${inches}`);
+      }
+      form.reset({
+        UserGender: getData.bmiHistory.gender ?? "female",
+        Age: getData.bmiHistory.age ?? 35,
+        HeightFeet: getData.bmiHistory.height ? feet : 6,
+        HeightInches: getData?.bmiHistory?.height ? inches : 2,
+        Weight: getData?.bmiHistory?.weight || 70,
+      });
+      setBmi((getData?.bmiHistory?.bmi).toString());
+    }
+  }, [getData, form]);
 
   const calBmiChildren = useCallback((val: fieldType, meters: number) => {
     try {
@@ -148,9 +208,11 @@ const BmiCalc = () => {
         percentile: percentile.toFixed(1),
         category: getCategory(percentile, bmiTeen),
       });
+      return bmiTeen.toFixed(2);
     } catch (error: any) {
       console.error("Error in BMI calculation: ", error);
     }
+    return "";
   }, []);
 
   const getCategory = useCallback((percentile: number, bmiTeen: number) => {
@@ -186,6 +248,7 @@ const BmiCalc = () => {
     method: "PUT",
     onSuccess: (data) => {
       console.log("Data put successfully");
+      console.log("put data", data);
 
       toast({
         title: "Bmi Calculated",
@@ -200,47 +263,15 @@ const BmiCalc = () => {
       });
     },
   });
-  const {
-    data: getData,
-    error: getError,
-    isLoading: getLoading,
-  } = useApi<bmiGetData>(`/api/bmi?userId=${userId}`, {
-    method: "GET",
-    enabled: !!prevBmi,
-    dependencies: [prevBmi],
-    onSuccess: (data) => {
-      console.log("get data", data);
-
-      toast({
-        title: "Bmi Data Fetched",
-        description: "Bmi data successfully fetched",
-      });
-    },
-    onError: (error) => {
-      console.log(error);
-      if (
-        error.cause === 404 ||
-        error?.message === "No BMI data found at fetchData"
-      ) {
-        console.log("prev BMI: ", prevBmi);
-        console.log("BMI data not found. Continuing execution.");
-      }
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: "Error fetching BMI data",
-      });
-    },
-  });
 
   const handleBmiApi = useCallback(
-    async (data: fieldType, meters: number) => {
+    async (data: fieldType, meters: number, latestBmi: string) => {
       await mutate({
         body: {
           userId: userId,
           height: meters * 100,
           weight: data.Weight,
-          bmi: Number(bmi),
+          bmi: Number(latestBmi),
           gender: data.UserGender,
           age: data.Age,
         },
@@ -250,19 +281,19 @@ const BmiCalc = () => {
   );
 
   const bmiUpdateApi = useCallback(
-    async (data: fieldType, meters: number) => {
+    async (data: fieldType, meters: number, latestBmi: string) => {
       await putMutate({
         body: {
-          bmiId: getData?.BmiHistory?._id,
+          bmiId: getData?.bmiHistory?._id,
           height: meters * 100,
           weight: data.Weight,
-          bmi: Number(bmi),
+          bmi: Number(latestBmi),
           gender: data.UserGender,
           age: data.Age,
         },
       });
     },
-    [bmi, putMutate],
+    [bmi, putMutate, getData],
   );
 
   const handleBMISubmit = useCallback(
@@ -275,22 +306,24 @@ const BmiCalc = () => {
       } else {
         meters = val.HeightFeet * 0.01;
       }
-
+      let latestBmi = "";
       if (val.Age >= 2 && val.Age <= 20) {
         setIsBmiChildren(true);
-        calBmiChildren(val, meters);
+        latestBmi = calBmiChildren(val, meters);
       } else {
         setIsBmiChildren(false);
-        bmiValue = (val.Weight / (meters * meters)).toFixed(1);
+        bmiValue = (val.Weight / (meters * meters)).toFixed(2);
         setBmi(bmiValue);
+        latestBmi = bmiValue;
       }
       console.log("Inside handlesubmit getData", getData);
-      console.log("prevbmi: ", prevBmi);
+      console.log("Calculated bmiValue inside handle submit", bmiValue);
+      console.log("Set bmi inside handle submit", bmi);
 
-      if (prevBmi === "" || !prevBmi) handleBmiApi(val, meters);
-      else bmiUpdateApi(val, meters);
+      if (prevBmiId === "" || !prevBmiId) handleBmiApi(val, meters, latestBmi);
+      else bmiUpdateApi(val, meters, latestBmi);
     },
-    [toggleHeightUnit, calBmiChildren, handleBmiApi, bmiUpdateApi, prevBmi],
+    [toggleHeightUnit, calBmiChildren, handleBmiApi, bmiUpdateApi, prevBmiId],
   );
 
   if (isLoading || userLoading || getLoading || putIsLoading) {
