@@ -1,6 +1,6 @@
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaFemale } from "react-icons/fa";
 import { FaMale } from "react-icons/fa";
@@ -22,6 +22,12 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { calculateBMIAndPercentile } from "@/utils/bmiCalculator";
 import { useCallback } from "react";
+import { toast } from "@/hooks/use-toast";
+import { useApi } from "@/hooks/useApi";
+import Loading from "@/app/(root)/loading";
+import { useUserDetails } from "@/hooks/useUserDetails";
+import MotionDiv from "@/components/animations/MotionDiv";
+import { AnimatePresence } from "framer-motion";
 
 const schema = z.object({
   UserGender: z.string(),
@@ -66,25 +72,98 @@ interface PercentileResult {
   category: string;
 }
 
+interface bmiGetData {
+  bmiHistory: {
+    _id: string;
+    userId: string;
+    height: number;
+    weight: number;
+    bmi: number;
+    gender: string;
+    age: number;
+    createdAt: string;
+    updatedAt: string;
+    __v: number;
+  };
+}
+
 const BmiCalc = () => {
+  const { userId, isLoading: userLoading, bmi: prevBmiId } = useUserDetails();
+  const {
+    data: getData,
+    error: getError,
+    isLoading: getLoading,
+  } = useApi<bmiGetData>(`/api/bmi?userId=${userId}`, {
+    method: "GET",
+    enabled: !!prevBmiId,
+    dependencies: [prevBmiId],
+    onSuccess: (data) => {
+      toast({
+        title: "Bmi Data Fetched",
+        description: "Bmi data successfully fetched",
+      });
+    },
+    onError: (error) => {
+      console.log("prevBmiId: ", prevBmiId, !prevBmiId);
+
+      console.log(error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Error fetching BMI data",
+      });
+    },
+  });
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: {
       UserGender: "female",
       Age: 35,
-      HeightFeet: 5,
-      HeightInches: 5,
-      Weight: 62,
+      HeightFeet: 6,
+      HeightInches: 2,
+      Weight: 70,
     },
   });
 
-  const [bmi, setBmi] = useState<string>("");
+  const [bmi, setBmi] = useState<string>(
+    getData?.bmiHistory?.bmi.toString() || "",
+  );
   const [toggleHeightUnit, setToggleHeightUnit] = useState<boolean>(true);
   const [toggleSex, setToggleSex] = useState(true);
   const [percentileRes, setPercentileRes] = useState<PercentileResult | null>(
     null,
   );
   const [isBmiChildren, setIsBmiChildren] = useState(true);
+
+  useEffect(() => {
+    if (getData?.bmiHistory) {
+      let feet, inches;
+      if (getData?.bmiHistory?.height) {
+        const heightCm = getData?.bmiHistory?.height;
+        const heightInFeet = heightCm / 30.48;
+
+        feet = Math.floor(heightInFeet);
+        inches = Math.round((heightInFeet - feet) * 12);
+      }
+      form.reset({
+        UserGender: getData.bmiHistory.gender ?? "female",
+        Age: getData.bmiHistory.age ?? 35,
+        HeightFeet: getData.bmiHistory.height ? feet : 6,
+        HeightInches: getData?.bmiHistory?.height ? inches : 2,
+        Weight: getData?.bmiHistory?.weight || 70,
+      });
+      setBmi((getData?.bmiHistory?.bmi).toString());
+    }
+  }, [getData, form]);
+
+  const getCategory = useCallback((percentile: number, bmiTeen: number) => {
+    if (percentile < 5) return "Underweight";
+    if (percentile < 85) return "Normal weight";
+    if (percentile < 95) return "Overweight";
+    if (percentile >= 95 && (percentile >= 120 || bmiTeen >= 35))
+      return "Severe Obesity";
+    return "Obesity";
+  }, []);
 
   const calBmiChildren = useCallback((val: fieldType, meters: number) => {
     try {
@@ -129,19 +208,84 @@ const BmiCalc = () => {
         percentile: percentile.toFixed(1),
         category: getCategory(percentile, bmiTeen),
       });
+      return bmiTeen.toFixed(2);
     } catch (error: any) {
       console.error("Error in BMI calculation: ", error);
     }
+    return "";
   }, []);
 
-  const getCategory = useCallback((percentile: number, bmiTeen: number) => {
-    if (percentile < 5) return "Underweight";
-    if (percentile < 85) return "Normal weight";
-    if (percentile < 95) return "Overweight";
-    if (percentile >= 95 && (percentile >= 120 || bmiTeen >= 35))
-      return "Severe Obesity";
-    return "Obesity";
-  }, []);
+  const { error, isLoading, mutate } = useApi<null>(`/api/bmi`, {
+    method: "POST",
+    onSuccess: (data) => {
+      toast({
+        title: "Bmi Calculated",
+        description: "Your BMI has been calculated successfully",
+      });
+    },
+    onError: (error) => {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Error calculating BMI",
+      });
+    },
+  });
+  const {
+    error: putError,
+    isLoading: putIsLoading,
+    mutate: putMutate,
+  } = useApi<null>(`/api/bmi`, {
+    method: "PUT",
+    onSuccess: (data) => {
+      console.log("Data put successfully");
+      console.log("put data", data);
+
+      toast({
+        title: "Bmi Calculated",
+        description: "Your BMI has been calculated successfully",
+      });
+    },
+    onError: (error) => {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Error updating bmi",
+      });
+    },
+  });
+
+  const handleBmiApi = useCallback(
+    async (data: fieldType, meters: number, latestBmi: string) => {
+      await mutate({
+        body: {
+          userId: userId,
+          height: meters * 100,
+          weight: data.Weight,
+          bmi: Number(latestBmi),
+          gender: data.UserGender,
+          age: data.Age,
+        },
+      });
+    },
+    [mutate, userId],
+  );
+
+  const bmiUpdateApi = useCallback(
+    async (data: fieldType, meters: number, latestBmi: string) => {
+      await putMutate({
+        body: {
+          bmiId: getData?.bmiHistory?._id,
+          height: meters * 100,
+          weight: data.Weight,
+          bmi: Number(latestBmi),
+          gender: data.UserGender,
+          age: data.Age,
+        },
+      });
+    },
+    [putMutate, getData],
+  );
 
   const handleBMISubmit = useCallback(
     (val: fieldType) => {
@@ -153,18 +297,47 @@ const BmiCalc = () => {
       } else {
         meters = val.HeightFeet * 0.01;
       }
-
+      let latestBmi = "";
       if (val.Age >= 2 && val.Age <= 20) {
         setIsBmiChildren(true);
-        calBmiChildren(val, meters);
+        latestBmi = calBmiChildren(val, meters);
       } else {
         setIsBmiChildren(false);
-        bmiValue = (val.Weight / (meters * meters)).toFixed(1);
+        bmiValue = (val.Weight / (meters * meters)).toFixed(2);
         setBmi(bmiValue);
+        latestBmi = bmiValue;
       }
+
+      if (prevBmiId === "" || !prevBmiId) handleBmiApi(val, meters, latestBmi);
+      else bmiUpdateApi(val, meters, latestBmi);
     },
-    [toggleHeightUnit, calBmiChildren],
+    [toggleHeightUnit, calBmiChildren, handleBmiApi, bmiUpdateApi, prevBmiId],
   );
+
+  useEffect(() => {
+    if (toggleHeightUnit) {
+      // Convert from cm → feet/inches
+      const heightCm = form.getValues("HeightFeet") || 187.96;
+      const heightInFeet = heightCm / 30.48;
+      const feet = Math.floor(heightInFeet);
+      const inches = Math.round((heightInFeet - feet) * 12);
+      form.setValue("HeightFeet", feet);
+      form.setValue("HeightInches", inches);
+    } else {
+      // Convert from feet/inches → cm
+      const feet = form.getValues("HeightFeet") || 6;
+      const inches = form.getValues("HeightInches") || 2;
+      const heightInCm = (feet + inches / 12) * 30.48;
+      form.setValue("HeightFeet", Number(heightInCm.toFixed(2)));
+    }
+  }, [toggleHeightUnit, form]);
+
+  if (isLoading || userLoading || getLoading || putIsLoading) {
+    return <Loading />;
+  }
+  if (error || getError || putError) {
+    return <div className="m-auto text-center">Error loading list</div>;
+  }
 
   return (
     <div className="relative my-14 grid grid-cols-12 gap-8 rounded-md bg-cover bg-center px-3 py-7 shadow-lg shadow-purple-200 md:mx-5 md:px-9 lg:mx-24 lg:max-h-[75vh] lg:px-10">
@@ -200,7 +373,7 @@ const BmiCalc = () => {
                             />
                             <div
                               className={cn(
-                                "flex w-full grow cursor-pointer flex-col items-center rounded-md border-2 bg-white pb-7 pt-6 hover:bg-purple-50 md:gap-2 md:px-3",
+                                "flex w-full grow cursor-pointer flex-col items-center rounded-md border-2 bg-white pb-7 pt-6 transition duration-200 ease-in-out hover:bg-purple-50 md:gap-2 md:px-3",
                                 toggleSex
                                   ? "border-primary-4"
                                   : "border-transparent",
@@ -225,7 +398,7 @@ const BmiCalc = () => {
                             />
                             <div
                               className={cn(
-                                "flex w-full grow cursor-pointer flex-col items-center rounded-md border-2 bg-white pb-7 pt-6 hover:bg-purple-50 md:gap-2 md:px-3",
+                                "flex w-full grow cursor-pointer flex-col items-center rounded-md border-2 bg-white pb-7 pt-6 transition duration-200 ease-in-out hover:bg-purple-50 md:gap-2 md:px-3",
                                 toggleSex
                                   ? "border-transparent"
                                   : "border-primary-4",
@@ -301,103 +474,122 @@ const BmiCalc = () => {
               </FormItem>
             )}
           />
-          {toggleHeightUnit ? (
-            <div className="flex flex-row items-center gap-3 rounded-md bg-white px-4 py-3 md:col-span-2">
-              <FormField
-                control={form.control}
-                name="HeightFeet"
-                render={({ field }) => (
-                  <FormItem className="flex-1 space-y-0">
-                    <div className="flex items-center gap-2">
-                      <FormControl>
-                        <Input
-                          type="number"
-                          placeholder="Enter in feet"
-                          {...field}
-                          value={field.value || ""}
-                          onChange={(e) =>
-                            field.onChange(e.target.valueAsNumber)
-                          }
-                          className="h-9"
-                        />
-                      </FormControl>
-                      <FormLabel className="mb-0">Ft</FormLabel>
-                    </div>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="HeightInches"
-                render={({ field }) => (
-                  <FormItem className="flex-1">
-                    {" "}
-                    <div className="flex items-center gap-2">
-                      <FormControl>
-                        <Input
-                          type="number"
-                          placeholder="Enter in inches"
-                          {...field}
-                          value={field.value || ""}
-                          onChange={(e) =>
-                            field.onChange(e.target.valueAsNumber)
-                          }
-                          className="h-9"
-                        />
-                      </FormControl>
-                      <FormLabel className="mb-0">In</FormLabel>
-                    </div>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
 
-              <Button
-                type="button"
-                onClick={() => setToggleHeightUnit((prev) => !prev)}
-                className="h-9"
-              >
-                Switch to cm
-              </Button>
-            </div>
-          ) : (
-            <div className="flex items-center gap-3 rounded-md bg-white px-4 py-3 md:col-span-2">
-              <FormField
-                control={form.control}
-                name="HeightFeet"
-                render={({ field }) => (
-                  <FormItem className="flex-1">
-                    {" "}
-                    {/* Added flex-1 */}
-                    <div className="flex items-center gap-2">
-                      <FormControl>
-                        <Input
-                          type="number"
-                          placeholder="Enter Height"
-                          {...field}
-                          value={field.value || ""}
-                          onChange={(e) =>
-                            field.onChange(e.target.valueAsNumber)
-                          }
-                          className="h-9"
-                        />
-                      </FormControl>
-                      <FormLabel className="mb-0">Cm</FormLabel>{" "}
-                    </div>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <Button
-                type="button"
-                onClick={() => setToggleHeightUnit((prev) => !prev)}
-                className="h-9"
-              >
-                Switch to feet
-              </Button>
-            </div>
-          )}
+          <div
+            className={`flex items-center gap-3 rounded-md bg-white px-4 py-3 md:col-span-2`}
+          >
+            <AnimatePresence mode="wait">
+              {toggleHeightUnit ? (
+                <>
+                  <FormField
+                    control={form.control}
+                    name="HeightFeet"
+                    render={({ field }) => (
+                      <FormItem className="flex-1">
+                        <MotionDiv
+                          key="height-feet-toggle-on"
+                          initial={{ y: 10, opacity: 0 }}
+                          animate={{ y: 0, opacity: 1 }}
+                          exit={{ y: -10, opacity: 0 }}
+                          transition={{ duration: 0.3 }}
+                          className="flex items-center gap-2"
+                        >
+                          <FormControl>
+                            <Input
+                              type="number"
+                              placeholder="Enter in feet"
+                              {...field}
+                              value={field.value || ""}
+                              onChange={(e) =>
+                                field.onChange(e.target.valueAsNumber)
+                              }
+                              className="h-9"
+                            />
+                          </FormControl>
+                          <FormLabel className="mb-0">Ft</FormLabel>
+                        </MotionDiv>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="HeightInches"
+                    render={({ field }) => (
+                      <FormItem className="flex-1">
+                        <MotionDiv
+                          key="height-inches"
+                          initial={{ y: 10, opacity: 0 }}
+                          animate={{ y: 0, opacity: 1 }}
+                          exit={{ y: -10, opacity: 0 }}
+                          transition={{ duration: 0.3 }}
+                          className="flex items-center gap-2"
+                        >
+                          <FormControl>
+                            <Input
+                              type="number"
+                              placeholder="Enter in inches"
+                              {...field}
+                              value={field.value || ""}
+                              onChange={(e) =>
+                                field.onChange(e.target.valueAsNumber)
+                              }
+                              className="h-9"
+                            />
+                          </FormControl>
+                          <FormLabel className="mb-0">In</FormLabel>
+                        </MotionDiv>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </>
+              ) : (
+                <>
+                  <FormField
+                    control={form.control}
+                    name="HeightFeet"
+                    render={({ field }) => (
+                      <FormItem className="flex-1">
+                        <MotionDiv
+                          key="height-feet-toggle-off"
+                          initial={{ y: 10, opacity: 0 }}
+                          animate={{ y: 0, opacity: 1 }}
+                          exit={{ y: -10, opacity: 0 }}
+                          transition={{ duration: 0.3 }}
+                          className="flex items-center gap-2"
+                        >
+                          <FormControl>
+                            <Input
+                              type="number"
+                              placeholder="Enter Height"
+                              {...field}
+                              value={field.value || ""}
+                              onChange={(e) =>
+                                field.onChange(e.target.valueAsNumber)
+                              }
+                              className="h-9"
+                            />
+                          </FormControl>
+                          <FormLabel className="mb-0">Cm</FormLabel>
+                        </MotionDiv>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </>
+              )}
+            </AnimatePresence>
+
+            <Button
+              type="button"
+              onClick={() => setToggleHeightUnit((prev) => !prev)}
+              className="h-9 transform transition-all duration-500 ease-in-out hover:scale-105"
+            >
+              Switch to {toggleHeightUnit ? "feet" : "cm"}
+            </Button>
+          </div>
 
           <div className="flex items-center justify-center gap-3 rounded-md bg-white px-5 py-3 md:px-4">
             <FormField
@@ -425,7 +617,10 @@ const BmiCalc = () => {
           </div>
 
           <div className="flex justify-center md:col-span-3">
-            <Button type="submit" className="px-10">
+            <Button
+              type="submit"
+              className="px-10 transition-all duration-500 ease-in-out hover:scale-105"
+            >
               Calculate BMI
             </Button>
           </div>
