@@ -587,7 +587,7 @@ const BmiCalc = () => {
               onClick={() => setToggleHeightUnit((prev) => !prev)}
               className="h-9 transform transition-all duration-500 ease-in-out hover:scale-105"
             >
-              Switch to {toggleHeightUnit ? "feet" : "cm"}
+              Switch to {toggleHeightUnit ? "cm" : "feet"}
             </Button>
           </div>
 
